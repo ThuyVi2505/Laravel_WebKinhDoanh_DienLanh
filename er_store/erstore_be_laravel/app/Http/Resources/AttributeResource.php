@@ -17,11 +17,12 @@ class AttributeResource extends JsonResource
         return [
             'id' => $this->id,
             'key' => $this->key,
-            'value' => [
-                $this->whenPivotLoaded('prod_attr_value', function () {
-                    return $this->pivot->value;
-                })
-            ],
         ];
+    }
+    protected function values()
+    {
+        return $this->resource->products->groupBy('key')->map(function ($product) {
+            return $product->pluck('pivot.value')->first();
+        });
     }
 }

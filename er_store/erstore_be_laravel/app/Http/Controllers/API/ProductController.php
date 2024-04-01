@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function getAll()
     {
         // get all brand list
-        $all = Product::with('attributes')->where('isActive', 1)->get();
+        $all = Product::with('attributes')->get();
         // brand resource
         $allResc = ProductResource::collection($all);
         // re-type brand respond api
@@ -32,7 +32,34 @@ class ProductController extends Controller
 
         return response()->json($arr, status: Response::HTTP_OK);
     }
+    /**
+     * get record by id
+     * @param App\Http\Requests\brand\addBrandRequest $request
+     * @param \Illuminate\Http\Response
+     * @param int $id
+     * 
+     */
+    public function getById($id)
+    {
+        $prod = Product::find($id);
+        if (is_null($prod)) {
+            $err = [
+                'success' => false,
+                'message' => "Không tìm thấy sản phẩm này...",
+            ];
+            return response()->json($err, status: Response::HTTP_NOT_FOUND);
+        }
+        // brand resource
+        $Resc = new ProductResource($prod);
+        // re-type brand respond api
+        $arr = [
+            'success' => true,
+            'message' => "Lấy thông tin mặt hàng thành công",
+            'data' => $Resc
+        ];
 
+        return response()->json($arr, status: Response::HTTP_OK);
+    }
     /**
      * Store a newly created resource in storage.
      *

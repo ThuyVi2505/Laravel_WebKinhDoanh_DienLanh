@@ -34,7 +34,7 @@ class BrandController extends Controller
     public function getAll()
     {
         // get all brand list
-        $all = Brand::where('isActive', 1)->get();
+        $all = Brand::all();
         // brand resource
         $allResc = BrandResource::collection($all);
         // re-type brand respond api
@@ -90,7 +90,7 @@ class BrandController extends Controller
         $brand = new Brand($dataCreate);
         $brand->brand_name = $request->brand_name;
         $brand->brand_slug = Str::slug($request->brand_name);
-
+        $brand->isActive = is_null($request->isActive) ? 0 : $request->isActive;
         $brand->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $brand->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         if ($request->hasfile('thumnail')) {
@@ -138,12 +138,12 @@ class BrandController extends Controller
             return response()->json($err, status: Response::HTTP_NOT_FOUND);
         }
         $dataUpdate = $request->all();
-        
+
         if ($request->brand_name != $brand->brand_name) {
             $brand->brand_name = $request->brand_name;
             $brand->brand_slug = Str::slug($request->brand_name);
         }
-        if (!is_null($request->isActive)){
+        if (!is_null($request->isActive)) {
             $brand->isActive = $request->isActive;
         }
         // $brand->created_at = Carbon::now('Asia/Ho_Chi_Minh');
@@ -169,7 +169,7 @@ class BrandController extends Controller
             'message' => "Cập nhật thành công",
             'datsa' => $Resc
         ];
-        return response()->json($arr, status:Response::HTTP_OK);
+        return response()->json($arr, status: Response::HTTP_OK);
     }
     /**
      * delete record
@@ -179,6 +179,6 @@ class BrandController extends Controller
      * 
      */
     public function delete($id)
-    {}
-    
+    {
+    }
 }

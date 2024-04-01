@@ -20,7 +20,11 @@ class ProductResource extends JsonResource
             'prod_slug' => $this->prod_slug,
             'prod_price' => $this->prod_price,
             'prod_stock' => $this->prod_stock,
-            'attributes' => AttributeResource::collection($this->whenLoaded('attributes')),
+            'attributes' =>
+                $this->attributes->groupBy('key')->map(function ($group) {
+                return $group->pluck('pivot.value')->unique()->all();
+            }),
+            // 'attributes' => AttributeResource::collection($this->whenLoaded('attributes')),
             // 'thumnail' => $this->thumnail,
             'created_at' => $this->created_at->format('H:i:s d/m/Y'),
             'updated_at' => $this->updated_at->format('H:i:s d/m/Y'),

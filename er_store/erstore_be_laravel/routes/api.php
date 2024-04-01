@@ -28,3 +28,4 @@ Route::get('/categories', [CategoryController::class, 'getAll']);
 Route::get('categories/{id}', [CategoryController::class, 'getById']);
 
 Route::get('/products', [ProductController::class, 'getAll']);
+Route::get('/products/{id}', [ProductController::class, 'getById']);
