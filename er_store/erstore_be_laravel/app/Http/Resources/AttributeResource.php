@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class AttributeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,11 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'key' => $this->key,
-            // 'thumnail' => $this->thumnail,
-            'created_at' => $this->created_at->format('H:i:s d/m/Y'),
-            'updated_at' => $this->updated_at->format('H:i:s d/m/Y'),
+            'value' => [
+                $this->whenPivotLoaded('prod_attr_value', function () {
+                    return $this->pivot->value;
+                })
+            ],
         ];
     }
 }

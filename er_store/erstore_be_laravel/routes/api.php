@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\{BrandController,CategoryController};
+use App\Http\Controllers\API\{BrandController, CategoryController, ProductController};
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +19,12 @@ use App\Http\Controllers\API\{BrandController,CategoryController};
 //     return $request->user();
 // });
 
-Route::get('/brands',[BrandController::class,'getAll']);
-Route::get('/brands/{id}',[BrandController::class,'getById']);
-Route::post('/brands',[BrandController::class,'store']);    
-Route::match(['put', 'patch'], '/brands/{id}',[BrandController::class,'update']);
+Route::get('/brands', [BrandController::class, 'getAll']);
+Route::get('/brands/{id}', [BrandController::class, 'getById']);
+Route::post('/brands', [BrandController::class, 'store']);
+Route::match(['put', 'patch'], '/brands/{id}', [BrandController::class, 'update']);
 
-Route::get('/categories',[CategoryController::class,'getAll']);
-Route::get('categories/{id}',[CategoryController::class,'getById']);
+Route::get('/categories', [CategoryController::class, 'getAll']);
+Route::get('categories/{id}', [CategoryController::class, 'getById']);
+
+Route::get('/products', [ProductController::class, 'getAll']);
