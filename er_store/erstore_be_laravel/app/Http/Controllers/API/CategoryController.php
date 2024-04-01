@@ -32,6 +32,34 @@ class CategoryController extends Controller
 
         return response()->json($arr, status: Response::HTTP_OK);
     }
+    /**
+     * get record by id
+     * @param App\Http\Requests\brand\addBrandRequest $request
+     * @param \Illuminate\Http\Response
+     * @param int $id
+     * 
+     */
+    public function getById($id)
+    {
+        $cat = Category::find($id);
+        if (is_null($cat)) {
+            $err = [
+                'success' => false,
+                'message' => "Không tìm thấy danh mục này...",
+            ];
+            return response()->json($err, status: Response::HTTP_NOT_FOUND);
+        }
+        // brand resource
+        $Resc = new CategoryResource($cat);
+        // re-type brand respond api
+        $arr = [
+            'success' => true,
+            'message' => "Lấy thông tin danh mục thành công",
+            'data' => $Resc
+        ];
+
+        return response()->json($arr, status: Response::HTTP_OK);
+    }
 
     /**
      * Store a newly created resource in storage.
