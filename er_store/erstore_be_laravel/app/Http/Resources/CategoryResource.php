@@ -16,7 +16,9 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'key' => $this->key,
+            'cat_name' => $this->cat_name,
+            'cat_slug' => $this->cat_slug,
+            'parent_id' => $this->parent_id,
             // 'thumnail' => $this->thumnail,
             'created_at' => $this->created_at->format('H:i:s d/m/Y'),
             'updated_at' => $this->updated_at->format('H:i:s d/m/Y'),
