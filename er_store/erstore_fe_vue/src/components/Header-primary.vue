@@ -174,101 +174,69 @@
                 :class="{ open: isOpen }"
               >
                 <ul>
-                  <li class="has-children">
-                    <a href="shop.html"><i class="surfsidemedia-font-tshirt"></i>Men's Clothing</a>
-                    <div class="dropdown-menu">
-                      <ul class="mega-menu d-lg-flex">
-                        <li class="mega-menu-col col-lg-7">
-                          <ul class="d-lg-flex">
-                            <li class="mega-menu-col col-lg-6">
-                              <ul>
-                                <li><span class="submenu-title">Jackets &amp; Coats</span></li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#"
-                                    >Down Jackets</a
+                  <template v-for="category in categoryList" :key="category.id">
+                    <li
+                      class="has-children"
+                      v-if="category.parent_id === null && isHaveChild(category)"
+                    >
+                      <a href=""
+                        ><i class="surfsidemedia-font-tshirt"></i>{{ category.cat_name }}</a
+                      >
+                      <div class="dropdown-menu">
+                        <ul class="mega-menu d-lg-flex">
+                          <li class="mega-menu-col col-lg-7">
+                            <ul class="d-lg-flex">
+                              <li class="mega-menu-col col-lg-6">
+                                <ul>
+                                  <li><span class="submenu-title">Thương hiệu</span></li>
+                                  <li>
+                                    <a class="dropdown-item nav-link nav_item" href="#">Toshiba</a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="mega-menu-col col-lg-6">
+                                <ul>
+                                  <li>
+                                    <span class="submenu-title">Loại {{ category.cat_name }}</span>
+                                  </li>
+                                  <li
+                                    v-for="childCategory in getChildCategory(category.id)"
+                                    :key="childCategory.id"
                                   >
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#">Jackets</a>
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#">Parkas</a>
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#"
-                                    >Faux Leather Coats</a
-                                  >
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#">Trench</a>
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#"
-                                    >Wool &amp; Blends</a
-                                  >
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#"
-                                    >Vests &amp; Waistcoats</a
-                                  >
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#"
-                                    >Leather Coats</a
-                                  >
-                                </li>
-                              </ul>
-                            </li>
-                            <li class="mega-menu-col col-lg-6">
-                              <ul>
-                                <li><span class="submenu-title">Suits &amp; Blazers</span></li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#">Blazers</a>
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#"
-                                    >Suit Jackets</a
-                                  >
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#">Suit Pants</a>
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#">Suits</a>
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#">Vests</a>
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#"
-                                    >Tailor-made Suits</a
-                                  >
-                                </li>
-                                <li>
-                                  <a class="dropdown-item nav-link nav_item" href="#">Cover-Ups</a>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="mega-menu-col col-lg-5">
-                          <div class="header-banner2">
-                            <img src="../assets/imgs/banner/menu-banner-4.jpg" alt="menu_banner1" />
-                            <div class="banne_info">
-                              <h6>10% Off</h6>
-                              <h4>New Arrival</h4>
-                              <a href="#">Shop now</a>
+                                    <a class="dropdown-item nav-link nav_item" href="#">{{
+                                      childCategory.cat_name
+                                    }}</a>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="mega-menu-col col-lg-5">
+                            <div class="header-banner2">
+                              <img
+                                src="../assets/imgs/banner/menu-banner-4.png"
+                                width="350px"
+                                height="400px"
+                                alt="menu_banner1"
+                              />
+                              <div class="banne_info">
+                                <h6>10% Off</h6>
+                                <h4>New Arrival</h4>
+                                <a href="#">Shop now</a>
+                              </div>
                             </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li v-if="category.parent_id === null && !isHaveChild(category)">
+                      <a href=""
+                        ><i class="surfsidemedia-font-desktop"></i>{{ category.cat_name }}</a
+                      >
+                    </li>
+                  </template>
 
-                  <li>
-                    <a href=""><i class="surfsidemedia-font-desktop"></i>Computer &amp; Office</a>
-                  </li>
-                  <li>
+                  <!-- <li>
                     <ul class="more_slide_open" style="display: none">
                       <li>
                         <a href="shop.html"
@@ -289,9 +257,9 @@
                         >
                       </li>
                     </ul>
-                  </li>
+                  </li> -->
                 </ul>
-                <div class="more_categories">Show more...</div>
+                <!-- <div class="more_categories">Show more...</div> -->
               </div>
             </div>
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
@@ -318,13 +286,8 @@
                   <li>
                     <a href="#">Tin tức<i class="fi-rs-angle-down"></i></a>
                     <ul class="sub-menu menu-show">
-                      <li><a href="#">Dashboard</a></li>
-                      <li><a href="#">Products</a></li>
-                      <li><a href="#">Categories</a></li>
-                      <li><a href="#">Coupons</a></li>
-                      <li><a href="#">Orders</a></li>
-                      <li><a href="#">Customers</a></li>
-                      <li><a href="#">Logout</a></li>
+                      <li><a href="#">Khuyến mãi</a></li>
+                      <li><a href="#">Thị trường điện lạnh</a></li>
                     </ul>
                   </li>
                   <!-- mega menu-test
@@ -476,13 +439,13 @@
 
 <script setup>
 import useBrand from '../services/brandServices'
+import useCategory from '@/services/categoryServices'
 import { onMounted } from 'vue'
-const {
-  brandList,
-
-  getAllBrand
-} = useBrand()
+const { brandList, getAllBrand } = useBrand()
+const { categoryList, getAllCategory, isHaveChild, getChildCategory } = useCategory()
 onMounted(getAllBrand)
+onMounted(getAllCategory)
+// console.warn(brandList)
 </script>
 <script>
 // defineProps({
@@ -575,10 +538,11 @@ a.checkout:hover {
   color: #008080;
 }
 .menu-show {
-  background-color: #ffffef !important;
+  /* background-color: #ffffef !important; */
+  box-shadow: 1px 1px 5px #e3e5e5;
 }
 .position-static ul.mega-menu li a img:hover {
   background: white;
-  box-shadow: 2px 5px #e3e5e5;
+  box-shadow: 2px 3px 10px #e3e5e5;
 }
 </style>

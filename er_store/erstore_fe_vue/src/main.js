@@ -1,5 +1,6 @@
 import './assets/css/main.css'
 import 'bootstrap'
+import './assets/js/plugins/slick.js'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

@@ -56,7 +56,9 @@
               <div class="register pt-30 text-center">
                 <h5 class="fw-normal">
                   Chưa có tài khoản?
-                  <router-link to="/register" class="fw-bold"> ĐĂNG KÝ NGAY</router-link>
+                  <router-link :to="{ name: 'register' }" class="fw-bold">
+                    ĐĂNG KÝ NGAY</router-link
+                  >
                 </h5>
               </div>
             </div>
@@ -75,8 +77,8 @@
   margin: 0 20px;
 }
 input {
-  font-size: 18px;
-  height: 60px;
+  font-size: 16px;
+  height: 50px;
 }
 .title {
   font-weight: bold;

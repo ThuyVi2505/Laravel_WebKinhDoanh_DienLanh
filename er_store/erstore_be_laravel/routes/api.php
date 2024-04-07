@@ -26,6 +26,8 @@ Route::match(['put', 'patch'], '/brands/{id}', [BrandController::class, 'update'
 
 Route::get('/categories', [CategoryController::class, 'getAll']);
 Route::get('categories/{id}', [CategoryController::class, 'getById']);
+Route::post('/categories', [CategoryController::class, 'store']);
 
 Route::get('/products', [ProductController::class, 'getAll']);
 Route::get('/products/{id}', [ProductController::class, 'getById']);
+Route::post('/products', [ProductController::class, 'store']);

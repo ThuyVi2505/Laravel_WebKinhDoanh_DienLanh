@@ -6,6 +6,9 @@ import RegisterView from '../views/RegisterView.vue'
 import NotFound from '../views/NotFound.vue'
 
 import HeaderPrimary from '../components/Header-primary.vue'
+import FooterPrimary from '../components/Footer-primary.vue'
+import RegisLetter from '../components/RegisterLetter.vue'
+import ProductTab from '../components/ProductTab.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,22 +16,28 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       name: 'notfound',
-      components: { default: NotFound, header: HeaderPrimary }
+      components: { default: NotFound, header: HeaderPrimary, footer: FooterPrimary }
     },
     {
       path: '/',
       name: 'home',
-      components: { default: HomeView, header: HeaderPrimary }
+      components: {
+        default: HomeView,
+        product_tab: ProductTab,
+        header: HeaderPrimary,
+        footer: FooterPrimary,
+        register_letters: RegisLetter
+      }
     },
     {
       path: '/login',
       name: 'login',
-      components: { default: LoginView, header: HeaderPrimary }
+      components: { default: LoginView, header: HeaderPrimary, footer: FooterPrimary }
     },
     {
-      path: '/login',
+      path: '/register',
       name: 'register',
-      components: { default: RegisterView, header: HeaderPrimary }
+      components: { default: RegisterView, header: HeaderPrimary, footer: FooterPrimary }
     }
   ]
 })

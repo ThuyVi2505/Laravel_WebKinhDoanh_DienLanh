@@ -7,11 +7,9 @@ use App\Http\Requests\BrandRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Storage;
 use Carbon\Carbon;
 use App\Models\Brand;
 use App\Http\Resources\BrandResource;
-use Attribute;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;

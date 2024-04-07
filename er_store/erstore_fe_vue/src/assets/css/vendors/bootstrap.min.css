@@ -6128,6 +6128,9 @@ fieldset:disabled .btn {
 .border-bottom-0 {
   border-bottom: 0 !important;
 }
+.border-bottom-1 {
+  border-bottom: 0.5px solid #dee2e6 !important;
+}
 .border-start {
   border-left: 1px solid #dee2e6 !important;
 }
