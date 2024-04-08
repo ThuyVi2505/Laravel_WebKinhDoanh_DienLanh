@@ -34,7 +34,7 @@ class ProductRequest extends FormRequest
                     'prod_price'=> ['required', 'integer'],
                     'prod_stock'=>['required','integer'],
                     'isActive' => [''],
-                    'images.*' => ['required', 'image', 'mimes:jpg,png,jpeg']
+                    'images.*' => ['image', 'mimes:jpg,png,jpeg']
                 ];
             case 'PUT':
             case 'PATCH':
@@ -44,7 +44,7 @@ class ProductRequest extends FormRequest
                     'prod_price'=> ['required', 'integer'],
                     'prod_stock'=>['required','integer'],
                     'isActive' => [''],
-                    'images.*' => ['nullable', 'image', 'mimes:jpg,png,jpeg']
+                    'images.*' => ['image', 'mimes:jpg,png,jpeg']
                 ];
         }
     }
@@ -64,7 +64,6 @@ class ProductRequest extends FormRequest
             'prod_stock.required' => 'Số lượng mặt hàng bắt buộc nhập',
             'prod_price.integer' => 'Trường prod_price phải là một số nguyên dương (vd: 1,2,3)',
             'prod_stock.integer' => 'Trường prod_stock phải là một số nguyên dương (vd: 1,2,3)',
-            'image' => ['nullable', 'mimes:jpeg,png,jpg,svg'],
         ];
     }
     protected function failedValidation(Validator $validator)

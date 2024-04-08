@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\{BrandController, CategoryController, ProductController};
+use App\Http\Controllers\API\{BrandController, CategoryController, ProductController, ImageController};
 
 /*
 |--------------------------------------------------------------------------
@@ -19,17 +19,21 @@ use App\Http\Controllers\API\{BrandController, CategoryController, ProductContro
 //     return $request->user();
 // });
 
+/*BRAND*/
 Route::get('/brands', [BrandController::class, 'getAll']); // GET all
 Route::get('/brands/{id}', [BrandController::class, 'getById']); // GET by Id
 Route::post('/brands', [BrandController::class, 'store']); //POST - CREATE NEW
 Route::match(['put', 'patch'], '/brands/{id}', [BrandController::class, 'update']); // POST - update (method: PUT or PATCH)
 Route::DELETE('/brands/{id}', [BrandController::class, 'destroy']); //POST - Delete (method: DELETE)
 
-
+/*CATEGORY*/
 Route::get('/categories', [CategoryController::class, 'getAll']);
 Route::get('categories/{id}', [CategoryController::class, 'getById']);
 Route::post('/categories', [CategoryController::class, 'store']);
-
+/*PRODUCT - IMAGE - Attribute (-> value)*/
 Route::get('/products', [ProductController::class, 'getAll']);
 Route::get('/products/{id}', [ProductController::class, 'getById']);
 Route::post('/products', [ProductController::class, 'store']);
+//image
+Route::post('/products/upload/{id}', [ImageController::class, 'uploadImage_Product']);
+//attribute -> value

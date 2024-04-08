@@ -93,7 +93,7 @@ class ProductController extends Controller
                 $check = in_array($ext, $allowedfileExtension);
                 if ($check) {
                     date_default_timezone_set("Asia/Ho_Chi_Minh");
-                    $file_name = Str::slug($prod->prod_name, '-') . '_' . date('Hisdmy') . $key . '.' . $ext;
+                    $file_name = date('Hisdmy') . $key .  '.' . $ext;
                     $file->move(public_path() . '/uploads/images/product/'.$prod->prod_slug.'/', $file_name);
                     $urlImage = asset('uploads/images/product/'.$prod->prod_slug.'/'.$file_name);
 
@@ -104,12 +104,6 @@ class ProductController extends Controller
                 }
             };
         }
-        // if(!$request->hasFile('images')) {
-        //     return response()->json(['upload_file_not_found'], 400);
-        // }
-        // else{
-        //     return response()->json(['upload_file'], 400);
-        // }
         // prod resource
         $Resc = new ProductResource($prod);
         // re-type prod respond api
