@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\AttributeResource;
 
 class ProductResource extends JsonResource
 {
@@ -14,18 +15,43 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+        $attributesFormatted = [];
+
+        // Lặp qua các thuộc tính của sản phẩm
+        foreach ($this->attributes as $attribute) {
+            $key = $attribute->key;
+            $value = $attribute->pivot->value;
+
+            // Kiểm tra xem key đã có trong mảng attributesFormatted chưa
+            if (array_key_exists($key, $attributesFormatted)) {
+                // Nếu đã tồn tại key trong mảng, chuyển đổi value thành mảng nếu chưa phải
+                if (!is_array($attributesFormatted[$key])) {
+                    $attributesFormatted[$key] = [$attributesFormatted[$key]];
+                }
+                // Thêm value mới vào mảng
+                $attributesFormatted[$key][] = $value;
+            } else {
+                // Nếu key chưa có trong mảng, gán value trực tiếp
+                $attributesFormatted[$key] = $value;
+            }
+        }
+        
+
         return [
             'id' => $this->id,
             'prod_name' => $this->prod_name,
             'prod_slug' => $this->prod_slug,
             'prod_price' => $this->prod_price,
             'prod_stock' => $this->prod_stock,
-            'attributes' =>
-                $this->attributes->groupBy('key')->map(function ($group) {
-                return $group->pluck('pivot.value')->unique()->all();
+            'images' => $this->images->pluck('image')->map(function ($imageUrl) {
+                return $imageUrl;
             }),
-            // 'attributes' => AttributeResource::collection($this->whenLoaded('attributes')),
-            // 'thumnail' => $this->thumnail,
+            'attributes' =>$attributesFormatted,
+
+            // 'attributes' =>
+            //     $this->attributes->groupBy('key')->map(function ($group) {
+            //     return $group->pluck('pivot.value')->unique()->all();
+            // }),
             'created_at' => $this->created_at->format('H:i:s d/m/Y'),
             'updated_at' => $this->updated_at->format('H:i:s d/m/Y'),
         ];

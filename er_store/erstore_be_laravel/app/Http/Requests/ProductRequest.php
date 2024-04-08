@@ -34,6 +34,7 @@ class ProductRequest extends FormRequest
                     'prod_price'=> ['required', 'integer'],
                     'prod_stock'=>['required','integer'],
                     'isActive' => [''],
+                    'images.*' => ['required', 'image', 'mimes:jpg,png,jpeg']
                 ];
             case 'PUT':
             case 'PATCH':
@@ -43,6 +44,7 @@ class ProductRequest extends FormRequest
                     'prod_price'=> ['required', 'integer'],
                     'prod_stock'=>['required','integer'],
                     'isActive' => [''],
+                    'images.*' => ['nullable', 'image', 'mimes:jpg,png,jpeg']
                 ];
         }
     }

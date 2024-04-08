@@ -14,10 +14,10 @@ class AttributeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'key' => $this->key,
-        ];
+        $values = $this->values->pluck('value')->toArray();
+
+        return count($values) === 1 ? $values[0] : $values;
+
     }
     protected function values()
     {

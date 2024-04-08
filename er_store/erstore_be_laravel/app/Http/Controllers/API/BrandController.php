@@ -11,19 +11,16 @@ use Carbon\Carbon;
 use App\Models\Brand;
 use App\Http\Resources\BrandResource;
 
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
-
 class BrandController extends Controller
 {
-    protected $brand;
     /**
-     * @param $brand
+     * Construct
      */
-    public function __construct(Brand $brand)
+    public function __construct()
     {
-        $this->brand = $brand;
+        
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -56,10 +53,10 @@ class BrandController extends Controller
     public function getById($id)
     {
         $brand = Brand::find($id);
-        if (is_null($brand)) {
+        if (!$brand) {
             $err = [
                 'success' => false,
-                'message' => "Không tìm thấy thương hiệu này...",
+                'message' => "Không tìm thấy...",
             ];
             return response()->json($err, status: Response::HTTP_NOT_FOUND);
         }
@@ -176,7 +173,34 @@ class BrandController extends Controller
      * @param int $id
      * 
      */
-    public function delete($id)
+    public function destroy($id)
     {
+        $brand = Brand::find($id);
+        if (is_null($brand)) {
+            $err = [
+                'title' => "Xóa thương hiệu",
+                'success' => false,
+                'message' => "Không tìm thấy thương hiệu này...",
+            ];
+            return response()->json($err, status: Response::HTTP_NOT_FOUND);
+        }
+
+        // Xóa hình ảnh của brand từ thư mục public
+        if ($brand->thumnail) {
+            $imagePath = str_replace(url('/'), '', $brand->thumnail); // Chuyển đổi đường dẫn thành đường dẫn trên đĩa
+            if (file_exists(public_path($imagePath))) {
+                unlink(public_path($imagePath)); // Xóa tệp hình ảnh
+            }
+        }
+
+        // Xóa brand khỏi cơ sở dữ liệu
+        $brand->delete();
+
+        $arr = [
+            'title' => "Xóa thương hiệu",
+            'success' => true,
+            'message' => "Xóa thành công thương hiệu" + $brand->brand_name,
+        ];
+        return response()->json($arr, status: Response::HTTP_OK);
     }
 }

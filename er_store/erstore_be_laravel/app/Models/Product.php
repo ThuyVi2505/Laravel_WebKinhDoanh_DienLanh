@@ -26,8 +26,8 @@ class Product extends Model
     {
         return $this->belongsToMany(Attribute::class, 'prod_attr_value')->withPivot('value');
     }
-    public function productImages()
+    public function images()
     {
-        return $this->hasMany(ProductImage::class, 'prod_id','id');
+        return $this->hasMany(Image::class, 'prod_id', 'id');
     }
 }

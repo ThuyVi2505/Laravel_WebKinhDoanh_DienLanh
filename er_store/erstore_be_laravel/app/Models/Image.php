@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductImage extends Model
+class Image extends Model
 {
     use HasFactory;
     protected $table = 'product_images';
@@ -14,14 +14,14 @@ class ProductImage extends Model
         'updated_at',
     ];
     protected $fillable = [
-        'image',
         'prod_id',
+        'image',
     ];
     public $timestamps = false;
 
-    public function products()
+    public function product()
     {
-        return $this->belongsTo(Product::class, 'prod_id','id');
+        return $this->belongsTo(Product::class,'prod_id','id');
     }
 }
 

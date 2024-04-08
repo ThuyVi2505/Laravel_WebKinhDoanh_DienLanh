@@ -50,6 +50,7 @@ class Handler extends ExceptionHandler
             ];
             return response()->json($err, status: Response::HTTP_NOT_FOUND);
         }
+
         return parent::render($request,$e);
     }
 }

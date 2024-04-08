@@ -19,10 +19,12 @@ use App\Http\Controllers\API\{BrandController, CategoryController, ProductContro
 //     return $request->user();
 // });
 
-Route::get('/brands', [BrandController::class, 'getAll']);
-Route::get('/brands/{id}', [BrandController::class, 'getById']);
-Route::post('/brands', [BrandController::class, 'store']);
-Route::match(['put', 'patch'], '/brands/{id}', [BrandController::class, 'update']);
+Route::get('/brands', [BrandController::class, 'getAll']); // GET all
+Route::get('/brands/{id}', [BrandController::class, 'getById']); // GET by Id
+Route::post('/brands', [BrandController::class, 'store']); //POST - CREATE NEW
+Route::match(['put', 'patch'], '/brands/{id}', [BrandController::class, 'update']); // POST - update (method: PUT or PATCH)
+Route::DELETE('/brands/{id}', [BrandController::class, 'destroy']); //POST - Delete (method: DELETE)
+
 
 Route::get('/categories', [CategoryController::class, 'getAll']);
 Route::get('categories/{id}', [CategoryController::class, 'getById']);

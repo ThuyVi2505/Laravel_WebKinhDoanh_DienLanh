@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Http\Requests\ProductRequest;
-use App\Models\{Product, ProductImage};
+use App\Models\{Image, Product, ProductImage};
 
 class ProductController extends Controller
 {
@@ -81,37 +81,35 @@ class ProductController extends Controller
         $prod->prod_stock = $request->prod_stock;
         $prod->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $prod->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
-        // if ($request->hasfile('thumnail')) {
-
-        //     $file = $request->file('thumnail');
-        //     $ext = $file->getClientOriginalExtension();
-        //     date_default_timezone_set("Asia/Ho_Chi_Minh");
-        //     $file_name = Str::slug($request->prod_name, '-') . '_' . date('Hisdmy') . '.' . $ext;
-        //     $file->move(public_path() . '/uploads/images/prod/', $file_name);
-        //     // $path = $file->storeAs('public/uploads/ThuongHieu', $file_name);
-
-        //     $prod->thumnail = asset('uploads/images/prod/' . $file_name);
-        // }
         $prod->save($dataCreate);
-        // return($prod->prod_name);
         // Upload images and associate with product
+        // $prod = Product::find(33);
+
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $file) {
-
+            $allowedfileExtension = ['jped', 'jpg', 'png'];
+            $files = $request->file('images');
+            foreach ($files as $key => $file) {
                 $ext = $file->getClientOriginalExtension();
-                date_default_timezone_set("Asia/Ho_Chi_Minh");
-                $file_name = Str::slug($prod->prod_name, '-') . '_' . date('Hisdmy') . '.' . $ext;
-                $file->move(public_path() . '/uploads/images/product/'. $prod->prod_slug.'/', $file_name);
-                $urlImage = asset('uploads/images/product/'. $prod->prod_name.'/', $file_name);
-                
-                $prod->productImages()->create([
-                    'prod_id'=>$prod->id,
-                    'image'=>$urlImage
-                ]);
-            };
-            
-        }
+                $check = in_array($ext, $allowedfileExtension);
+                if ($check) {
+                    date_default_timezone_set("Asia/Ho_Chi_Minh");
+                    $file_name = Str::slug($prod->prod_name, '-') . '_' . date('Hisdmy') . $key . '.' . $ext;
+                    $file->move(public_path() . '/uploads/images/product/'.$prod->prod_slug.'/', $file_name);
+                    $urlImage = asset('uploads/images/product/'.$prod->prod_slug.'/'.$file_name);
 
+                    $image = new Image();
+                    $image->prod_id = $prod->id;
+                    $image->image = $urlImage;
+                    $image->save();
+                }
+            };
+        }
+        // if(!$request->hasFile('images')) {
+        //     return response()->json(['upload_file_not_found'], 400);
+        // }
+        // else{
+        //     return response()->json(['upload_file'], 400);
+        // }
         // prod resource
         $Resc = new ProductResource($prod);
         // re-type prod respond api

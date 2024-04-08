@@ -67,8 +67,10 @@
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
                     <a href="product-details.html">
-                      <img class="default-img" src="../assets/imgs/shop/product-1-1.jpg" alt="" />
-                      <img class="hover-img" src="../assets/imgs/shop/product-1-2.jpg" alt="" />
+                      <img class="default-img" :src="prod.images[0]" alt="" />
+                      <img class="hover-img" :src="prod.images[1]" alt="" />
+                      <!-- <img class="default-img" src="../assets/imgs/shop/product-1-1.jpg" alt="" />
+                      <img class="hover-img" src="../assets/imgs/shop/product-1-2.jpg" alt="" /> -->
                     </a>
                   </div>
                   <div class="product-action-1">
@@ -187,6 +189,8 @@
                     <a href="product-details.html">
                       <img class="default-img" src="../assets/imgs/shop/product-3-1.jpg" alt="" />
                       <img class="hover-img" src="../assets/imgs/shop/product-3-2.jpg" alt="" />
+                      <!-- <img class="default-img" src="../assets/imgs/shop/product-3-1.jpg" alt="" />
+                      <img class="hover-img" src="../assets/imgs/shop/product-3-2.jpg" alt="" /> -->
                     </a>
                   </div>
                   <div class="product-action-1">

@@ -33,7 +33,7 @@ class BrandRequest extends FormRequest
                     'brand_slug' => [''],
                     'isActive' => [''],
                     // 'thumnail' => [''],
-                    'thumnail' => ['required', 'mimes:jpeg,png,jpg,svg'],
+                    'thumnail' => ['required', 'mimes:jpeg,png,jpg'],
                 ];
             case 'PUT':
             case 'PATCH':
@@ -42,7 +42,7 @@ class BrandRequest extends FormRequest
                     'brand_slug' => [''],
                     'isActive' => [''],
                     // 'thumnail' => [''],
-                    'thumnail' => ['nullable', 'mimes:jpeg,png,jpg,svg'],
+                    'thumnail' => ['nullable', 'mimes:jpeg,png,jpg'],
                 ];
         }
     }

@@ -3538,6 +3538,8 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-img-action-wrap .product-img-zoom a img {
+  width: 100%;
+  height: 150px;
   -webkit-transition: all 1.5s cubic-bezier(0, 0, 0.05, 1);
   transition: all 1.5s cubic-bezier(0, 0, 0.05, 1);
 }
