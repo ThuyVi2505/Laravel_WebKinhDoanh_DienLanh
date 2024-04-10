@@ -19,24 +19,46 @@
               <div class="heading_s1">
                 <h3 class="mb-30 title">TẠO TÀI KHOẢN</h3>
               </div>
-              <form method="post">
+              <form @submit.prevent="register">
                 <div class="form-group pb-10">
                   <label for="name" class="fw-bold">Họ và tên:</label>
-                  <input type="text" name="name" placeholder="Nhập họ và tên..." />
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    v-model="name"
+                    placeholder="Nhập họ và tên..."
+                  />
                 </div>
                 <div class="form-group pb-10">
                   <label for="email" class="fw-bold">Email:</label>
-                  <input type="text" name="email" placeholder="Nhập email đăng ký..." required />
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    v-model="email"
+                    placeholder="Nhập email đăng ký..."
+                    required
+                  />
                 </div>
                 <div class="form-group pb-10">
                   <label for="password" class="fw-bold">Mật khẩu:</label>
-                  <input type="password" name="password" placeholder="Nhập mật khẩu..." required />
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    v-model="password"
+                    placeholder="Nhập mật khẩu..."
+                    required
+                  />
                 </div>
                 <div class="form-group">
                   <label for="confirmed-password" class="fw-bold">Xác nhận mật khẩu:</label>
                   <input
-                    type="confirmed-password"
-                    name="password"
+                    type="password"
+                    name="password_confirmation"
+                    id="password_confirmation"
+                    v-model="password_confirmation"
                     placeholder="Nhập lại mật khẩu..."
                     required
                   />
@@ -86,7 +108,15 @@
   </section>
 </template>
 
-<script setup></script>
+<script>
+export default {
+  methods: {
+    register() {
+      console.log('Register func...')
+    }
+  }
+}
+</script>
 
 <style scoped>
 .login_wrap {

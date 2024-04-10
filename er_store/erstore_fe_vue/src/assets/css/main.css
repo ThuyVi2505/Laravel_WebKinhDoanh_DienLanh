@@ -9,9 +9,6 @@
 @import url(plugins/perfect-scrollbar.css);
 
 @import url(custom.css);
-* {
-  box-sizing: border-box;
-}
 /*RESET*/
 html,
 body,

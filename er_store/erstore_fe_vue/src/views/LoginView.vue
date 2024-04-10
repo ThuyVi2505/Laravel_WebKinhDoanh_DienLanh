@@ -19,7 +19,7 @@
               <div class="heading_s1">
                 <h3 class="mb-30 title">ĐĂNG NHẬP TÀI KHOẢN</h3>
               </div>
-              <form method="post">
+              <form @submit.prevent="login" method="post">
                 <div class="form-group pb-10">
                   <label for="email" class="fw-bold">Tài khoản Email:</label>
                   <input
@@ -60,11 +60,7 @@
                   <a class="text-muted remember" href="#">Quên mật khẩu?</a>
                 </div>
                 <div class="form-group">
-                  <button
-                    type="submit"
-                    class="btn btn-fill-out btn-block hover-up w-100 fw-bold"
-                    name="login"
-                  >
+                  <button class="btn btn-fill-out btn-block hover-up w-100 fw-bold" name="login">
                     ĐĂNG NHẬP
                   </button>
                 </div>
@@ -85,7 +81,28 @@
   </section>
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    login() {
+      this.$store.dispatch('AUTH/login', { email: this.email, password: this.password })
+      // if (this.$store.state.token) {
+      //   this.$router.push('/home')
+      // } else {
+      //   // Redirect to dashboard or other route upon successful login
+      //   this.$router.push('/register')
+      // }
+    }
+  }
+}
+</script>
+
 
 <style scoped>
 .login_wrap {
