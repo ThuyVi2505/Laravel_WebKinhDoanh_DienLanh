@@ -20,11 +20,27 @@
                 <h3 class="mb-30 title">ĐĂNG NHẬP TÀI KHOẢN</h3>
               </div>
               <form method="post">
-                <div class="form-group">
-                  <input type="text" required="" name="email" placeholder="Nhập email..." />
+                <div class="form-group pb-10">
+                  <label for="email" class="fw-bold">Tài khoản Email:</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    v-model="email"
+                    placeholder="Nhập email..."
+                    required
+                  />
                 </div>
                 <div class="form-group">
-                  <input required="" type="password" name="password" placeholder="Nhập mật khẩu" />
+                  <label for="password" class="fw-bold">Mật khẩu:</label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    v-model="password"
+                    placeholder="Nhập mật khẩu..."
+                    required
+                  />
                 </div>
                 <div class="login_footer form-group">
                   <div class="chek-form">
@@ -36,7 +52,7 @@
                         id="exampleCheckbox1"
                         value=""
                       />
-                      <label class="form-check-label" for="exampleCheckbox1"
+                      <label class="form-check-label check-box" for="exampleCheckbox1"
                         ><span>Ghi nhớ</span></label
                       >
                     </div>
@@ -69,20 +85,33 @@
   </section>
 </template>
 
-<script setup></script>
+<script></script>
 
 <style scoped>
 .login_wrap {
   border: none;
   margin: 0 20px;
 }
+label {
+  font-size: 15 !important;
+  color: #f15412 !important;
+  opacity: 0.8;
+}
 input {
   font-size: 16px;
-  height: 50px;
+  height: 45px;
+  font-weight: 500;
+  border-width: 2px;
+}
+input::placeholder {
+  opacity: 0.8;
 }
 .title {
   font-weight: bold;
   color: #39b4ac;
+}
+.check-box {
+  color: #3984e3 !important;
 }
 .remember {
   font-size: 16px;
@@ -91,7 +120,10 @@ input {
 .remember:hover {
   color: #f15412 !important;
 }
-.register a:hover {
+.register a {
   color: #3984e3 !important;
+}
+.register a:hover {
+  color: #f15412 !important;
 }
 </style>

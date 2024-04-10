@@ -9,6 +9,9 @@
 @import url(plugins/perfect-scrollbar.css);
 
 @import url(custom.css);
+* {
+  box-sizing: border-box;
+}
 /*RESET*/
 html,
 body,
@@ -97,6 +100,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  user-select: none;
 }
 
 thead {

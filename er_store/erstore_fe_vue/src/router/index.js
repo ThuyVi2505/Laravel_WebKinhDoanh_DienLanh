@@ -7,7 +7,6 @@ import NotFound from '../views/NotFound.vue'
 
 import HeaderPrimary from '../components/Header-primary.vue'
 import FooterPrimary from '../components/Footer-primary.vue'
-import RegisLetter from '../components/RegisterLetter.vue'
 import ProductTab from '../components/ProductTab.vue'
 
 const router = createRouter({
@@ -25,8 +24,7 @@ const router = createRouter({
         default: HomeView,
         product_tab: ProductTab,
         header: HeaderPrimary,
-        footer: FooterPrimary,
-        register_letters: RegisLetter
+        footer: FooterPrimary
       }
     },
     {

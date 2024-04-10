@@ -13,10 +13,15 @@ import { RouterView } from 'vue-router'
   <!-- main content -->
   <RouterView />
 
-  <RouterView name="register_letters" />
+  <!-- <RouterView name="register_letters" /> -->
   <RouterView name="footer" />
   <!-- --end main content-- -->
 </template>
 
+<script>
+export default {
+  name: 'App'
+}
+</script>
 <style scoped>
 </style>

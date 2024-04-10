@@ -1,4 +1,5 @@
 <template>
+  <RegisterLetter />
   <footer class="main">
     <section class="section-padding footer-mid">
       <div class="container pt-15 pb-20">
@@ -89,6 +90,10 @@
   </footer>
 </template>
 
+
+<script setup>
+import RegisterLetter from './RegisterLetter.vue'
+</script>
 <style scoped>
 section {
   border-top: 1px solid rgba(160, 152, 152, 0.5);
