@@ -8,15 +8,13 @@
               <ul>
                 <li>
                   <a class="language-dropdown-active" href="#">
-                    <i class="fi-rs-world"></i> Vietnamese <i class="fi-rs-angle-small-down"></i
+                    <font-awesome-icon icon="earth-americas" class="me-2" />Vietnamese
+                    <i class="fi-rs-angle-small-down"></i
                   ></a>
                   <ul class="language-dropdown" style="min-width: 150px">
                     <li v-for="lang in Langs" v-bind:key="lang">
                       <a href="#"><img :src="lang.img" alt="" /> {{ lang.text }}</a>
                     </li>
-                    <!-- <li>
-                      <a href="#"><img src="assets/imgs/theme/flag-dt.png" alt="" />Deutsch</a>
-                    </li> -->
                   </ul>
                 </li>
               </ul>
@@ -74,7 +72,7 @@
         </div>
       </div>
     </div>
-    <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+    <div class="header-middle header-middle-ptb-1 d-none d-lg-block pb-2">
       <div class="container">
         <div class="header-wrap">
           <div class="logo logo-width-1">
@@ -360,7 +358,9 @@
           </div>
           <div class="hotline d-none d-lg-block">
             <p>
-              <i class="fi-rs-smartphone"></i><span>LIÊN HỆ HỖ TRỢ</span>
+              <font-awesome-icon icon="volume-control-phone" class="me-2" />
+              <!-- <i class="fi-rs-smartphone"></i> -->
+              <span>LIÊN HỆ HỖ TRỢ</span>
               <a href="tel:10000000">(+1) 0000-000-000</a>
             </p>
           </div>

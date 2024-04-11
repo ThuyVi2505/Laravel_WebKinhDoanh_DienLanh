@@ -1,13 +1,5 @@
-// import Vue from 'vue'
-import { createStore } from 'vuex'
+import { createPinia } from 'pinia'
 
-import authStore from './modules/authStore'
+const store = createPinia()
 
-// Vue.use(Vuex)
-
-export default createStore({
-  // state: {},
-  // mutations: {},
-  // actions: {},
-  modules: { AUTH: authStore }
-})
+export default store

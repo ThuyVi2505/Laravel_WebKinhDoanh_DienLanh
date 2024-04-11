@@ -1,3 +1,4 @@
+
 <template>
   <div class="page-header breadcrumb-wrap">
     <div class="container">
@@ -19,28 +20,42 @@
               <div class="heading_s1">
                 <h3 class="mb-30 title">ĐĂNG NHẬP TÀI KHOẢN</h3>
               </div>
-              <form @submit.prevent="login" method="post">
-                <div class="form-group pb-10">
-                  <label for="email" class="fw-bold">Tài khoản Email:</label>
+              <form @submit.prevent="submitLogin()">
+                <div class="form-group">
                   <input
-                    type="email"
+                    type="text"
                     name="email"
-                    id="email"
-                    v-model="email"
-                    placeholder="Nhập email..."
-                    required
+                    placeholder="Nhập email"
+                    class="form-control"
+                    @blur="validateForm()"
+                    v-model="loginAttribute.email"
+                    v-bind:class="{
+                      'is-invalid': errors.email
+                    }"
                   />
+                  <span class="invalid-feedback" v-if="errors.email"
+                    ><font-awesome-icon icon="circle-exclamation" class="me-2" />{{
+                      errors.email
+                    }}</span
+                  >
                 </div>
                 <div class="form-group">
-                  <label for="password" class="fw-bold">Mật khẩu:</label>
                   <input
                     type="password"
                     name="password"
-                    id="password"
-                    v-model="password"
-                    placeholder="Nhập mật khẩu..."
-                    required
+                    placeholder="Nhập mật khẩu"
+                    class="form-control"
+                    @blur="validateForm()"
+                    v-model="loginAttribute.password"
+                    v-bind:class="{
+                      'is-invalid': errors.password
+                    }"
                   />
+                  <span class="invalid-feedback" v-if="errors.password"
+                    ><font-awesome-icon icon="circle-exclamation" class="me-2" />{{
+                      errors.password
+                    }}</span
+                  >
                 </div>
                 <div class="login_footer form-group">
                   <div class="chek-form">
@@ -52,7 +67,7 @@
                         id="exampleCheckbox1"
                         value=""
                       />
-                      <label class="form-check-label check-box" for="exampleCheckbox1"
+                      <label class="form-check-label" for="exampleCheckbox1"
                         ><span>Ghi nhớ</span></label
                       >
                     </div>
@@ -60,7 +75,11 @@
                   <a class="text-muted remember" href="#">Quên mật khẩu?</a>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-fill-out btn-block hover-up w-100 fw-bold" name="login">
+                  <button
+                    type="submit"
+                    class="btn btn-fill-out btn-block hover-up w-100 fw-bold"
+                    name="login"
+                  >
                     ĐĂNG NHẬP
                   </button>
                 </div>
@@ -83,52 +102,67 @@
 
 <script>
 export default {
+  name: 'LoginView',
   data() {
     return {
-      email: '',
-      password: ''
+      errors: {
+        email: '',
+        password: ''
+      },
+      loginAttribute: {
+        email: '',
+        password: ''
+      }
     }
   },
   methods: {
-    login() {
-      this.$store.dispatch('AUTH/login', { email: this.email, password: this.password })
-      // if (this.$store.state.token) {
-      //   this.$router.push('/home')
-      // } else {
-      //   // Redirect to dashboard or other route upon successful login
-      //   this.$router.push('/register')
-      // }
+    validateForm() {
+      let isValid = true
+      this.errors = {
+        email: '',
+        password: ''
+      }
+      if (!this.loginAttribute.email) {
+        this.errors.email = 'Email bắt buộc nhập!'
+        isValid = false
+      }
+      if (!this.loginAttribute.password) {
+        this.errors.password = 'Mật khẩu bắt buộc nhập!'
+        isValid = false
+      }
+      return isValid
+    },
+    submitLogin() {
+      if (this.validateForm()) {
+        alert('OK')
+      }
     }
   }
 }
 </script>
-
 
 <style scoped>
 .login_wrap {
   border: none;
   margin: 0 20px;
 }
-label {
-  font-size: 15 !important;
-  color: #f15412 !important;
-  opacity: 0.8;
-}
 input {
   font-size: 16px;
-  height: 45px;
-  font-weight: 500;
-  border-width: 2px;
+  height: 50px;
+  border: 3px solid #d2d4d5;
 }
 input::placeholder {
-  opacity: 0.8;
+  opacity: 0.6;
+}
+label {
+  color: #3984e3 !important;
+}
+.invalid-feedback {
+  font-size: 1em;
 }
 .title {
   font-weight: bold;
   color: #39b4ac;
-}
-.check-box {
-  color: #3984e3 !important;
 }
 .remember {
   font-size: 16px;
@@ -136,6 +170,9 @@ input::placeholder {
 }
 .remember:hover {
   color: #f15412 !important;
+}
+.register h5 {
+  color: #a4a1a1;
 }
 .register a {
   color: #3984e3 !important;

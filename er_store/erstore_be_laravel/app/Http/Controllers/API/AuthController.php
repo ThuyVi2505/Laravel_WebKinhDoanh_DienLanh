@@ -6,23 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+
 use App\Models\User;
+use App\Http\Requests\{LoginRequest, RegisterRequest};
 
 class AuthController extends Controller
 {
     /**/
-    public function register(Request $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
         // Validate incoming request
-        $request->validate([
-            'name' => '',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-        if(is_null($request->name)){
+        $request->all();
+        if (is_null($request->name)) {
             $name = explode('@', $request->email)[0];
-        }
-        else{
+        } else {
             $name = $request->name;
         }
         // Create the user
@@ -32,45 +29,42 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
         // Generate token for the user
-        $token = $user->createToken('user_register_token')->plainTextToken;
+        // $token = $user->createToken('user_register_token')->plainTextToken;
 
         // Set token expiration time (optional)
-        $user->tokens()->where('tokenable_id', $user->id)->update(['expires_at' => now()->addDays(3)]);
+        // $user->tokens()->where('tokenable_id', $user->id)->update(['expires_at' => now()->addDays(3)]);
 
-        return response()->json(['message' => 'Đăng ký tài khoản thành công', 'user' => $user, 'access_token' => $token], status: JsonResponse::HTTP_CREATED);
+        return response()->json(['status_code'=>JsonResponse::HTTP_CREATED,'message' => 'Đăng ký tài khoản thành công', 'user' => $user], status: JsonResponse::HTTP_CREATED);
     }
     /**/
-    public function login(Request $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         // Validate incoming request
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
-        $user = User::where('email',  $request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            if(!$user){
-                return response()->json([
-                    'message' => ['Tài khoản người dùng không tồn tại trên hệ thống'],
-                ], status: JsonResponse::HTTP_UNAUTHORIZED);
-            }
+        $dataCreate = $request->all();
+
+        $user = User::where('email',  $dataCreate['email'])->first();
+        if (!$user || !Hash::check($dataCreate['password'], $user->password)) {
             return response()->json([
+                'status_code' => JsonResponse::HTTP_UNAUTHORIZED,
                 'message' => ['Email hoặc mật khẩu không chính xác'],
             ], status: JsonResponse::HTTP_UNAUTHORIZED);
         }
 
         $user->tokens()->delete();
-
+        // $user->tokens()->where('tokenable_id', $user->id)->update(['expires_at' => now()->addDays(3)]);
         return response()->json([
-            'status' => 'success',
+            'status_code' => JsonResponse::HTTP_OK,
             'message' => 'Đăng nhập thành công',
-            'name' => $user->name,
-            'email' => $user->email,
-            'access_token' => $user->createToken('user_login_token')->plainTextToken,
-        ]);
+            'auth_response' => [
+                'name' => $user->name,
+                'email' => $user->email,
+                'access_token' => $user->createToken('user_login_token')->plainTextToken,
+                // 'expires_at' => $user->expires_at
+            ]
+        ], status: JsonResponse::HTTP_OK);
     }
     /**/
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(
