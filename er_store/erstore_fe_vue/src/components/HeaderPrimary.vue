@@ -162,6 +162,7 @@
           <div class="logo logo-width-1 d-block d-lg-none">
             <a href="index.html"><img src="../assets/imgs/logo/logo.png" alt="logo" /></a>
           </div>
+
           <div class="header-nav d-none d-lg-flex">
             <div class="main-categori-wrap d-none d-lg-block">
               <a class="categori-button-active" @click="toggleCategory">
@@ -517,7 +518,6 @@ export default {
 .open {
   display: block;
 }
-
 li.account a:hover,
 li.account a.register:hover {
   color: orange !important;
@@ -538,7 +538,7 @@ a.checkout:hover {
   color: #008080;
 }
 .menu-show {
-  /* background-color: #ffffef !important; */
+  background-color: #ffffef !important;
   box-shadow: 1px 1px 5px #e3e5e5;
 }
 .position-static ul.mega-menu li a img:hover {

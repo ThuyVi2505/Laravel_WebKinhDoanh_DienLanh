@@ -1,23 +1,29 @@
 <script setup>
 import { RouterView } from 'vue-router'
-// import HeaderPrimary from './components/HeaderPrimary.vue'
-// import FooterPrimary from './components/FooterPrimary.vue'
-// import RegisterLetter from './components/RegisterLetter.vue'
+</script>
+<script>
 import { HeaderPrimary, FooterPrimary, RegisterLetter } from '@/components'
+export default {
+  name: 'App',
+  components: {
+    HeaderPrimary,
+    FooterPrimary,
+    RegisterLetter
+  }
+}
 </script>
 
 <template>
   <!-- --header-- -->
   <HeaderPrimary />
-  <!-- <RouterView name="top_slider" /> -->
-  <RouterView name="product_tab" />
   <!-- --end header-- -->
   <!-- main content -->
-  <RouterView />
-
+  <main><RouterView /></main>
+  <!-- --end main content-- -->
+  <!-- footer -->
   <RegisterLetter />
   <FooterPrimary />
-  <!-- --end main content-- -->
+  <!-- end footer -->
 </template>
 
 <style scoped>
