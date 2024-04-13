@@ -17,8 +17,17 @@ return new class extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('prod_name', 255);
             $table->string('prod_slug', 255);
-            $table->bigInteger('prod_price');
-            $table->bigInteger('prod_stock');
+            $table->bigInteger('prod_price');//->giá
+            $table->bigInteger('prod_stock');//->số lượng kho
+            $table->string('origin_country')->nullable();//->nguồn gốc xuất xứ
+            $table->string('guarantee_period')->nullable();//->thời gian bảo hành
+
+            $table->Integer('brand_id')->unsigned()->nullable();
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
+
+            $table->Integer('cat_id')->unsigned()->nullable();
+            $table->foreign('cat_id')->references('id')->on('categories')->onDelete('set null');
+
             $table->tinyInteger('isActive')->default('0');
 
             $table->unique('prod_name');

@@ -18,6 +18,10 @@ class Product extends Model
         'prod_slug',
         'prod_price',
         'prod_stock',
+        'origin_country',
+        'guarantee_period',
+        'brand_id',
+        'cat_id',
         'isActive',
     ];
     public $timestamps = false;
@@ -30,4 +34,17 @@ class Product extends Model
     {
         return $this->hasMany(Image::class, 'prod_id', 'id');
     }
+    public function sale()
+    {
+        return $this->hasOne(SaleProd::class, 'product_id', 'id');
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'cat_id','id');
+    }
+
 }

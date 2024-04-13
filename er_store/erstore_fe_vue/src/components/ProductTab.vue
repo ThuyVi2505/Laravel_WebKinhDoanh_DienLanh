@@ -97,12 +97,10 @@
                 </div>
                 <div class="product-content-wrap">
                   <div class="product-category">
-                    <a href="shop.html">TOSHIBA</a>
+                    <a href="">{{ prod.brand.name }}</a>
                   </div>
                   <h2>
-                    <a href="product-details.html" class="product-title" title="Colorfull">{{
-                      prod.prod_name
-                    }}</a>
+                    <a href="" class="product-title" title="Colorfull">{{ prod.prod_name }}</a>
                   </h2>
                   <div class="rating-result" title="90%">
                     <span>
@@ -217,7 +215,7 @@
                 </div>
                 <div class="product-content-wrap">
                   <div class="product-category">
-                    <a href="shop.html">AQUA</a>
+                    <a href="shop.html"></a>
                   </div>
                   <h2>
                     <a href="product-details.html" class="product-title"

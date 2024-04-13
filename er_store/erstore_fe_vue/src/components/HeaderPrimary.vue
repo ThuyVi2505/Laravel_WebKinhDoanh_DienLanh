@@ -501,16 +501,6 @@ export default {
         header.classList.add('stick')
       }
     }
-    // async fetchBrands() {
-    //   await api
-    //     .get(getAll_brand)
-    //     .then((response) => {
-    //       this.brands = response.data.data
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error fetching brands:', error)
-    //     })
-    // }
   }
 }
 </script>

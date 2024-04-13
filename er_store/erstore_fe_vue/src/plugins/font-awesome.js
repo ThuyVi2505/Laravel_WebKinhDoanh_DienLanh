@@ -6,10 +6,16 @@ import {
   faUserPlus,
   faSignInAlt,
   faSignOutAlt,
-  faChevronLeft,
   faEarthAmericas,
   faVolumeControlPhone,
-  faExclamationCircle
+  faExclamationCircle,
+  faChevronLeft,
+  faChevronRight,
+  faBookBookmark,
+  faHandHoldingDollar,
+  faTruckFast,
+  faScrewdriverWrench,
+  faStar
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -18,10 +24,16 @@ library.add(
   faUserPlus,
   faSignInAlt,
   faSignOutAlt,
-  faChevronLeft,
   faEarthAmericas,
   faVolumeControlPhone,
-  faExclamationCircle
+  faExclamationCircle,
+  faChevronLeft,
+  faChevronRight,
+  faBookBookmark,
+  faHandHoldingDollar,
+  faTruckFast,
+  faScrewdriverWrench,
+  faStar
 )
 
 export { FontAwesomeIcon }

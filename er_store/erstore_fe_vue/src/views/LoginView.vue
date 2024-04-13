@@ -5,7 +5,8 @@
       <div class="breadcrumb">
         <router-link :to="{ name: 'home' }" rel="nofollow">Trang chủ</router-link>
         <!-- <a href="index.html" rel="nofollow">Home</a> -->
-        <span></span> Đăng nhập
+        <span></span>
+        <a style="pointer-events: none">Đăng nhập</a>
       </div>
     </div>
   </div>
@@ -142,7 +143,17 @@ export default {
 </script>
 
 <style scoped>
+.page-header {
+  background-color: #ebe8e2;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.page-header a {
+  font-size: 1rem;
+}
 .login_wrap {
+  background-color: #fff;
+  box-shadow: 1px 1px 2px #a4a1a1;
   border: none;
   margin: 0 20px;
 }

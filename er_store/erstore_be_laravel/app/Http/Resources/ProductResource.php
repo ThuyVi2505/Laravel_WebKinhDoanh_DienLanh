@@ -35,18 +35,31 @@ class ProductResource extends JsonResource
                 $attributesFormatted[$key] = $value;
             }
         }
-        
 
         return [
             'id' => $this->id,
             'prod_name' => $this->prod_name,
             'prod_slug' => $this->prod_slug,
             'prod_price' => $this->prod_price,
+            'sale' => [
+                'percent'=>$this->sale->percent,
+                'price'=>$this->prod_price-round($this->sale->percent/100*$this->prod_price)
+            ],
             'prod_stock' => $this->prod_stock,
+            'origin_country' => $this->origin_country,
+            'guarantee_period' => $this->guarantee_period,
+            'brand' => [
+                'id' => $this->brand->id,
+                'name' => $this->brand->brand_name,
+            ],
+            'category' => [
+                'id' => $this->category->id,
+                'name' => $this->category->cat_name,
+            ],
             'images' => $this->images->pluck('image')->map(function ($imageUrl) {
                 return $imageUrl;
             }),
-            'attributes' =>$attributesFormatted,
+            'attributes' => $attributesFormatted,
 
             // 'attributes' =>
             //     $this->attributes->groupBy('key')->map(function ($group) {

@@ -1,12 +1,14 @@
 <template>
   <swiper
-    :options="swiperOptions"
     class="swiper1"
     :modules="modules"
     :centeredSlides="true"
     :centeredSlidesBounds="true"
-    :slides-per-view="1"
-    :navigation="true"
+    :slidesPerView="1"
+    :navigation="{
+      nextEl: '.swiper-button-next-fix',
+      prevEl: '.swiper-button-prev-fix'
+    }"
     :pagination="{ clickable: true }"
     :loop="true"
     :speed="2000"
@@ -31,6 +33,13 @@
     <swiper-slide class="slide"><img src="../assets/imgs/banner/1.png" alt="" /></swiper-slide>
     <swiper-slide class="slide"><img src="../assets/imgs/banner/2.png" alt="" /></swiper-slide>
     <swiper-slide class="slide"><img src="../assets/imgs/banner/3.png" alt="" /></swiper-slide>
+    <!-- Custom navigation buttons -->
+    <div class="swiper-button-prev-fix">
+      <font-awesome-icon icon="chevron-left" />
+    </div>
+    <div class="swiper-button-next-fix">
+      <font-awesome-icon icon="chevron-right" />
+    </div>
   </swiper>
 </template>
   <script>
@@ -50,17 +59,16 @@ export default defineComponent({
     Swiper,
     SwiperSlide
   },
-
   setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper)
-    }
-    const onSlideChange = () => {
-      console.log('slide change')
-    }
+    // const onSwiper = (swiper) => {
+    //   console.log(swiper)
+    // }
+    // const onSlideChange = () => {
+    //   console.log('slide change')
+    // }
     return {
-      onSwiper,
-      onSlideChange,
+      // onSwiper,
+      // onSlideChange,
       modules: [Navigation, Pagination, Autoplay, EffectCreative]
     }
   }
@@ -78,7 +86,39 @@ export default defineComponent({
 .swiper-slide {
   height: auto !important;
 }
-.swiper-pagination-bullet-active {
-  background-color: #ff8800 !important;
+.swiper-button-prev-fix,
+.swiper-button-next-fix {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(204, 208, 206, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  color: #fff;
+  transition: background-color 1s ease-out;
+}
+
+.swiper-button-prev-fix {
+  left: 30px;
+}
+
+.swiper-button-next-fix {
+  right: 30px;
+}
+
+.swiper-button-prev-fix:hover,
+.swiper-button-next-fix:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.swiper-button-prev-fix svg,
+.swiper-button-next-fix svg {
+  width: 25px;
+  height: 25px;
 }
 </style>

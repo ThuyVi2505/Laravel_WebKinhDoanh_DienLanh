@@ -33,7 +33,12 @@ class ProductRequest extends FormRequest
                     'prod_slug' => [''],
                     'prod_price'=> ['required', 'integer'],
                     'prod_stock'=>['required','integer'],
+                    'origin_country'=>[''],
+                    'guarantee_period'=>[''],
+                    'brand_id'=>['required'],
+                    'cat_id'=>['required'],
                     'isActive' => [''],
+                    'sale_percent'=>[''],
                     'images.*' => ['image', 'mimes:jpg,png,jpeg']
                 ];
             case 'PUT':
@@ -43,7 +48,12 @@ class ProductRequest extends FormRequest
                     'prod_slug' => [''],
                     'prod_price'=> ['required', 'integer'],
                     'prod_stock'=>['required','integer'],
+                    'origin_country'=>[''],
+                    'guarantee_period'=>[''],
+                    'brand_id'=>[''],
+                    'cat_id'=>[''],
                     'isActive' => [''],
+                    'sale_percent'=>[''],
                     'images.*' => ['image', 'mimes:jpg,png,jpeg']
                 ];
         }

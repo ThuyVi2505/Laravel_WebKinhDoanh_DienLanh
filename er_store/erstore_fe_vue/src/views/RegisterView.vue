@@ -85,7 +85,17 @@
 <script setup></script>
 
 <style scoped>
+.page-header {
+  background-color: #ebe8e2;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.page-header a {
+  font-size: 1rem;
+}
 .login_wrap {
+  background-color: #fff;
+  box-shadow: 1px 1px 2px #a4a1a1;
   border: none;
   margin: 0 20px;
 }

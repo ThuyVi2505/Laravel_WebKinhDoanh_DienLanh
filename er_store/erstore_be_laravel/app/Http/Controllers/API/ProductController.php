@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Http\Requests\ProductRequest;
-use App\Models\{Image, Product, ProductImage};
+use App\Models\{Image, Product, SaleProd};
 
 class ProductController extends Controller
 {
@@ -79,6 +79,8 @@ class ProductController extends Controller
         $prod->isActive = is_null($request->isActive) ? 0 : $request->isActive;
         $prod->prod_price = $request->prod_price;
         $prod->prod_stock = $request->prod_stock;
+        $prod->origin_country = $request->origin_country;
+        $prod->guarantee_period = $request->guarantee_period;
         $prod->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $prod->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $prod->save($dataCreate);
@@ -103,6 +105,18 @@ class ProductController extends Controller
                     $image->save();
                 }
             };
+        }
+        if(!is_null($request->sale_percent)){
+            $sale = new SaleProd();
+            $sale->product_id = $prod->id;
+            $sale->percent = $request->sale_percent;
+            $sale->save();
+        }
+        else{
+            $sale = new SaleProd();
+            $sale->product_id = $prod->id;
+            $sale->percent = 0;
+            $sale->save();
         }
         // prod resource
         $Resc = new ProductResource($prod);
