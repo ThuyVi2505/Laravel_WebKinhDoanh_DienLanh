@@ -12,6 +12,8 @@
 /*RESET*/
 #app {
   background-color: #f5f6f8;
+  -webkit-user-select: none; /* for Safari */
+  user-select: none;
 }
 html,
 body,
@@ -3697,18 +3699,19 @@ table .product-thumbnail img {
 
 .product-cart-wrap .product-badges.product-badges-position {
   position: absolute;
-  left: 20px;
-  top: 19px;
-  z-index: 9;
+  right: 10px;
+  top: 10px;
+  z-index: 8;
 }
 
 .product-cart-wrap .product-badges span {
   display: inline-block;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
   border-radius: 40px;
   color: #fff;
-  padding: 5px 10px;
+  font-weight: 600;
+  padding: 15px 5px;
 }
 
 .product-cart-wrap .product-badges span:last-child {
@@ -3716,7 +3719,7 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-badges span.hot {
-  background-color: #ff75a0;
+  background-color: #ff1900;
 }
 
 .product-cart-wrap .product-badges span.new {
@@ -3741,7 +3744,8 @@ table .product-thumbnail img {
 
 .product-cart-wrap .product-content-wrap .product-category a {
   color: #90908e;
-  font-size: 12px;
+  text-transform: uppercase;
+  font-size: 13px;
 }
 
 .product-cart-wrap .product-content-wrap .product-category a:hover {

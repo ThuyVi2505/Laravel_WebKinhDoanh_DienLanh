@@ -16,6 +16,7 @@ const app = createApp(App)
 // app.config.globalProperties.$http = axios
 app.use(createPinia())
 // app.use(store)
-app.use(router).component('font-awesome-icon', FontAwesomeIcon)
+app.use(router)
+app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app')

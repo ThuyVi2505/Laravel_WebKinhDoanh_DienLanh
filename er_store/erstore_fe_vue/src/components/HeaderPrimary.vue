@@ -264,14 +264,7 @@
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
               <nav>
                 <ul>
-                  <li class="position-static">
-                    <a href="#">Thương hiệu <i class="fi-rs-angle-down"></i></a>
-                    <ul class="mega-menu row-cols-8 menu-show">
-                      <li v-for="brand in brandList" v-bind:key="brand.id">
-                        <a href="/a"><img :src="brand.thumnail" alt="" /></a>
-                      </li>
-                    </ul>
-                  </li>
+                  <menuBrand :brandList="brandList" />
                   <li>
                     <a>Về chúng tôi<i class="fi-rs-angle-down"></i></a>
                     <ul class="sub-menu menu-show">
@@ -437,8 +430,8 @@
     </div>
   </header>
 </template>
-
 <script setup>
+//services
 import useBrand from '../services/brandServices'
 import useCategory from '@/services/categoryServices'
 import { onMounted } from 'vue'
@@ -446,18 +439,17 @@ const { brandList, getAllBrand } = useBrand()
 const { categoryList, getAllCategory, isHaveChild, getChildCategory } = useCategory()
 onMounted(getAllBrand)
 onMounted(getAllCategory)
+
 // console.warn(brandList)
 </script>
 <script>
-// defineProps({
-//   logoURL: {
-//     type: String,
-//     required: true
-//   }
-// })
-// import { api, getAll_brand } from '../services/apiBaseSetup'
-
+// components
+import menuBrand from '../components/brand/menuBrand.vue'
 export default {
+  name: 'HeaderPrimary',
+  components: {
+    menuBrand
+  },
   created() {
     // this.fetchBrands()
   },

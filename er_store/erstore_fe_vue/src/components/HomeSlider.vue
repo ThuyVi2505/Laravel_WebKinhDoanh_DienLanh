@@ -60,15 +60,15 @@ export default defineComponent({
     SwiperSlide
   },
   setup() {
-    // const onSwiper = (swiper) => {
-    //   console.log(swiper)
-    // }
-    // const onSlideChange = () => {
-    //   console.log('slide change')
-    // }
+    const onSwiper = (swiper) => {
+      console.log(swiper)
+    }
+    const onSlideChange = () => {
+      console.log('slide change')
+    }
     return {
-      // onSwiper,
-      // onSlideChange,
+      onSwiper,
+      onSlideChange,
       modules: [Navigation, Pagination, Autoplay, EffectCreative]
     }
   }

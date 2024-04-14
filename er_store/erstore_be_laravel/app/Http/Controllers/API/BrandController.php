@@ -29,7 +29,7 @@ class BrandController extends Controller
     public function getAll()
     {
         // get all brand list
-        $all = Brand::all();
+        $all = Brand::where('isActive',1)->get();
         // brand resource
         $allResc = BrandResource::collection($all);
         // re-type brand respond api

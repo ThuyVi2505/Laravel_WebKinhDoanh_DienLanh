@@ -30,7 +30,7 @@
           >
             <div
               class=""
-              v-for="prod in prodList
+              v-for="prod in store.products
                 .filter((product) => product.sale.percent !== 0)
                 .sort((b, a) => a.id - b.id)
                 .slice(0, 10)"
@@ -40,7 +40,10 @@
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
                     <router-link
-                      :to="{ name: 'ProductDetail', params: { slug: prod.prod_slug, id: prod.id } }"
+                      :to="{
+                        name: 'ProductDetailView',
+                        params: { id: prod.id }
+                      }"
                     >
                       <img class="default-img" :src="prod.images[0]" alt="" />
                       <img class="hover-img" :src="prod.images[1]" alt="" />
@@ -67,7 +70,7 @@
                     ></a>
                   </div>
                   <div class="product-badges product-badges-position product-badges-mrg">
-                    <span class="hot">giảm {{ prod.sale.percent }}%</span>
+                    <span class="hot">- {{ prod.sale.percent }}%</span>
                   </div>
                 </div>
                 <div class="product-content-wrap">
@@ -76,7 +79,7 @@
                   </div>
                   <h2>
                     <router-link
-                      :to="{ name: 'ProductDetail', params: { slug: prod.prod_slug, id: prod.id } }"
+                      :to="{ name: 'ProductDetailView', params: { id: prod.id } }"
                       class="product-title"
                       :title="prod.prod_name"
                       >{{ prod.prod_name }}</router-link
@@ -126,10 +129,26 @@
   </div>
 </template>
 <script setup>
-import useProduct from '../services/productServices'
 import { onMounted } from 'vue'
-const { prodList, getAllProduct } = useProduct()
-onMounted(getAllProduct)
+import { useProductStore } from '@/stores/product.store'
+// import { useRouter } from 'vue-router'
+
+const store = useProductStore()
+// const router = useRouter()
+
+// const search = ref('')
+
+// const goToProductPage = (id) => {
+//   router.push({ name: 'ProductView', params: { id } })
+// }
+
+onMounted(async () => {
+  await store.fetchProducts()
+})
+// import useProduct from '../services/productServices'
+// import { onMounted } from 'vue'
+// const { prodList, getAllProduct } = useProduct()
+// onMounted(getAllProduct)
 </script>
 <script>
 import { defineComponent } from 'vue'
