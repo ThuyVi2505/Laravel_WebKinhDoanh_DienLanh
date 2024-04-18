@@ -1,3 +1,17 @@
+<script setup>
+import { onMounted, onUnmounted } from 'vue'
+//services
+import useProduct from '../services/productServices'
+
+const { prodList, getAllProduct } = useProduct()
+onMounted(() => {
+  getAllProduct()
+})
+onUnmounted(() => {
+  prodList.value = []
+})
+// console.warn(brandList)
+</script>
 <script>
 import { HomeSlider, InfoSaleTrans, SaleProduct, SmallBannerTop } from '@/components'
 import ProductTab from '@/components/ProductTab.vue'
@@ -22,7 +36,7 @@ export default {
       <InfoSaleTrans />
     </section>
     <section class="sale-product container">
-      <SaleProduct />
+      <SaleProduct :prodList="prodList" />
     </section>
     <section class="small-banner-top container">
       <SmallBannerTop />

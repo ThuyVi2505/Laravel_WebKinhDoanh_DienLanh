@@ -1,5 +1,6 @@
 import './assets/css/main.css'
 import 'bootstrap'
+import './assets/js/plugins/scrollup'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import './assets/js/plugins/slick.js'
 
@@ -16,7 +17,6 @@ const app = createApp(App)
 // app.config.globalProperties.$http = axios
 app.use(createPinia())
 // app.use(store)
-app.use(router)
-app.component('font-awesome-icon', FontAwesomeIcon)
+app.use(router).component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app')

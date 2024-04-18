@@ -15,7 +15,8 @@ import {
   faHandHoldingDollar,
   faTruckFast,
   faScrewdriverWrench,
-  faStar
+  faStar,
+  faImage
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -33,7 +34,8 @@ library.add(
   faHandHoldingDollar,
   faTruckFast,
   faScrewdriverWrench,
-  faStar
+  faStar,
+  faImage
 )
 
 export { FontAwesomeIcon }

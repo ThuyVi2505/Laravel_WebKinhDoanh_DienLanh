@@ -87,7 +87,6 @@
 <style scoped>
 .page-header {
   background-color: #ebe8e2;
-  font-weight: 600;
   font-size: 1rem;
 }
 .page-header a {

@@ -356,6 +356,7 @@
               <!-- <i class="fi-rs-smartphone"></i> -->
               <span>LIÊN HỆ HỖ TRỢ</span>
               <a href="tel:10000000">(+1) 0000-000-000</a>
+              <span>(24/24)</span>
             </p>
           </div>
           <p class="mobile-promotion">

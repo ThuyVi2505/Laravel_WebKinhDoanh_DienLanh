@@ -41,10 +41,13 @@ class ProductResource extends JsonResource
             'prod_name' => $this->prod_name,
             'prod_slug' => $this->prod_slug,
             'prod_price' => $this->prod_price,
-            'sale' => [
-                'percent'=>$this->sale->percent,
-                'price'=>$this->prod_price-round($this->sale->percent/100*$this->prod_price)
-            ],
+            'sale_percent'=> $this->sale->percent,
+            'sale_price'=>$this->prod_price-round($this->sale->percent/100*$this->prod_price),
+            'sale_at'=>$this->sale->updated_at->format('H:i:s d/m/Y'),
+            // 'sale' => [
+            //     'percent'=>$this->sale->percent,
+            //     'price'=>$this->prod_price-round($this->sale->percent/100*$this->prod_price)
+            // ],
             'prod_stock' => $this->prod_stock,
             'origin_country' => $this->origin_country,
             'guarantee_period' => $this->guarantee_period,

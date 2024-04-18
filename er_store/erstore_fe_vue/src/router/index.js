@@ -18,5 +18,12 @@ const router = createRouter({
     { ...defaultRoutes }
   ]
 })
+// Tạo một global navigation guard
+router.beforeEach((to, from, next) => {
+  // Cuộn lên đầu trang mới khi chuyển hướng
 
+  window.scrollTo(0, 0)
+  // Chuyển tiếp đến route tiếp theo
+  next()
+})
 export default router
