@@ -16,7 +16,9 @@ import {
   faTruckFast,
   faScrewdriverWrench,
   faStar,
-  faImage
+  faImage,
+  faSquarePlus,
+  faSquareMinus
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -35,7 +37,9 @@ library.add(
   faTruckFast,
   faScrewdriverWrench,
   faStar,
-  faImage
+  faImage,
+  faSquarePlus,
+  faSquareMinus
 )
 
 export { FontAwesomeIcon }

@@ -1,3 +1,15 @@
+<script setup>
+import { useShopCartStore } from '../../stores'
+//get props
+const { prod } = defineProps({
+  prod: {
+    required: true,
+    type: Object
+  }
+})
+//get store
+const data = useShopCartStore()
+</script>
 <template>
   <div>
     <div class="product-cart-wrap mb-30">
@@ -75,7 +87,7 @@
           <span>{{ prod.sale_price?.toLocaleString('vi-VN') }} &#8363;</span>
         </div>
         <div class="product-action-1 show">
-          <a aria-label="Thêm vào giỏ" class="action-btn hover-up" href="cart.html"
+          <a aria-label="Thêm vào giỏ" class="action-btn hover-up" @click="data.addToCart(prod)"
             ><i class="fi-rs-shopping-bag-add"></i
           ></a>
         </div>
@@ -86,14 +98,14 @@
 <script>
 export default {}
 </script>
-<script setup>
+<!-- <script setup>
 const { prod } = defineProps({
   prod: {
     required: true,
     type: Object
   }
 })
-</script>
+</script> -->
 <style scoped>
 .default-img,
 .hover-img {

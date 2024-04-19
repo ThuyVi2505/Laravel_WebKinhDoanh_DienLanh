@@ -98,51 +98,79 @@
                   </a>
                 </div>
                 <div class="header-action-icon-2">
-                  <a class="mini-cart-icon" href="cart.html">
+                  <a class="mini-cart-icon">
                     <img
                       class="svgInject"
                       alt="Surfside Media"
                       src="../assets/imgs/theme/icons/icon-cart.svg"
                     />
-                    <span class="pro-count blue">2</span>
+                    <span class="pro-count blue" v-if="data.countCartItems > 0">{{
+                      data.countCartItems
+                    }}</span>
                   </a>
                   <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                    <ul>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="product-details.html"
-                            ><img alt="Surfside Media" src="../assets/imgs/shop/thumbnail-3.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4><a href="product-details.html">Daisy Casual Bag</a></h4>
-                          <h4><span>01 × </span>$800.00</h4>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="product-details.html"
-                            ><img alt="Surfside Media" src="../assets/imgs/shop/thumbnail-2.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4><a href="product-details.html">Corduroy Shirts</a></h4>
-                          <h4><span>01 × </span>$3200.00</h4>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                    </ul>
+                    <div v-if="data.getCartItems.length <= 0"><a>Giỏ hàng đang trống</a></div>
+                    <div v-else>
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td colspan="3" class="text-end">
+                              <a class="m" @click="data.removeAll()"
+                                ><i class="fi-rs-cross-small"></i> Xóa tất cả</a
+                              >
+                            </td>
+                          </tr>
+                          <tr v-for="item in data.getCartItems" :key="item.id">
+                            <td style="width: 60px">
+                              <div class="shopping-cart-img">
+                                <a href="product-details.html"
+                                  ><img
+                                    alt="Surfside Media"
+                                    :src="item.images[0]"
+                                    style="object-fit: contain"
+                                    width="100%"
+                                    height="100%"
+                                /></a>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="shopping-cart-title">
+                                <h5>
+                                  <a href="product-details.html">{{ item.prod_name }}</a>
+                                </h5>
+                                <h5 class="fw-normal">
+                                  <span
+                                    >{{ item.sale_price.toLocaleString('vi-VN') }} &#8363; × </span
+                                  >{{ item.quantity }}
+                                </h5>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="shopping-cart-delete">
+                                <a @click="data.removeFromCart(item)"
+                                  ><i class="fi-rs-cross-small"></i
+                                ></a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
                     <div class="shopping-cart-footer">
                       <div class="shopping-cart-total">
-                        <h4>Total <span>$4000.00</span></h4>
+                        <h4>
+                          Tổng
+                          <span>
+                            {{ data.totalCartItems }}
+                            &#8363;
+                          </span>
+                        </h4>
                       </div>
                       <div class="shopping-cart-button">
-                        <a href="cart.html" class="outline">Xem giỏ hàng</a>
+                        <router-link :to="{ name: 'ProductCart' }" class="outline">
+                          Xem giỏ hàng
+                        </router-link>
                         <a href="checkout.html" class="checkout bg-primary border-primary"
                           >Thanh toán</a
                         >
@@ -160,7 +188,7 @@
       <div class="container">
         <div class="header-wrap header-space-between position-relative">
           <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="index.html"><img src="../assets/imgs/logo/logo.png" alt="logo" /></a>
+            <a><img src="../assets/imgs/logo/logo.png" alt="logo" /></a>
           </div>
 
           <div class="header-nav d-none d-lg-flex">
@@ -273,7 +301,7 @@
                       <li><a href="#">Bảo trì & lắp đặt</a></li>
                     </ul>
                   </li>
-                  <li><a href="">Liên hệ</a></li>
+                  <!-- <li><a href="">Liên hệ</a></li> -->
                   <li><a href="">Khuyến mãi</a></li>
                   <li>
                     <a href="#">Tin tức<i class="fi-rs-angle-down"></i></a>
@@ -354,9 +382,8 @@
             <p>
               <font-awesome-icon icon="volume-control-phone" class="me-2" />
               <!-- <i class="fi-rs-smartphone"></i> -->
-              <span>LIÊN HỆ HỖ TRỢ</span>
+              <span>LIÊN HỆ HỖ TRỢ (24/24):</span>
               <a href="tel:10000000">(+1) 0000-000-000</a>
-              <span>(24/24)</span>
             </p>
           </div>
           <p class="mobile-promotion">
@@ -371,48 +398,77 @@
                 </a>
               </div>
               <div class="header-action-icon-2">
-                <a class="mini-cart-icon" href="cart.html">
+                <a class="mini-cart-icon">
                   <img alt="Surfside Media" src="../assets/imgs/theme/icons/icon-cart.svg" />
-                  <span class="pro-count white">2</span>
+                  <span class="pro-count white" v-if="data.countCartItems > 0">{{
+                    data.countCartItems
+                  }}</span>
                 </a>
                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                  <ul>
-                    <li>
-                      <div class="shopping-cart-img">
-                        <a href="product-details.html"
-                          ><img alt="Surfside Media" src="../assets/imgs/shop/thumbnail-3.jpg"
-                        /></a>
-                      </div>
-                      <div class="shopping-cart-title">
-                        <h4><a href="product-details.html">Plain Striola Shirts</a></h4>
-                        <h3><span>1 × </span>$800.00</h3>
-                      </div>
-                      <div class="shopping-cart-delete">
-                        <a href="#"><i class="fi-rs-cross-small"></i></a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="shopping-cart-img">
-                        <a href="product-details.html"
-                          ><img alt="Surfside Media" src="../assets/imgs/shop/thumbnail-4.jpg"
-                        /></a>
-                      </div>
-                      <div class="shopping-cart-title">
-                        <h4><a href="product-details.html">Macbook Pro 2022</a></h4>
-                        <h3><span>1 × </span>$3500.00</h3>
-                      </div>
-                      <div class="shopping-cart-delete">
-                        <a href="#"><i class="fi-rs-cross-small"></i></a>
-                      </div>
-                    </li>
-                  </ul>
+                  <div v-if="data.getCartItems.length <= 0"><a>Giỏ hàng đang trống</a></div>
+                  <div v-else>
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <td colspan="3" class="text-end">
+                            <a class="m" @click="data.removeAll()"
+                              ><i class="fi-rs-cross-small"></i> Xóa tất cả</a
+                            >
+                          </td>
+                        </tr>
+                        <tr v-for="item in data.getCartItems" :key="item.id">
+                          <td style="width: 60px">
+                            <div class="shopping-cart-img">
+                              <a href="product-details.html"
+                                ><img
+                                  alt="Surfside Media"
+                                  :src="item.images[0]"
+                                  style="object-fit: contain"
+                                  width="100%"
+                                  height="100%"
+                              /></a>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="shopping-cart-title">
+                              <h5>
+                                <a href="product-details.html">{{ item.prod_name }}</a>
+                              </h5>
+                              <h5 class="fw-normal">
+                                <span>{{ item.sale_price.toLocaleString('vi-VN') }} &#8363; × </span
+                                >{{ item.quantity }}
+                              </h5>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="shopping-cart-delete">
+                              <a @click="data.removeFromCart(item)"
+                                ><i class="fi-rs-cross-small"></i
+                              ></a>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
                   <div class="shopping-cart-footer">
                     <div class="shopping-cart-total">
-                      <h4>Total <span>$383.00</span></h4>
+                      <h4>
+                        Tổng
+                        <span>
+                          {{ data.totalCartItems }}
+                          &#8363;
+                        </span>
+                      </h4>
                     </div>
                     <div class="shopping-cart-button">
-                      <a href="cart.html">View cart</a>
-                      <a href="shop-checkout.php">Checkout</a>
+                      <router-link :to="{ name: 'ProductCart' }" class="outline">
+                        Xem giỏ hàng
+                      </router-link>
+                      <a href="checkout.html" class="checkout bg-primary border-primary"
+                        >Thanh toán</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -436,6 +492,9 @@
 import useBrand from '../services/brandServices'
 import useCategory from '@/services/categoryServices'
 import { onMounted } from 'vue'
+import { useShopCartStore } from '../stores'
+//get store
+const data = useShopCartStore()
 const { brandList, getAllBrand } = useBrand()
 const { categoryList, getAllCategory, isHaveChild, getChildCategory } = useCategory()
 onMounted(getAllBrand)

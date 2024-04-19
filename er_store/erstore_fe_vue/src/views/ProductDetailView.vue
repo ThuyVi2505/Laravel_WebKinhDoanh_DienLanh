@@ -9,6 +9,9 @@
 
 //   getAllProduct()
 // })
+import { useShopCartStore } from '../stores'
+//get store
+const data = useShopCartStore()
 </script>
 <script>
 import axios from 'axios'
@@ -98,7 +101,9 @@ export default {
         </div>
         <div class="product-button mt-20 row">
           <div class="check-out col-7"><button class="w-100">Mua ngay</button></div>
-          <div class="add-cart col-5"><button class="w-100">Thêm vào giỏ hàng</button></div>
+          <div class="add-cart col-5">
+            <button class="w-100" @click="data.addToCart(prodDetail)">Thêm vào giỏ hàng</button>
+          </div>
         </div>
         <div class="fw-bold text-center" style="font-size: 16px; margin: 20px 0 20px 0">
           Gọi đặt mua tại<a href="tel: (+1) 0000-000-000" class="mx-1">(+1) 0000-000-000</a>(07 -

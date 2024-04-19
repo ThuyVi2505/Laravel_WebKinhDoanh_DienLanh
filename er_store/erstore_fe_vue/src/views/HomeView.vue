@@ -2,7 +2,6 @@
 import { onMounted, onUnmounted } from 'vue'
 //services
 import useProduct from '../services/productServices'
-
 const { prodList, getAllProduct } = useProduct()
 onMounted(() => {
   getAllProduct()
@@ -10,11 +9,11 @@ onMounted(() => {
 onUnmounted(() => {
   prodList.value = []
 })
+
 // console.warn(brandList)
 </script>
 <script>
-import { HomeSlider, InfoSaleTrans, SaleProduct, SmallBannerTop } from '@/components'
-import ProductTab from '@/components/ProductTab.vue'
+import { HomeSlider, InfoSaleTrans, SaleProduct, SmallBannerTop, ProductTab } from '@/components'
 export default {
   name: 'HomeView',
   components: {
@@ -23,6 +22,7 @@ export default {
     SaleProduct,
     SmallBannerTop,
     ProductTab
+    /*--*/
   }
 }
 </script>
@@ -42,7 +42,9 @@ export default {
       <SmallBannerTop />
     </section>
     <!-- <section><h1>Top Slider banner</h1></section> -->
-    <section><ProductTab /></section>
+    <section class="product-tab container">
+      <product-tab></product-tab>
+    </section>
   </main>
 </template>
 <style scoped>
@@ -51,11 +53,13 @@ export default {
 }
 .info-sale-trans,
 .small-banner-top,
-.sale-product {
+.sale-product,
+.product-tab {
   background-color: #fff;
 }
 .small-banner-top,
-.sale-product {
+.sale-product,
+.product-tab {
   padding: 0;
   margin-top: 20px;
   border-radius: 10px;

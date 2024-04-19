@@ -1,4 +1,4 @@
-import { HomeView, LoginView, RegisterView, ProductDetailView } from '../views'
+import { HomeView, LoginView, RegisterView, ProductDetailView, CartView } from '../views'
 import { LayoutDefault } from '../views/layouts'
 
 export default {
@@ -13,6 +13,7 @@ export default {
       name: 'ProductDetailView',
       component: ProductDetailView
       // props: true
-    }
+    },
+    { path: 'product/cart', name: 'ProductCart', component: CartView }
   ]
 }
