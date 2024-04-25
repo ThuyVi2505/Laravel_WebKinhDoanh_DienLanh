@@ -12,6 +12,9 @@ use App\Http\Requests\{LoginRequest, RegisterRequest};
 
 class AuthController extends Controller
 {
+    protected function hash($string){
+        return hash('sha256', $string . config('app.encryption_key'));
+    }
     /**/
     public function register(RegisterRequest $request): JsonResponse
     {

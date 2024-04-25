@@ -94,10 +94,8 @@ class BrandController extends Controller
             $ext = $file->getClientOriginalExtension();
             date_default_timezone_set("Asia/Ho_Chi_Minh");
             $file_name = Str::slug($request->brand_name, '-') . '_' . date('Hisdmy') . '.' . $ext;
-            $file->move(public_path() . '/uploads/images/brand/', $file_name);
-            // $path = $file->storeAs('public/uploads/ThuongHieu', $file_name);
-
-            $brand->thumnail = asset('uploads/images/brand/' . $file_name);
+            $file->storeAs('public/uploads/Brand', $file_name);
+            $brand->thumnail = $file_name;
         }
 
         $brand->save($dataCreate);

@@ -19,7 +19,7 @@ class BrandResource extends JsonResource
             'id' => $this->id,
             'brand_name' => $this->brand_name,
             'brand_slug' => $this->brand_slug,
-            'thumnail' => $this->thumnail,
+            'thumnail' => asset('storage/uploads/Brand/'.$this->thumnail),
             'created_at' => $this->created_at->format('H:i:s d/m/Y'),
             'updated_at' => $this->updated_at->format('H:i:s d/m/Y'),
           ];

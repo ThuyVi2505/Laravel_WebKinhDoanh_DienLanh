@@ -30,9 +30,9 @@ class ImageController extends Controller
                 $check = in_array($ext, $allowedfileExtension);
                 if ($check) {
                     date_default_timezone_set("Asia/Ho_Chi_Minh");
-                    $file_name = date('Hisdmy') . $key . '.' . $ext;
-                    $file->move(public_path() . '/uploads/images/product/' . $prod->prod_slug . '/', $file_name);
-                    $urlImage = asset('uploads/images/product/' . $prod->prod_slug . '/' . $file_name);
+                    $file_name = Str::slug($prod->prod_name, '-') . '_' . date('Hisdmy') . $key . '.' . $ext;
+                    $file->storeAs('public/uploads/Product/' . $prod->id . '/', $file_name);
+                    $urlImage = $file_name;
 
                     $image = new Image();
                     $image->prod_id = $prod->id;

@@ -51,7 +51,7 @@ class ProductResource extends JsonResource
             'prod_stock' => $this->prod_stock,
             'origin_country' => $this->origin_country,
             'guarantee_period' => $this->guarantee_period,
-            'brand' => [
+            'brand' =>[
                 'id' => $this->brand->id,
                 'name' => $this->brand->brand_name,
             ],
@@ -60,7 +60,7 @@ class ProductResource extends JsonResource
                 'name' => $this->category->cat_name,
             ],
             'images' => $this->images->pluck('image')->map(function ($imageUrl) {
-                return $imageUrl;
+                return asset('storage/uploads/Product/'.$this->id.'/'.$imageUrl);
             }),
             'attributes' => $attributesFormatted,
 

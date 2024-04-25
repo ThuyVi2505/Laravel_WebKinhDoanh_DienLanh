@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Sanctum\PersonalAccessToken;
 use Laravel\Sanctum\Sanctum;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+        $productRoutes = [
+            'brand.index', // Tên các route bạn muốn kiểm tra
+            'category.index',
+            'product.index',
+            // Thêm các tên route khác nếu cần
+            'category.create',
+            'brand.create',
+            'product.create',
+        ];
+
+        View::share('productRoutes', $productRoutes);
     }
 }
