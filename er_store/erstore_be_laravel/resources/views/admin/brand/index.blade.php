@@ -52,7 +52,7 @@
                                                 : asset('storage/uploads/Brand/'.$brand->thumnail) }}" class="gallery-item rounded card-img-bottom object-fit-contain border border-1" style="height: 50px; width:80px;" />
                     </div>
                     <div class="">
-                        <a class="card-title text-decoration-none text-primary fw-bold">{{ $brand->brand_name }}</a>
+                        <a class="card-title text-decoration-none text-primary fw-bold text-uppercase">{{ $brand->brand_name }}</a>
                         <p class="card-text text-secondary d-none d-lg-block">#{{ $brand->brand_slug }}</p>
                     </div>
                 </div>
