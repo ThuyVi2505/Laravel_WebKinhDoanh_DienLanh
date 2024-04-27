@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('prod_slug', 255);
             $table->bigInteger('prod_price');//->giá
             $table->bigInteger('prod_stock');//->số lượng kho
+            $table->longText('prod_description')->nullable();
             $table->string('origin_country')->nullable();//->nguồn gốc xuất xứ
             $table->string('guarantee_period')->nullable();//->thời gian bảo hành
 

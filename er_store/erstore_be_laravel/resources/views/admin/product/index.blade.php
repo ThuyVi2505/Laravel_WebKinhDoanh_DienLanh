@@ -61,7 +61,8 @@
                 </div>
             </td>
             <td class="text-center">
-              {{$product->prod_price}}
+              {{ number_format($product->prod_price, 0, ',', '.')}}
+              {{-- {{$product->prod_price}} --}}
             </td>
             <td class="text-center">
                 {{$product->prod_stock}}
@@ -95,7 +96,6 @@
                 <a href="{{ route('product.edit',['product'=> $product->id]) }}" class="btn btn-edit rounded-circle">
                     <i class="fa-solid fa-pen-to-square text-primary" data-bs-toggle="tooltip" title="Sửa"></i>
                 </a>
-                
                 <a class="btn rounded-circle btn-delete" data-id="{{$product->id}}" data-name="{{$product->prod_name}}">
                   <i class="fa-solid fa-trash-can text-danger" data-bs-toggle="tooltip" title="Xóa"></i>
                 </a>
@@ -104,7 +104,7 @@
           </tr>
           @empty
           <tr class="align-middle">
-            <td class="text-center" colspan="4">
+            <td class="text-center" colspan="10">
             Không có dữ liệu
             </td>
           </tr>

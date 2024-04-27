@@ -26,7 +26,7 @@
                     <div class="border px-3 py-3 border-2" style="border-radius:10px;">
                         <div class="mb-3">
                             <label for="prod_name" class="form-label fw-bold" style="color: #008080">Tên sản phẩm <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('prod_name') is-invalid @enderror" id="prod_name" name="prod_name" placeholder="Phải có ít nhất 4 kí tự">
+                            <input type="text" class="form-control @error('prod_name') is-invalid @enderror" id="prod_name" name="prod_name" placeholder="Phải có ít nhất 4 kí tự" value="{{ old('prod_name') }}">
                             @error('prod_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -36,16 +36,16 @@
                         <div class="row row-cols-2">
                             <div class="mb-3">
                                 <label for="prod_price" class="form-label fw-bold" style="color: #008080">Giá bán <span class="text-danger">*</span></label>
-                                <input type="number" min="0" step="10000" class="form-control @error('prod_price') is-invalid @enderror" id="prod_price" name="prod_price">
+                                <input type="number" min="0" step="1000" class="form-control @error('prod_price') is-invalid @enderror" id="prod_price" name="prod_price" autocomplete="false" value="{{ old('prod_price') }}">
                                 @error('prod_price')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="prod_stock" class="form-label fw-bold" style="color: #008080">Số lượng tồn <span class="text-danger">*</span></label>
-                                <input type="number" min="0" max="1000" step="1" class="form-control @error('prod_stock') is-invalid @enderror" id="prod_stock" name="prod_stock" placeholder="Phải nhỏ hơn 1000">
+                                <input type="number" min="0" max="1000" step="1" class="form-control @error('prod_stock') is-invalid @enderror" id="prod_stock" name="prod_stock" placeholder="Phải nhỏ hơn 1000" value="{{ old('prod_stock') }}">
                                 @error('prod_stock')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@
                         <div class="row row-cols-2">
                             <div class="mb-3">
                                 <label for="origin_country" class="form-label fw-bold" style="color: #008080">Xuất xứ <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('origin_country') is-invalid @enderror" id="origin_country" name="origin_country" placeholder="ví dụ: Nhật bản, Mỹ,...">
+                                <input type="text" class="form-control @error('origin_country') is-invalid @enderror" id="origin_country" name="origin_country" placeholder="ví dụ: Nhật bản, Mỹ,..." value="{{ old('origin_country') }}">
                                 @error('origin_country')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="guarantee_period" class="form-label fw-bold" style="color: #008080">Thời gian bảo hàng <span class="text-danger">*</span></label>
-                                <input type="number" min="0" max="100" step="1" class="form-control @error('guarantee_period') is-invalid @enderror" id="guarantee_period" name="guarantee_period" placeholder="Tính theo tháng">
+                                <input type="number" min="0" max="100" step="1" class="form-control @error('guarantee_period') is-invalid @enderror" id="guarantee_period" name="guarantee_period" placeholder="Tính theo tháng" value="{{ old('guarantee_period') }}">
                                 @error('guarantee_period')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -85,21 +85,7 @@
                             </div>
                         </div>
                     </div>
-                    <label for="" class="mb-2 mt-3 text-secondary fw-bold text-uppercase">Giảm giá:</label>
-                    <div class="border px-3 py-3 border-2" style="border-radius:10px;">
-                            <div class="mb-3">
-                                <label for="sale_percent" class="form-label fw-bold" style="color: #008080">Phần trăm giảm giá <span class="text-danger">*</span></label>
-                                <input type="number" max="100" min="0" step="1" class="form-control @error('sale_percent') is-invalid @enderror" id="sale_percent" name="sale_percent" placeholder="Nhập từ 0 đến 100">
-                                @error('sale_percent')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Sản phẩm thuộc:</label>
+                    <label for="" class="mb-2 mt-3 text-secondary fw-bold text-uppercase">Sản phẩm thuộc:</label>
                     <div class="border px-3 py-3 border-2" style="border-radius:10px;">
                             <div class="mb-3">
                                 <label for="cat_id" class="form-label fw-bold" style="color: #008080">Danh mục <span class="text-danger">*</span></label>
@@ -132,14 +118,73 @@
                                 @enderror
                             </div>
                     </div>
+                    <label for="" class="mb-2 mt-3 text-secondary fw-bold text-uppercase">Giảm giá:</label>
+                    <div class="border px-3 py-3 border-2" style="border-radius:10px;">
+                            <div class="mb-3">
+                                <label for="sale_percent" class="form-label fw-bold" style="color: #008080">Phần trăm giảm giá <span class="text-danger">(Không giảm thì nhập 0)</span></label>
+                                <input type="number" max="100" min="0" step="1" class="form-control @error('sale_percent') is-invalid @enderror" id="sale_percent" name="sale_percent" placeholder="Nhập từ 0 đến 100" value="{{ old('sale_percent') }}">
+                                @error('sale_percent')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                    </div>
+                    
+                </div>
+                <div class="mb-3">
+                    {{-- <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Sản phẩm thuộc:</label>
+                    <div class="border px-3 py-3 border-2" style="border-radius:10px;">
+                            <div class="mb-3">
+                                <label for="cat_id" class="form-label fw-bold" style="color: #008080">Danh mục <span class="text-danger">*</span></label>
+                                <select class="form-select @error('cat_id') is-invalid @enderror" id="cat_id" name="cat_id" aria-label="Default select example">
+                                    <option value="" selected>chọn danh mục</option>
+                                    @foreach($category_list as $item)
+                                    <option value="{{$item->id}}">{{$item->cat_name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('cat_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="brand_id" class="form-label fw-bold" style="color: #008080">Thương hiệu <span class="text-danger">*</span></label>
+                                <div class="border px-2 @error('brand_id') is-invalid @enderror" style="border-radius:5px">
+                                    @foreach($brand_list as $item)
+                                    <label>
+                                        <input type="radio" class="brand" id="brand_id" name="brand_id" value="{{$item->id}}">
+                                        <img src="{{asset('storage/uploads/Brand/'.$item->thumnail)}}" class="me-2 my-2 p-2 border border-1" style="border-radius:10px" alt="Option 2" width="120px" height="80px">
+                                    </label>
+                                    @endforeach
+                                </div>
+                                @error('brand_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                    </div> --}}
+                    <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Đặc điểm của sản phẩm:</label>
+                    <div class="border px-3 py-3 border-2" style="border-radius:10px;">
+                        @foreach($attributes as $attribute)
+                        <label for="{{ 'attribute_'.$attribute->id }}" class="form-label fw-bold" style="color: #008080">{{ $attribute->key }}</label>
+                        <input type="text" class="form-control mb-3" id="{{ 'attribute_'.$attribute->id }}" name="attributes[{{ $attribute->id }}]" placeholder="">
+                        @endforeach
+                    </div>
                 </div>
 
             </div>
-            
-            
+            <div class="form-group mb-3 money">
+                <label for="prod_description" class="mb-2 text-secondary fw-bold text-uppercase">Mô tả:</label>
+                <textarea class="form-control" name="prod_description" id="prod_description" rows="5" placeholder="Viết mô tả sản phẩm" style="min-height: 140px; resize:none;">{{ old('prod_description') }}</textarea>
+            </div>
             {{-- Hình ảnh --}}
             <div class="form-group">
-                <label for="images" class="form-label fw-bold text-uppercase" style="color: #008080">Hình ảnh <span class="text-danger">*</span></label>
+                <label for="images" class="form-label text-secondary fw-bold text-uppercase">Hình ảnh <span class="text-danger">*</span></label>
+                <p class="text-danger mb-0">* Cần chọn ít nhất 2 ảnh</p>
+                <p class="text-danger mt-0">* Định dạng ảnh phải có đuôi: jpg, jpeg, png</p>
                 <div class="d-flex" style="height: 140px">
                     <div class="w-100 me-2">
                         <input type="file" accept=".jpeg, .png, .jpg" class="form-control h-100 @error('images') is-invalid @enderror" id="images" multiple name="images[]" onchange="preview()" accept="image/*" />
@@ -155,7 +200,6 @@
                             <label class="form-label text-white" style="cursor: pointer;"><i class="fa-solid fa-circle-xmark me-2"></i> Xóa ảnh</label>
                         </div>
                     </div> --}}
-                    
                 </div>
             </div>
             
@@ -190,7 +234,7 @@
 
     /* CHECKED STYLES */
     [type=radio].brand:checked + img {
-        outline: 2px solid #008080;
+        outline: 3px solid #dc3545;
     }
     .btn-view-detail:hover {
         border: 1px solid #000000;
@@ -208,5 +252,7 @@
 </style>
 {{-- script --}}
 <script src="{{asset('assets/js/image_preview.js')}}"></script>
+<!-- ckeditor -->
+{{-- <script src="/ckeditor5-classic/ckeditor.js"></script> --}}
 @include('admin.category.script.script')
 @endsection

@@ -1,7 +1,7 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background: #008080;">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="" target="_blank">
-        <img alt="" src="{{ asset('assets/images/logos/logo-bookonline.png') }}" width="180px" height="30px" style="object-fit: contain;">
+        <img alt="" src="{{ asset('assets/images/logos/logo.png') }}" width="180px" height="30px" style="object-fit: contain;">
     </a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>

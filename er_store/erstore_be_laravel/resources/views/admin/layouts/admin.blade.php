@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    {{-- <link rel="icon" href="{{asset('assets\images\logos\book_logo.png')}}" type="image/x-icon"> --}}
+    <link rel="icon" href="{{asset('assets\images\logos\favicon.ico')}}" type="image/x-icon">
     <!-- ***LINK*** -->
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -17,8 +17,9 @@
     <!-- toastr message -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <!-- virtual select -->
-    <link rel="stylesheet" href="/virtual-select/virtual-select.min.css" />
-    <script src="/virtual-select/virtual-select.min.js"></script>
+    {{-- <link rel="stylesheet" href="/virtual-select/virtual-select.min.css" />
+    <script src="/virtual-select/virtual-select.min.js"></script> --}}
+
     <style>
         #text-color {
             color: #f58c02;
@@ -57,13 +58,12 @@
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <!-- jquery -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <!-- toastr message -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script> -->
-    <!-- ckeditor -->
-    <script src="/ckeditor/ckeditor.js"></script>
+    {{-- ckeditor --}}
 </head>
 
 <body>
