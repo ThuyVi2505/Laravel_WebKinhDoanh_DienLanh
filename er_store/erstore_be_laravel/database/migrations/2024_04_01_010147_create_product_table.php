@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('prod_price');//->giá
             $table->bigInteger('prod_stock');//->số lượng kho
             $table->longText('prod_description')->nullable();
+            $table->string('prod_model');
             $table->string('origin_country')->nullable();//->nguồn gốc xuất xứ
             $table->string('guarantee_period')->nullable();//->thời gian bảo hành
 
@@ -31,7 +32,7 @@ return new class extends Migration
 
             $table->tinyInteger('isActive')->default('0');
 
-            $table->unique('prod_name');
+            $table->unique('prod_model');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

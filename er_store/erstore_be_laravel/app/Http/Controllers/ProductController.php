@@ -21,43 +21,54 @@ class ProductController extends Controller
         $allProduct = Product::orderBy('created_at', 'desc')->get();
         return view('admin.product.index')->with(compact('allProduct'));
     }
-    public function show($id){
+    public function show($id)
+    {
         $productDetail = Product::find($id);
-        return view('admin.product.detail')->with(compact('productDetail'));
+        $attributes = $productDetail->attributes()->wherePivotNotNull('value')->get();
+        // $attributes = Attribute::where($product);
+        return view('admin.product.detail')->with(compact('productDetail', 'attributes'));
     }
 
     public function create()
     {
         $attributes = Attribute::all();
-        $category_list = Category::orderBy('cat_name', 'asc')->get();
+        $category_list = Category::where('parent_id', null)->orderBy('cat_name', 'asc')->get();
         $brand_list = Brand::orderBy('brand_name', 'asc')->get();
-        return view('admin.product.create')->with(compact('attributes','category_list', 'brand_list'));
+        return view('admin.product.create')->with(compact('attributes', 'category_list', 'brand_list'));
     }
     public function store(Request $request)
     {
         $request->validate(
             [
-                'prod_name' => ['required', 'max:255', 'min:4', 'unique:products'],
+                'prod_name' => ['required', 'max:255', 'min:4'],
+                'prod_model' => ['required', 'max:255', 'min:6', 'unique:products'],
                 'prod_slug' => [''],
                 'prod_price' => ['required', 'integer'],
                 'prod_stock' => ['required', 'integer'],
+                'prod_description' => [''],
                 'origin_country' => [''],
                 'guarantee_period' => [''],
                 'brand_id' => ['required'],
                 'cat_id' => ['required'],
                 'isActive' => [''],
                 'sale_percent' => [''],
-                'images.*' => ['required','image', 'mimes:jpg,png,jpeg']
+                'images.*' => ['required', 'image', 'mimes:jpg,png,jpeg']
             ],
             [
                 'prod_name.required' => 'Tên mặt hàng bắt buộc nhập',
                 'prod_name.max' => 'Tên mặt hàng chỉ được tối đa :max kí tự',
                 'prod_name.min' => 'Tên mặt hàng phải có ít nhất :min kí tự',
-                'prod_name.unique' => 'Mặt hàng *:input* đã tồn tại',
+
+                'prod_model.required' => 'Model mặt hàng bắt buộc nhập',
+                'prod_model.max' => 'Model mặt hàng chỉ được tối đa :max kí tự',
+                'prod_model.min' => 'model mặt hàng phải có ít nhất :min kí tự',
+                'prod_model.unique' => 'Model Mặt hàng này *:input* đã tồn tại',
+
                 'prod_price.required' => 'Giá mặt hàng bắt buộc nhập',
                 'prod_stock.required' => 'Số lượng mặt hàng bắt buộc nhập',
                 'prod_price.integer' => 'Trường prod_price phải là một số nguyên dương (vd: 1,2,3)',
                 'prod_stock.integer' => 'Trường prod_stock phải là một số nguyên dương (vd: 1,2,3)',
+
                 'brand_id.required' => 'Thương hiệu bắt buộc chọn',
                 'cat_id.required' => 'Danh mục bắt buộc chọn'
             ],
@@ -65,6 +76,7 @@ class ProductController extends Controller
         $prod = new Product();
         $prod->prod_name = $request->prod_name;
         $prod->prod_slug = Str::slug($request->prod_name);
+        $prod->prod_model = $request->prod_model;
         $prod->isActive = is_null($request->isActive) ? 0 : $request->isActive;
         $prod->prod_price = $request->prod_price;
         $prod->prod_stock = $request->prod_stock;
@@ -88,7 +100,7 @@ class ProductController extends Controller
                 if ($check) {
                     date_default_timezone_set("Asia/Ho_Chi_Minh");
                     $file_name = Str::slug($request->prod_name, '-') . '_' . date('Hisdmy') . $key  . '.' . $ext;
-                    $file->storeAs('public/uploads/Product/'.$prod->id.'/', $file_name);
+                    $file->storeAs('public/uploads/Product/' . $prod->id . '/', $file_name);
                     // $file->move(public_path() . '/uploads/images/product/'.$prod->prod_slug.'/', $file_name);
                     $urlImage = $file_name;
 
@@ -99,20 +111,19 @@ class ProductController extends Controller
                 }
             };
         }
-        if(!is_null($request->sale_percent)){
+        if (!is_null($request->sale_percent)) {
             $sale = new SaleProd();
             $sale->product_id = $prod->id;
             $sale->percent = $request->sale_percent;
             $sale->save();
-        }
-        else{
+        } else {
             $sale = new SaleProd();
             $sale->product_id = $prod->id;
             $sale->percent = 0;
             $sale->save();
         }
         foreach ($request->input('attributes', []) as $attributeId => $value) {
-            if($value!=null){
+            if ($value != null) {
                 $prod->attributes()->attach($attributeId, ['value' => $value]);
             }
         }
@@ -122,14 +133,16 @@ class ProductController extends Controller
     {
         $productDetail = Product::find($id);
         $attributes = Attribute::all();
-        $category_list = Category::orderBy('cat_name', 'asc')->get();
+        $category_list = Category::where('parent_id', null)->orderBy('cat_name', 'asc')->get();
         $brand_list = Brand::orderBy('brand_name', 'asc')->get();
-        return view('admin.product.edit')->with(compact('productDetail','attributes','category_list', 'brand_list'));
+        return view('admin.product.edit')->with(compact('productDetail', 'attributes', 'category_list', 'brand_list'));
     }
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $request->validate(
             [
-                'prod_name' => ['required', 'max:255', 'min:4', 'unique:products,prod_name,'.$id],
+                'prod_name' => ['required', 'max:255', 'min:4'],
+                'prod_model' => ['required', 'max:255', 'min:6', 'unique:products,prod_name,' . $id],
                 'prod_slug' => [''],
                 'prod_price' => ['required', 'integer'],
                 'prod_stock' => ['required', 'integer'],
@@ -145,7 +158,12 @@ class ProductController extends Controller
                 'prod_name.required' => 'Tên mặt hàng bắt buộc nhập',
                 'prod_name.max' => 'Tên mặt hàng chỉ được tối đa :max kí tự',
                 'prod_name.min' => 'Tên mặt hàng phải có ít nhất :min kí tự',
-                'prod_name.unique' => 'Mặt hàng *:input* đã tồn tại',
+
+                'prod_model.required' => 'Model mặt hàng bắt buộc nhập',
+                'prod_model.max' => 'Model mặt hàng chỉ được tối đa :max kí tự',
+                'prod_model.min' => 'model mặt hàng phải có ít nhất :min kí tự',
+                'prod_model.unique' => 'Model Mặt hàng này *:input* đã tồn tại',
+
                 'prod_price.required' => 'Giá mặt hàng bắt buộc nhập',
                 'prod_stock.required' => 'Số lượng mặt hàng bắt buộc nhập',
                 'prod_price.integer' => 'Trường prod_price phải là một số nguyên dương (vd: 1,2,3)',
@@ -157,6 +175,7 @@ class ProductController extends Controller
         $prod = Product::find($id);
         $prod->prod_name = $request->prod_name;
         $prod->prod_slug = Str::slug($request->prod_name);
+        $prod->prod_model = $request->prod_model;
         $prod->isActive = is_null($request->isActive) ? 0 : $request->isActive;
         $prod->prod_price = $request->prod_price;
         $prod->prod_stock = $request->prod_stock;
@@ -180,7 +199,7 @@ class ProductController extends Controller
                 if ($check) {
                     date_default_timezone_set("Asia/Ho_Chi_Minh");
                     $file_name = Str::slug($request->prod_name, '-') . '_' . date('Hisdmy') . $key  . '.' . $ext;
-                    $file->storeAs('public/uploads/Product/'.$prod->id.'/', $file_name);
+                    $file->storeAs('public/uploads/Product/' . $prod->id . '/', $file_name);
                     // $file->move(public_path() . '/uploads/images/product/'.$prod->prod_slug.'/', $file_name);
                     $urlImage = $file_name;
 
@@ -191,24 +210,22 @@ class ProductController extends Controller
                 }
             };
         }
-        if(!is_null($request->sale_percent)){
+        if (!is_null($request->sale_percent)) {
             $sale = new SaleProd();
             $sale->product_id = $prod->id;
             $sale->percent = $request->sale_percent;
             $sale->save();
-        }
-        else{
+        } else {
             $sale = new SaleProd();
             $sale->product_id = $prod->id;
             $sale->percent = 0;
             $sale->save();
         }
         foreach ($request->input('attributes', []) as $attributeId => $value) {
-            if($value!=null){
+            if ($value != '') {
                 $prod->attributes()->syncWithoutDetaching([$attributeId => ['value' => $value]]);
-            }
-            else{
-                $prod->attributes()->Detach([$attributeId]);
+            } else {
+                $prod->attributes()->detach($attributeId);
             }
         }
         return back()->with('success', 'Cập nhật thành công');
@@ -232,7 +249,7 @@ class ProductController extends Controller
     {
         $data = Product::find($request->id);
         // if (Storage::exists($imagePath)) {
-        Storage::deleteDirectory('public/uploads/Product/'.$data->id);
+        Storage::deleteDirectory('public/uploads/Product/' . $data->id);
         // }
 
         $data->delete();

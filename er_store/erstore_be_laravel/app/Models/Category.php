@@ -36,6 +36,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class, 'cat_id','id');
     }
+    public function hasAnyChild(){
+        return $this->children->count()>0;
+    }
     public function hasProducts()
     {
         return $this->products()->exists();

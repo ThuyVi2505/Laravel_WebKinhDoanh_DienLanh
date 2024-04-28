@@ -19,6 +19,7 @@ class Product extends Model
         'prod_price',
         'prod_stock',
         'prod_description',
+        'prod_model',
         'origin_country',
         'guarantee_period',
         'brand_id',

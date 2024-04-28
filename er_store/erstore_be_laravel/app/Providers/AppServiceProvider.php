@@ -31,10 +31,15 @@ class AppServiceProvider extends ServiceProvider
             'brand.index', // Tên các route bạn muốn kiểm tra
             'category.index',
             'product.index',
+            'attribute.index',
             // Thêm các tên route khác nếu cần
             'category.create',
             'brand.create',
             'product.create',
+
+            'category.edit',
+            'brand.edit',
+            'product.edit',
         ];
 
         View::share('productRoutes', $productRoutes);

@@ -55,7 +55,7 @@
                                                 : asset('storage/uploads/Product/'.$product->id.'/'.$product->images->first()->image) }}" class="gallery-item rounded card-img-bottom object-fit-contain border border-1" style="height: 50px; width:80px;" />
                     </div>
                     <div class="">
-                        <a class="card-title text-decoration-none text-primary fw-bold">{{ $product->prod_name }}</a>
+                        <a class="card-title text-decoration-none text-primary fw-bold">{{ $product->prod_name }} {{$product->prod_model}}</a>
                         <p class="card-text text-secondary d-none d-lg-block">#{{ $product->prod_slug }}</p>
                     </div>
                 </div>

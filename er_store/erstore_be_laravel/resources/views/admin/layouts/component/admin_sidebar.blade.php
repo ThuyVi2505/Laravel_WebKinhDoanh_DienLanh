@@ -26,6 +26,10 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-circle-plus text-primary"></i></div>
                             Danh mục
                         </a>
+                        <a class="nav-link {{Request::routeIs('attribute.index')||Request::routeIs('attribute.create')?'active':''}}" href="{{ route('attribute.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-circle-plus text-primary"></i></div>
+                            Thông số kỹ thuật
+                        </a>
                         <a class="nav-link {{Request::routeIs('product.index')||Request::routeIs('product.create')?'active':''}}" href="{{ route('product.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-circle-plus text-primary"></i></div>
                             Sản phẩm

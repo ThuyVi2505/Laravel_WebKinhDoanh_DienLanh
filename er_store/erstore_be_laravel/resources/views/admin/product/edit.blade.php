@@ -25,16 +25,28 @@
                 <div class="mb-3">
                     <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Thông tin cơ bản:</label>
                     <div class="border px-3 py-3 border-2" style="border-radius:10px;">
-                        <div class="mb-3">
-                            <label for="prod_name" class="form-label fw-bold" style="color: #008080">Tên sản phẩm <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('prod_name') is-invalid @enderror" id="prod_name" name="prod_name" placeholder="Phải có ít nhất 4 kí tự" value="{{ $productDetail->prod_name }}">
-                            @error('prod_name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                        <div class="row row-cols-1 row-cols-md-2">
+                            <div class="mb-3">
+                                <label for="prod_name" class="form-label fw-bold" style="color: #008080">Tên sản phẩm <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('prod_name') is-invalid @enderror" id="prod_name" name="prod_name" placeholder="Phải có ít nhất 4 kí tự" value="{{ $productDetail->prod_name }}">
+                                @error('prod_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="prod_model" class="form-label fw-bold" style="color: #008080">Model sản phẩm <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('prod_model') is-invalid @enderror" id="prod_model" name="prod_model" placeholder="Phải có ít nhất 6 kí tự" value="{{ $productDetail->prod_model }}">
+                                @error('prod_model')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="row row-cols-2">
+                        
+                        <div class="row row-cols-1 row-cols-md-2">
                             <div class="mb-3">
                                 <label for="prod_price" class="form-label fw-bold" style="color: #008080">Giá bán <span class="text-danger">*</span></label>
                                 <input type="number" min="0" step="1000" class="form-control @error('prod_price') is-invalid @enderror" id="prod_price" name="prod_price" autocomplete="false" value="{{ $productDetail->prod_price }}">
@@ -54,7 +66,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row row-cols-2">
+                        <div class="row row-cols-1 row-cols-md-2">
                             <div class="mb-3">
                                 <label for="origin_country" class="form-label fw-bold" style="color: #008080">Xuất xứ <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('origin_country') is-invalid @enderror" id="origin_country" name="origin_country" placeholder="ví dụ: Nhật bản, Mỹ,..." value="{{ $productDetail->origin_country }}">
@@ -91,9 +103,12 @@
                             <div class="mb-3">
                                 <label for="cat_id" class="form-label fw-bold" style="color: #008080">Danh mục <span class="text-danger">*</span></label>
                                 <select class="form-select @error('cat_id') is-invalid @enderror" id="cat_id" name="cat_id" aria-label="Default select example">
-                                    <option value="">chọn danh mục</option>
+                                    <option value="" selected disabled>chọn danh mục</option>
                                     @foreach($category_list as $item)
-                                    <option value="{{$item->id}}" {{$productDetail->cat_id == $item->id?'selected':''}}>{{$item->cat_name}}</option>
+                                        <option value="{{$item->id}}" class="text-uppercase fw-bold {{$item->hasAnyChild()?'bg-light':''}}" {{$item->hasAnyChild()?'disabled':''}}>{{$item->cat_name}}</option>
+                                        @foreach($item->children as $child)
+                                            <option value="{{$child->id}}" {{$productDetail->cat_id == $child->id?'selected':''}}>{{$item->cat_name}} {{$child->cat_name}}</option>
+                                        @endforeach
                                     @endforeach
                                 </select>
                                 @error('cat_id')
@@ -134,7 +149,7 @@
                     
                 </div>
                 <div class="mb-3">
-                    <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Đặc điểm của sản phẩm:</label>
+                    <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Thông số kỹ thuật:</label>
                     <div class="border px-3 py-3 border-2" style="border-radius:10px;">
                         @foreach($attributes as $attribute)
                         <label for="{{ 'attribute_'.$attribute->id }}" class="form-label fw-bold" style="color: #008080">{{ $attribute->key }}</label>

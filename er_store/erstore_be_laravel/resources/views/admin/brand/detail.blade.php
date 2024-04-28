@@ -35,6 +35,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Tên sản phẩm</th>
                             <th scope="col">Trạng thái</th>
+                            <th scope="col">Danh mục</th>
                             <th scope="col">Thương hiệu</th>
                           </tr>
                         </thead>
@@ -57,7 +58,7 @@
                             </td>
                             <td class="text-{{$prod->isActive?"success":"danger"}} align-middle">{{$prod->isActive?"Kích hoạt": "Khóa"}}</td>
                             @if(!$brand_detail->parent_id)
-                            <td class="align-middle">{{$prod->brand->brand_name}}</td>
+                            <td class="align-middle">{{$prod->category->cat_name}}</td>
                             @endif
                             <td class="align-middle">{{$prod->brand->brand_name}}</td>
                           </tr>

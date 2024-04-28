@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 
-use App\http\Controllers\{BrandController,CategoryController, ProductController};
+use App\http\Controllers\{BrandController,CategoryController,AttributeController, ProductController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +34,7 @@ Route::prefix('admin')->group(function () {
         });
     });
     Route::middleware(['admin'])->group(function () {
+        // BRAND
         Route::controller(BrandController::class)->group(function () {
             Route::get('brand', 'index')->name('brand.index'); // index page
             Route::get('brand/{brand}/detail', 'show')->name('brand.detail'); // go to edit page
@@ -47,6 +48,7 @@ Route::prefix('admin')->group(function () {
             Route::post('brand/delete', 'delete')->name('brand.delete'); // delete
             Route::post('brand/changeStatus', 'changeStatus')->name('brand.changeStatus'); // change status
         });
+        //CATEGORY
         Route::controller(CategoryController::class)->group(function(){
             Route::get('category','index')->name('category.index');
             Route::get('category/{category}/detail', 'show')->name('category.detail'); // go to edit page
@@ -62,6 +64,19 @@ Route::prefix('admin')->group(function () {
             Route::post('category/changeStatus', 'changeStatus')->name('category.changeStatus'); // change status
 
         });
+        //ATTRIBUTE
+        Route::controller(AttributeController::class)->group(function(){
+            Route::get('attribute','index')->name('attribute.index');
+            
+            Route::get('attribute/create', 'create')->name('attribute.create'); // go to create new page
+            Route::post('attribute/store', 'store')->name('attribute.store'); // submit new create
+
+            Route::get('attribute/{attribute}/edit', 'edit')->name('attribute.edit'); // go to edit page
+            Route::put('attribute/{attribute}', 'update')->name('attribute.update'); // update new edit
+
+            Route::post('attribute/delete', 'delete')->name('attribute.delete'); // delete
+        });
+        //PRODUCT
         Route::controller(ProductController::class)->group(function () {
             Route::get('product','index')->name('product.index');
             Route::get('product/{product}/detail', 'show')->name('product.detail'); // go to edit page
@@ -70,7 +85,7 @@ Route::prefix('admin')->group(function () {
             Route::post('product/store', 'store')->name('product.store'); // submit new create
 
             Route::get('product/{product}/edit', 'edit')->name('product.edit'); // go to edit page
-            Route::put('product/{product}', 'update')->name('product.update'); // update new edit
+            Route::put('product/{product}/update', 'update')->name('product.update'); // update new edit
 
             Route::post('product/delete', 'delete')->name('product.delete'); // delete
             Route::post('product/changeStatus', 'changeStatus')->name('product.changeStatus'); // change status
