@@ -23,13 +23,8 @@
         Thêm mới
       </a>
     </div>
-    <div class="card-header bg-white">
-      <h5 class="fw-bold float-start text-secondary">
-        Số lượng: {{$all_count}}
-      </h5>
-    </div>
     <div class="table-responsive" id="div-table">
-      <table class="table">
+      <table class="table table-hover">
         <thead class="text-center align-middle text-uppercase table-light">
           <tr>
             <th width="30%" colspan="2">Tên thương hiệu</th>
@@ -99,6 +94,9 @@
           @endforelse
         </tbody>
       </table>
+      <div class="">
+        {!!$data_brand->appends($_GET)->links('admin.layouts.pagination.admin-pagination')!!}
+      </div>
     </div>
 </div>
 </div>

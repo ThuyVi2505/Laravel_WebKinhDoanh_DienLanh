@@ -4,7 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 
-use App\http\Controllers\{BrandController,CategoryController,AttributeController, ProductController};
+use App\http\Controllers\{
+    UserController,
+    BrandController,
+    CategoryController,
+    AttributeController, 
+    ProductController
+};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +40,10 @@ Route::prefix('admin')->group(function () {
         });
     });
     Route::middleware(['admin'])->group(function () {
+        //USER
+        Route::controller(UserController::class)->group(function(){
+            Route::get('user', 'index')->name('user.index'); // index page
+        });
         // BRAND
         Route::controller(BrandController::class)->group(function () {
             Route::get('brand', 'index')->name('brand.index'); // index page

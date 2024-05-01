@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class AttributeController extends Controller
 {
     public function index(){
-        $attributes = Attribute::orderBy('created_at','desc')->get();
+        $count = Attribute::count();
+        $attributes = Attribute::orderBy('created_at','desc')->paginate($count);
         return view('admin.attribute.index')->with(compact('attributes'));
     }
 

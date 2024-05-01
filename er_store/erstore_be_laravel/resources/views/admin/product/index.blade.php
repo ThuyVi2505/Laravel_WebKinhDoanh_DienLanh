@@ -23,22 +23,17 @@
         Thêm mới
       </a>
     </div>
-    <div class="card-header bg-white">
-      <h5 class="fw-bold float-start text-secondary">
-        Số lượng: {{$allProduct->count()}}
-      </h5>
-    </div>
     <div class="table-responsive" id="div-table">
-      <table class="table">
+      <table class="table table-hover">
         <thead class="text-center align-middle text-uppercase table-light">
           <tr>
             <th width="50%">Tên sản phẩm</th>
-            <th width="10%">Giá bán</th>
+            <th width="20%">Giá bán gốc</th>
             <th width="5%">Số lượng tồn</th>
-            <th width="5%">Thuộc danh mục</th>
-            <th width="5%">Thuộc thương hiệu</th>
-            <th width="10%">Ngày<br>tạo</th>
-            <th width="10%">Ngày<br>cập nhật</th>
+            <th width="20%">Thuộc danh mục</th>
+            <th width="10%">Thuộc thương hiệu</th>
+            {{-- <th width="10%">Ngày<br>tạo</th>
+            <th width="10%">Ngày<br>cập nhật</th> --}}
             <th width="10%">Trạng<br>thái</th>
             <th width="5%">Action</th>
           </tr>
@@ -61,19 +56,22 @@
                 </div>
             </td>
             <td class="text-center">
-              {{ number_format($product->prod_price, 0, ',', '.')}}
-              {{-- {{$product->prod_price}} --}}
+              
+              <div class="">
+                <a class="card-title text-decoration-none text-primary fw-bold">{{ number_format($product->prod_price, 0, ',', '.')}}</a>
+                <p class="card-text text-secondary d-none d-lg-block">#{{ $product->prod_slug }}</p>
+            </div>
             </td>
             <td class="text-center">
                 {{$product->prod_stock}}
               </td>
               <td class="text-center">
-                {{$product->category->cat_name}}
+                <span class="text-secondary fw-bold">{{$product->category->parent->cat_name}}:</span> {{$product->category->cat_name}}
               </td>
               <td class="text-center">
                 {{$product->brand->brand_name}}
               </td>
-            <td class="text-center">
+            {{-- <td class="text-center">
               @if($product->created_at!='')
               <small class="text-black">{{ $product->created_at->format('H:i:s d/m/Y') }}</small><br><small class="text-primary">({{ $product->created_at->diffForHumans() }})</small>
               @endif
@@ -82,8 +80,8 @@
                 @if($product->updated_at!='')
                 <small class="text-black">{{ $product->updated_at->format('H:i:s d/m/Y') }}</small><br><small class="text-primary">({{ $product->updated_at->diffForHumans() }})</small>
                 @endif
-            </td>
-            <td class="text-center align-middle">
+            </td> --}}
+            <td class="text-center">
                 <a class="btn btn-sm fw-bold btn-outline-{{$product->isActive==1?'success':'danger'}} change-status" style="width:120px;height:30px;" data-id="{{$product->id}}" data-name="{{$product->genre_name}}">
                     <i class="fa-solid fa-circle-{{$product->isActive==1?'check':'xmark'}} me-1"></i>
                     {{$product->isActive==1?'Kích hoạt':'Khóa'}}
@@ -111,6 +109,40 @@
           @endforelse
         </tbody>
       </table>
+      <div class="">
+        {!!$allProduct->appends($_GET)->links('admin.layouts.pagination.admin-pagination')!!}
+      </div>
+      {{-- <table class="table" id="myTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>tên</th>
+            <th>lớp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>A</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>A</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>A</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>A</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table> --}}
     </div>
 </div>
 </div>

@@ -28,9 +28,9 @@ class BrandController extends Controller
                 return $query->where('brand_name', 'like', '%' . $request->searchBox . '%');
             })
             ->orderBy('brand_name', 'asc')
-            ->paginate($all_count);
+            ->paginate(10);
 
-        return view('admin.brand.index', compact('data_brand', 'all_count'));
+        return view('admin.brand.index', compact('data_brand'));
     }
     public function show($id){
         $brand_detail = Brand::with('products')->find($id);

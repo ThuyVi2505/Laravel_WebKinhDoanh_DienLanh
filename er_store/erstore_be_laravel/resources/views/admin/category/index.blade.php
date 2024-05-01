@@ -24,7 +24,7 @@
       </a>
     </div>
     <div class="table-responsive" id="div-table">
-      <table class="table">
+      <table class="table table-hover">
         <thead class="text-center align-middle text-uppercase table-light">
           <tr>
             <th width="30%" colspan="2">Tên danh mục</th>
@@ -46,7 +46,7 @@
                 </div>
             </td>
             <td class="text-center">
-              {{$cat->products->count()}}
+              {{-- {{$cat->products->count()}} --}}
             </td>
             <td class="text-center">
               @if($cat->created_at!='')
@@ -71,7 +71,7 @@
                 <a href="{{ route('category.edit',['category'=> $cat->id]) }}"  class="btn btn-edit rounded-circle">
                     <i class="fa-solid fa-pen-to-square text-primary" data-bs-toggle="tooltip" title="Sửa"></i>
                 </a>
-                @if(!$cat->hasAnyProducts())
+                @if( !$cat->hasAnyChild())
                 <a class="btn rounded-circle btn-delete" data-id="{{$cat->id}}" data-name="{{$cat->cat_name}}">
                   <i class="fa-solid fa-trash-can text-danger" data-bs-toggle="tooltip" title="Xóa"></i>
                 </a>

@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Sanctum\PersonalAccessToken;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Facades\View;
+use Illuminate\Pagination\Paginator;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Carbon::setLocale('vi');
+        Paginator::useBootstrapFive();
+
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
         $productRoutes = [
             'brand.index', // Tên các route bạn muốn kiểm tra

@@ -24,7 +24,7 @@
       </a>
     </div>
     <div class="table-responsive" id="div-table">
-      <table class="table">
+      <table class="table table-hover">
         <thead class="text-center align-middle text-uppercase table-light">
           <tr>
             <th width="30%" class="text-start">Tên thông số kỹ thuật</th>
@@ -68,6 +68,9 @@
           @endforelse
         </tbody>
       </table>
+      <div class="">
+        {!!$attributes->appends($_GET)->links('admin.layouts.pagination.admin-pagination')!!}
+      </div>
     </div>
 </div>
 </div>

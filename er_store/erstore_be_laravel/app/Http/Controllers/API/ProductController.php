@@ -75,7 +75,7 @@ class ProductController extends Controller
 
         $prod = new Product($dataCreate);
         $prod->prod_name = $request->prod_name;
-        $prod->prod_slug = Str::slug($request->prod_name);
+        $prod->prod_slug = Str::slug($request->prod_name).'-'.Str::slug($request->prod_model);
         $prod->isActive = is_null($request->isActive) ? 0 : $request->isActive;
         $prod->prod_price = $request->prod_price;
         $prod->prod_stock = $request->prod_stock;

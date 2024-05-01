@@ -38,6 +38,7 @@ class ProductResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'prod_model' => $this->prod_model,
             'prod_name' => $this->prod_name,
             'prod_slug' => $this->prod_slug,
             'prod_price' => $this->prod_price,
@@ -68,6 +69,7 @@ class ProductResource extends JsonResource
             //     $this->attributes->groupBy('key')->map(function ($group) {
             //     return $group->pluck('pivot.value')->unique()->all();
             // }),
+            'prod_description' => $this->prod_description,
             'created_at' => $this->created_at->format('H:i:s d/m/Y'),
             'updated_at' => $this->updated_at->format('H:i:s d/m/Y'),
         ];
