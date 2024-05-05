@@ -27,15 +27,30 @@ class AddressSeeder extends Seeder
         $users = User::all();
         $faker = \Faker\Factory::create();
         foreach ($users as $user) {
-            $num = rand(1,2);
-            for($i=0;$i<$num;$i++){
+            $num = rand(1, 2);
+            for ($i = 0; $i < $num; $i++) {
+                //chọn random thành phố city from json file
+                $city = $cities[array_rand($cities)];
+
+                //chọn random quận district from json file -> district phải có parent_code = code của city
+                $city_Districts = array_filter($districts, function ($district) use ($city) {
+                    return $district['parent_code'] == $city['code'];
+                });
+                $district = $city_Districts[array_rand($city_Districts)];
+
+                //chọn random phường ward from json file -> ward phải có parent_code = code của district
+                $districtWards = array_filter($wards, function ($ward) use ($district) {
+                    return $ward['parent_code'] == $district['code'];
+                });
+                $ward = $districtWards[array_rand($districtWards)];
+
                 Address::create([
                     'user_id' => $user->id,
                     'number' => rand(1, 100),
                     'street' => $faker->streetName(),
-                    'city' => $cities[array_rand($cities)]['name_with_type'],
-                    'district' => $districts[array_rand($districts)]['name_with_type'],
-                    'ward' => $wards[array_rand($wards)]['name_with_type'],
+                    'city' => $city['name_with_type'],
+                    'district' => $district['name_with_type'],
+                    'ward' => $ward['name_with_type'],
                 ]);
             }
         }

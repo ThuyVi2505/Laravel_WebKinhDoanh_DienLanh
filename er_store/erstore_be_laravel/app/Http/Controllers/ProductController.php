@@ -9,6 +9,7 @@ use App\Models\Image;
 use App\Models\SaleProd;
 use App\Models\Attribute;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +25,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $productDetail = Product::find($id);
-        $attributes = $productDetail->attributes()->wherePivotNotNull('value')->get();
+        $attributes = $productDetail->attributes()->wherePivotNotNull('value')->orderBy('created_at','asc')->get();
         // $attributes = Attribute::where($product);
         return view('admin.product.detail')->with(compact('productDetail', 'attributes'));
     }
@@ -122,11 +123,20 @@ class ProductController extends Controller
             $sale->percent = 0;
             $sale->save();
         }
-        foreach ($request->input('attributes', []) as $attributeId => $value) {
-            if ($value != null) {
-                $prod->attributes()->attach($attributeId, ['value' => $value]);
+        // foreach ($request->input('attributes', []) as $attributeId => $value) {
+        //     if ($value != null) {
+        //         $prod->attributes()->attach($attributeId, ['value' => $value]);
+        //     }
+        // }
+        $attributes = $request->input('attributes', []);
+        $values = $request->input('values', []);
+
+        foreach ($attributes as $key => $attributeId) {
+            if ($attributeId !== null && $values[$key] !== null) {
+                $prod->attributes()->attach($attributeId,['value' => $values[$key]]);
             }
         }
+        
         return back()->with('success', 'Thêm thành công');
     }
     public function edit($id)

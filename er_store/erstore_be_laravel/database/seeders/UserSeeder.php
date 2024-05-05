@@ -22,8 +22,9 @@ class UserSeeder extends Seeder
     {
         // DB::table('users')->truncate();
         $faker = \Faker\Factory::create();
-        for ($i = 0; $i < 10; $i++) {
-            $name = $faker->userName();
+        for ($i = 0; $i < 50; $i++) {
+            // $name = $faker->userName();
+            $name = 'user'.($i+1);
             $email = str_replace('.', '_', strtolower($name)). '@gmail.com';
             // $name = explode('@', $email)[0];
             User::create([

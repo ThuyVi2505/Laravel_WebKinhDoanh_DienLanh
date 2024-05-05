@@ -17,7 +17,7 @@
       </a>
     </div>
     <div class="container">
-    <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('product.store')}}" id="product_form" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
             <div class="row row-cols-1 row-cols-md-2">
@@ -148,45 +148,99 @@
                     
                 </div>
                 <div class="mb-3">
-                    {{-- <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Sản phẩm thuộc:</label>
+                    <label for="" class=" mb-2 text-secondary fw-bold text-uppercase">Thông số kỹ thuật:</label>
+
+                    
+                    
                     <div class="border px-3 py-3 border-2" style="border-radius:10px;">
-                            <div class="mb-3">
-                                <label for="cat_id" class="form-label fw-bold" style="color: #008080">Danh mục <span class="text-danger">*</span></label>
-                                <select class="form-select @error('cat_id') is-invalid @enderror" id="cat_id" name="cat_id" aria-label="Default select example">
-                                    <option value="" selected>chọn danh mục</option>
-                                    @foreach($category_list as $item)
-                                    <option value="{{$item->id}}">{{$item->cat_name}}</option>
-                                    @endforeach
-                                </select>
-                                @error('cat_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="brand_id" class="form-label fw-bold" style="color: #008080">Thương hiệu <span class="text-danger">*</span></label>
-                                <div class="border px-2 @error('brand_id') is-invalid @enderror" style="border-radius:5px">
-                                    @foreach($brand_list as $item)
-                                    <label>
-                                        <input type="radio" class="brand" id="brand_id" name="brand_id" value="{{$item->id}}">
-                                        <img src="{{asset('storage/uploads/Brand/'.$item->thumnail)}}" class="me-2 my-2 p-2 border border-1" style="border-radius:10px" alt="Option 2" width="120px" height="80px">
-                                    </label>
-                                    @endforeach
+                        <div class="d-flex justify-content-end align-items-center mb-2">
+                            <a class="text-secondary me-3 text-decoration-none">Bấm vào đây để thêm thông số kỹ thuật <i class="fa-solid fa-arrow-right"></i></a>
+                            <a onclick="addAttributeField()" class="btn btn-success py-0 px-0" style="width:30px;height:30px"><i class="fa-solid fa-plus"></i></a>
+                        </div>
+                        <hr>
+                        <div id="attribute_fields">
+                            <div class="attribute_field">
+                            @if(old('attributes'))
+                            @foreach(old('attributes', ['']) as $key => $attributeId)
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <select class="form-select" name="attributes[]" onchange="disableSelectedOptions()">
+                                        <option disabled selected>Chọn thông số kỹ thuật</option>
+                                        @foreach($attributes as $attribute)
+                                            <option value="{{ $attribute->id }}" {{ $attributeId == $attribute->id ? 'selected' : '' }}>{{ $attribute->key }}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="text" class="form-control mx-2 value" name="values[]" value="{{ old('values.'.$key) }}" placeholder="Nhập giá trị">
+                                    <a type="button" class="btn btn-danger btn-sm" style="width:30px;height:30px;" onclick="removeAttributeField(this)"><i class="fa-solid fa-xmark"></i></a>
                                 </div>
-                                @error('brand_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                            @endforeach
+                            @endif
+                            {{-- add content attribute here --}}
                             </div>
-                    </div> --}}
-                    <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Thông số kỹ thuật:</label>
-                    <div class="border px-3 py-3 border-2" style="border-radius:10px;">
-                        @foreach($attributes as $attribute)
-                        <label for="{{ 'attribute_'.$attribute->id }}" class="form-label fw-bold" style="color: #008080">{{ $attribute->key }}</label>
-                        <input type="text" class="form-control mb-3" id="{{ 'attribute_'.$attribute->id }}" name="attributes[{{ $attribute->id }}]" placeholder="">
-                        @endforeach
+                        </div>
+                        <script>
+                            function addAttributeField() {
+                                var attributeField = document.createElement('div');
+                                attributeField.className = 'attribute_field';
+                                attributeField.innerHTML = `
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <select class="form-select" name="attributes[]" onchange="disableSelectedOptions()">
+                                            <option disabled selected>Chọn thông số kỹ thuật</option>
+                                            @foreach($attributes as $attribute)
+                                                <option value="{{ $attribute->id }}">{{ $attribute->key }}</option>
+                                            @endforeach
+                                        </select>
+                                        <input type="text" class="form-control mx-2 value" name="values[]" placeholder="Nhập giá trị">
+                                        <a type="button" class="btn btn-danger btn-sm" style="width:30px;height:30px;" onclick="removeAttributeField(this)"><i class="fa-solid fa-xmark"></i></a>
+                                    </div>
+                                `;
+                                document.getElementById('attribute_fields').appendChild(attributeField);
+                                disableSelectedOptions();
+                            }
+                            
+                            function removeAttributeField(button) {
+                                button.parentNode.remove();
+                                disableSelectedOptions();
+                            }
+                            function disableSelectedOptions() {
+                                var selects = document.getElementsByName("attributes[]");
+                                var selectedValues = [];
+                                for (var i = 0; i < selects.length; i++) {
+                                    var selectedOption = selects[i].options[selects[i].selectedIndex];
+                                    if (selectedOption.value !== "") {
+                                        selectedValues.push(selectedOption.value);
+                                    }
+                                }
+                                var options = document.querySelectorAll("select[name='attributes[]'] option");
+                                options.forEach(function(option) {
+                                    if (selectedValues.includes(option.value)) {
+                                        option.hidden = true;
+                                    } else {
+                                        option.hidden = false;
+                                    }
+                                });
+                            }
+                            document.getElementById('product_form').addEventListener('submit', function() {
+                                disableSelectedOptions();
+                            });
+
+                            // document.addEventListener("DOMContentLoaded", function() {
+                            //     disableSelectedOptions();
+                                
+                            //     var selects = document.getElementsByName("attributes[]");
+                            //     selects.forEach(function(select) {
+                            //         select.addEventListener("change", function() {
+                            //             disableSelectedOptions();
+                            //         });
+                            //     });
+                            // });
+                        </script>
+                        
+                        {{-- @foreach($attributes as $attribute)
+                        <div class="form-group">
+                            <label for="{{ 'attribute_'.$attribute->id }}" class="form-label fw-bold" style="color: #008080">{{ $attribute->key }}</label>
+                            <input type="text" class="form-control mb-3" id="{{ 'attribute_'.$attribute->id }}" name="attributes[{{ $attribute->id }}]" placeholder="">
+                        </div>
+                        @endforeach --}}
                     </div>
                 </div>
 
@@ -234,6 +288,9 @@
 
 <!-- style -->
 <style>
+    .value::placeholder{
+        color: red
+    }
     /* HIDE RADIO */
     [type=radio].brand { 
         position: absolute;

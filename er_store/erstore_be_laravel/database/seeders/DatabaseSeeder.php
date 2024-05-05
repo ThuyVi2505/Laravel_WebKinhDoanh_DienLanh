@@ -18,8 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             UserSeeder::class,
-            Address::class,
-            
+            AddressSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }

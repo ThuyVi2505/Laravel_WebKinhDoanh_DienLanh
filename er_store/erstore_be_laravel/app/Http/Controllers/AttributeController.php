@@ -9,7 +9,7 @@ class AttributeController extends Controller
 {
     public function index(){
         $count = Attribute::count();
-        $attributes = Attribute::orderBy('created_at','desc')->paginate($count);
+        $attributes = Attribute::orderBy('created_at','desc')->paginate(20);
         return view('admin.attribute.index')->with(compact('attributes'));
     }
 
