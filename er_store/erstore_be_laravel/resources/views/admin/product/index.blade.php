@@ -58,15 +58,16 @@
             <td class="text-center">
               
               <div class="">
-                <a class="card-title text-decoration-none text-primary fw-bold">{{ number_format($product->prod_price, 0, ',', '.')}}</a>
-                <p class="card-text text-secondary d-none d-lg-block">#{{ $product->prod_slug }}</p>
+                <a class="card-title text-decoration-none text-black">{{ number_format($product->prod_price, 0, ',', '.')}}</a>
+                {{-- <p class="card-text text-secondary d-none d-lg-block">#{{ $product->prod_slug }}</p> --}}
             </div>
             </td>
             <td class="text-center">
                 {{$product->prod_stock}}
               </td>
               <td class="text-center">
-                <span class="text-secondary fw-bold">{{$product->category->parent->cat_name}}:</span> {{$product->category->cat_name}}
+                {{-- <span class="text-secondary fw-bold">{{$product->category->parent->cat_name}}</span> --}}
+                {{$product->category->parent_id != null ? $product->category->parent->cat_name.' ':''}}{{$product->category->cat_name}}
               </td>
               <td class="text-center">
                 {{$product->brand->brand_name}}

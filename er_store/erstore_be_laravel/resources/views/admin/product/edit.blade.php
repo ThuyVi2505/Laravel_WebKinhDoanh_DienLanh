@@ -150,11 +150,82 @@
                 </div>
                 <div class="mb-3">
                     <label for="" class="mb-2 text-secondary fw-bold text-uppercase">Thông số kỹ thuật:</label>
-                    <div class="border px-3 py-3 border-2" style="border-radius:10px;">
+                    {{-- <div class="border px-3 py-3 border-2" style="border-radius:10px;">
                         @foreach($attributes as $attribute)
                         <label for="{{ 'attribute_'.$attribute->id }}" class="form-label fw-bold" style="color: #008080">{{ $attribute->key }}</label>
                         <input type="text" class="form-control mb-3" id="{{ 'attribute_'.$attribute->id }}" name="attributes[{{ $attribute->id }}]" placeholder="" value="{{ $productDetail->attributes->where('id', $attribute->id)->first()->pivot->value ?? '' }}">
                         @endforeach
+                    </div> --}}
+                    <div class="border px-3 py-3 border-2" style="border-radius:10px;">
+                        <div class="d-flex justify-content-end align-items-center mb-2">
+                            <a class="text-secondary me-3 text-decoration-none">Bấm vào đây để thêm thông số kỹ thuật <i class="fa-solid fa-arrow-right"></i></a>
+                            <a onclick="addAttributeField()" class="btn btn-success py-0 px-0" style="width:30px;height:30px"><i class="fa-solid fa-plus"></i></a>
+                        </div>
+                        <hr>
+                        <div id="attribute_fields">
+                            <div class="attribute_field">
+                                @foreach($productDetail->attributes as $key=>$attributeId)
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <select class="form-select" name="attributes[]" onchange="disableSelectedOptions()">
+                                        <option disabled selected>Chọn thông số kỹ thuật</option>
+                                        @foreach($attributes as $attribute)
+                                            <option value="{{ $attribute->id }}" {{ $attributeId->id == $attribute->id ? 'selected' : '' }}>{{ $attribute->key }}</option>
+                                        @endforeach
+                                    </select>
+                                    <input type="text" class="form-control mx-2 value" name="values[]" value="{{ $attributeId->pivot->value }}" placeholder="Nhập giá trị">
+                                    <a type="button" class="btn btn-danger btn-sm" style="width:30px;height:30px;" onclick="removeAttributeField(this)"><i class="fa-solid fa-xmark"></i></a>
+                                </div>
+                                @endforeach
+                            {{-- add content attribute here --}}
+                            </div>
+                        </div>
+                        <script>
+                            function addAttributeField() {
+                                var attributeField = document.createElement('div');
+                                attributeField.className = 'attribute_field';
+                                attributeField.innerHTML = `
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <select class="form-select" name="attributes[]" onchange="disableSelectedOptions()">
+                                            <option disabled selected>Chọn thông số kỹ thuật</option>
+                                            @foreach($attributes as $attribute)
+                                                <option value="{{ $attribute->id }}">{{ $attribute->key }}</option>
+                                            @endforeach
+                                        </select>
+                                        <input type="text" class="form-control mx-2 value" name="values[]" placeholder="Nhập giá trị">
+                                        <a type="button" class="btn btn-danger btn-sm" style="width:30px;height:30px;" onclick="removeAttributeField(this)"><i class="fa-solid fa-xmark"></i></a>
+                                    </div>
+                                `;
+                                document.getElementById('attribute_fields').appendChild(attributeField);
+                                disableSelectedOptions();
+                            }
+                            
+                            function removeAttributeField(button) {
+                                button.parentNode.remove();
+                                disableSelectedOptions();
+                            }
+                            function disableSelectedOptions() {
+                                var selects = document.getElementsByName("attributes[]");
+                                var selectedValues = [];
+                                for (var i = 0; i < selects.length; i++) {
+                                    var selectedOption = selects[i].options[selects[i].selectedIndex];
+                                    if (selectedOption.value !== "") {
+                                        selectedValues.push(selectedOption.value);
+                                    }
+                                }
+                                var options = document.querySelectorAll("select[name='attributes[]'] option");
+                                options.forEach(function(option) {
+                                    if (selectedValues.includes(option.value)) {
+                                        option.hidden = true;
+                                    } else {
+                                        option.hidden = false;
+                                    }
+                                });
+                            }
+                            document.getElementById('product_form').addEventListener('submit', function() {
+                                disableSelectedOptions();
+                            });
+
+                        </script>
                     </div>
                 </div>
 

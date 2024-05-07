@@ -45,7 +45,7 @@ class ProductController extends Controller
                 'prod_model' => ['required', 'max:255', 'min:6', 'unique:products'],
                 'prod_slug' => [''],
                 'prod_price' => ['required', 'integer'],
-                'prod_stock' => ['required', 'integer'],
+                'prod_stock' => ['required', 'integer','between:0,1000'],
                 'prod_description' => [''],
                 'origin_country' => [''],
                 'guarantee_period' => [''],
@@ -67,8 +67,9 @@ class ProductController extends Controller
 
                 'prod_price.required' => 'Giá mặt hàng bắt buộc nhập',
                 'prod_stock.required' => 'Số lượng mặt hàng bắt buộc nhập',
-                'prod_price.integer' => 'Trường prod_price phải là một số nguyên dương (vd: 1,2,3)',
-                'prod_stock.integer' => 'Trường prod_stock phải là một số nguyên dương (vd: 1,2,3)',
+                'prod_price.integer' => 'Phải là một số nguyên dương (vd: 1,2,3)',
+                'prod_stock.integer' => 'Phải là một số nguyên dương (vd: 1,2,3)',
+                'prod_stock.between' => 'Phải nằm trong khoảng từ 0 đến 1000',
 
                 'brand_id.required' => 'Thương hiệu bắt buộc chọn',
                 'cat_id.required' => 'Danh mục bắt buộc chọn'
@@ -155,7 +156,7 @@ class ProductController extends Controller
                 'prod_model' => ['required', 'max:255', 'min:6', 'unique:products,prod_name,' . $id],
                 'prod_slug' => [''],
                 'prod_price' => ['required', 'integer'],
-                'prod_stock' => ['required', 'integer'],
+                'prod_stock' => ['required', 'integer','between:0,1000'],
                 'origin_country' => [''],
                 'guarantee_period' => [''],
                 'brand_id' => ['required'],
@@ -178,6 +179,8 @@ class ProductController extends Controller
                 'prod_stock.required' => 'Số lượng mặt hàng bắt buộc nhập',
                 'prod_price.integer' => 'Trường prod_price phải là một số nguyên dương (vd: 1,2,3)',
                 'prod_stock.integer' => 'Trường prod_stock phải là một số nguyên dương (vd: 1,2,3)',
+                'prod_stock.between' => 'Phải nằm trong khoảng từ 0 đến 1000',
+
                 'brand_id.required' => 'Thương hiệu bắt buộc chọn',
                 'cat_id.required' => 'Danh mục bắt buộc chọn'
             ],
@@ -231,13 +234,29 @@ class ProductController extends Controller
             $sale->percent = 0;
             $sale->save();
         }
-        foreach ($request->input('attributes', []) as $attributeId => $value) {
-            if ($value != '') {
-                $prod->attributes()->syncWithoutDetaching([$attributeId => ['value' => $value]]);
-            } else {
-                $prod->attributes()->detach($attributeId);
+
+        $attributes = $request->input('attributes', []);
+        $values = $request->input('values', []);
+        foreach ($attributes as $key => $attributeId) {
+            if ($attributeId !== null && $values[$key] !== null) {
+                $prod->attributes()->syncWithoutDetaching([$attributeId=>['value' => $values[$key]]]);
             }
+            
         }
+        // Lấy danh sách các attribute_id của các thuộc tính cũ
+        $existingAttributeIds = $prod->attributes->pluck('id')->toArray();
+        // Xóa các giá trị của các thuộc tính đã bị loại bỏ
+        $removedAttributeIds = array_diff($existingAttributeIds, $attributes);
+        foreach ($removedAttributeIds as $removedAttributeId) {
+            $prod->attributes()->detach($removedAttributeId);
+        }
+        // foreach ($request->input('attributes', []) as $attributeId => $value) {
+        //     if ($value != '') {
+        //         $prod->attributes()->syncWithoutDetaching([$attributeId => ['value' => $value]]);
+        //     } else {
+        //         $prod->attributes()->detach($attributeId);
+        //     }
+        // }
         return back()->with('success', 'Cập nhật thành công');
     }
 
@@ -263,6 +282,19 @@ class ProductController extends Controller
         // }
 
         $data->delete();
+        return response()->json(['status' => 'success']);
+    }
+    public function deleteImg(Request $request)
+    {
+        $img = Image::find($request->imgId);
+        // if (Storage::exists($imagePath)) {
+        // Storage::deleteDirectory('public/uploads/Product/' . $data->id);
+        // }
+        $img->delete();
+            $old_image_exist = storage_path('app/public/uploads/Product/'.$request->productId.'/'. $request->imgName);
+            if (File::exists($old_image_exist)) {
+                unlink($old_image_exist);
+            }
         return response()->json(['status' => 'success']);
     }
 }

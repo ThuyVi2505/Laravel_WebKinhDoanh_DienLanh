@@ -5,7 +5,7 @@
     <div class="card mx-2 my-2">
       <div class="card-header py-0 pt-2 align-middle">
         <div class="float-start">
-            <h3 class="text-darkcyan fw-bold text-uppercase"><span class="text-black fw-normal">DANH MỤC:</span> {{$cat_detail->cat_name}}</h3>
+            <h3 class="text-darkcyan fw-bold text-uppercase"><span class="text-black fw-normal">DANH MỤC:</span> {{$cat_detail->parent_id != null ? $cat_detail->parent->cat_name.' ':''}}{{$cat_detail->cat_name}}</h3>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
                 <div class="">
                     <h6 class="text-uppercase fw-bold text-black text-decoration-underline">Thông tin danh mục:</h6>
                     <ul class="list-style-none">
-                        <li><span>Tên:</span> {{$cat_detail->cat_name}}</li>
+                        <li><span>Tên:</span> {{$cat_detail->parent_id != null ? $cat_detail->parent->cat_name.' ':''}}{{$cat_detail->cat_name}}</li>
                         <li><span>Trạng thái:</span> {{$cat_detail->isActive?"Kích hoạt":"Khóa"}}</li>
                         <li><span>Danh mục cha:</span> {{$cat_detail->parent_id?$cat_detail->parent->cat_name:"Không có"}}</li>
                         <li><span>Ngày tạo:</span> {{$cat_detail->created_at->format('H:i:s d/m/y')}}</li>
@@ -61,7 +61,7 @@
                             </td>
                             <td class="text-{{$prod->isActive?"success":"danger"}} align-middle">{{$prod->isActive?"Kích hoạt": "Khóa"}}</td>
                             @if(!$cat_detail->parent_id)
-                            <td class="align-middle">{{$prod->category->cat_name}}</td>
+                            <td class="align-middle">{{$prod->category->parent_id != null ? $prod->category->parent->cat_name.' ':''}}{{$prod->category->cat_name}}</td>
                             @endif
                             <td class="align-middle">{{$prod->brand->brand_name}}</td>
                           </tr>

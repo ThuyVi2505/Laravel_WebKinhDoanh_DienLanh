@@ -99,6 +99,8 @@ Route::prefix('admin')->group(function () {
 
             Route::post('product/delete', 'delete')->name('product.delete'); // delete
             Route::post('product/changeStatus', 'changeStatus')->name('product.changeStatus'); // change status
+
+            Route::post('product/img-delete', 'deleteImg')->name('product.deleteImg'); // delete img
         });
     });
 });

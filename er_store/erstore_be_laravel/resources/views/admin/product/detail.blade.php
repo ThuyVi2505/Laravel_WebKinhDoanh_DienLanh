@@ -23,7 +23,7 @@
                         <h6 class="text-uppercase fw-bold text-black text-decoration-underline">Thông tin cơ bản:</h6>
                         <ul class="list-style-none">
                             <li><span>Tên:</span> {{$productDetail->prod_name}} {{$productDetail->prod_model}}</li>
-                            <li><span>Danh mục:</span>{{$productDetail->category->parent->cat_name}} {{$productDetail->category->cat_name}}</li>
+                            <li><span>Danh mục:</span>{{$productDetail->category->parent_id != null ? $productDetail->category->parent->cat_name.' ':''}}{{$productDetail->category->cat_name}}</li>
                             <li><span>Thương hiệu:</span> {{$productDetail->brand->brand_name}}</li>
                             <li class="text-{{$productDetail->isActive==1?"success":"danger"}}"><span>Trạng thái:</span > <i class="fa-solid fa-circle-{{$productDetail->isActive==1?'check':'xmark'}} me-1"></i> {{$productDetail->isActive?"Kích hoạt":"Khóa"}}</li>
                             <li><span>Giá bán:</span>{{ number_format($productDetail->prod_price, 0, ',', '.')}}</li>
@@ -45,8 +45,8 @@
                                     <td class="text-uppercase">{{$productDetail->prod_model}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="fw-normal">Danh mục:</th>
-                                    <td>{{$productDetail->category->parent->cat_name}} {{$productDetail->category->cat_name}}</td>
+                                    <th scope="row" class="fw-normal">Loại sản phẩm:</th>
+                                    <td>{{$productDetail->category->parent_id != null ? $productDetail->category->parent->cat_name.' ':''}}{{$productDetail->category->cat_name}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="fw-normal">Thương hiệu:</th>
@@ -73,11 +73,13 @@
             </div>
             <div class="mt-4">
                 <h6 class="text-uppercase fw-bold text-black text-decoration-underline">Hình ảnh sản phẩm:</h6>
-                <div class="ps-2 row" style="border-radius:5px">
+                <div class="ps-2 row" id="img-div" style="border-radius:5px">
                     @forelse ($productDetail->images as $item)
                     <div class="img-div px-0" style="width:130px;height:100px">
                         <img id="" src="{{asset('storage/uploads/Product/'.$productDetail->id.'/'.$item->image) }}" class="gallery-item rounded card-img-bottom object-fit-contain border border-1 border-primary w-100 h-100 p-1"/>
-                        <button data-id="{{$item->id}}" class="btn-img-delete bg-danger rounded-circle border-0"><i class="fa-solid fa-x text-white"></i></button>
+                        @if ($productDetail->images->count()>2)
+                        <button class="btn-img-delete bg-danger rounded-circle border-0" data-product-id="{{$productDetail->id}}" data-img-id="{{$item->id}}" data-img-name="{{$item->image}}"><i class="fa-solid fa-x text-white"></i></button>
+                        @endif
                     </div>
                     @empty
                         <div class="">
@@ -112,5 +114,5 @@
   }
 </style>
 {{-- script --}}
-@include('admin.category.script.script')
+@include('admin.product.script.script')
 @endsection

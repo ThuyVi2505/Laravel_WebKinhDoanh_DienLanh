@@ -57,7 +57,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="prod_stock" class="form-label fw-bold" style="color: #008080">Số lượng tồn <span class="text-danger">*</span></label>
-                                <input type="number" min="0" max="1000" step="1" class="form-control @error('prod_stock') is-invalid @enderror" id="prod_stock" name="prod_stock" placeholder="Phải nhỏ hơn 1000" value="{{ old('prod_stock') }}">
+                                <input type="number" step="1" class="form-control @error('prod_stock') is-invalid @enderror" id="prod_stock" name="prod_stock" placeholder="Phải nhỏ hơn 1000" value="{{ old('prod_stock') }}">
                                 @error('prod_stock')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -136,7 +136,7 @@
                     <label for="" class="mb-2 mt-3 text-secondary fw-bold text-uppercase">Giảm giá:</label>
                     <div class="border px-3 py-3 border-2" style="border-radius:10px;">
                             <div class="mb-3">
-                                <label for="sale_percent" class="form-label fw-bold" style="color: #008080">Phần trăm giảm giá <span class="text-danger">(Không giảm thì nhập 0)</span></label>
+                                <label for="sale_percent" class="form-label fw-bold" style="color: #008080">Phần trăm giảm giá <span class="text-danger fw-normal">(Không giảm thì nhập 0)</span></label>
                                 <input type="number" max="100" min="0" step="1" class="form-control @error('sale_percent') is-invalid @enderror" id="sale_percent" name="sale_percent" placeholder="Nhập từ 0 đến 100" value="{{ old('sale_percent') }}">
                                 @error('sale_percent')
                                 <span class="invalid-feedback" role="alert">
@@ -149,9 +149,6 @@
                 </div>
                 <div class="mb-3">
                     <label for="" class=" mb-2 text-secondary fw-bold text-uppercase">Thông số kỹ thuật:</label>
-
-                    
-                    
                     <div class="border px-3 py-3 border-2" style="border-radius:10px;">
                         <div class="d-flex justify-content-end align-items-center mb-2">
                             <a class="text-secondary me-3 text-decoration-none">Bấm vào đây để thêm thông số kỹ thuật <i class="fa-solid fa-arrow-right"></i></a>

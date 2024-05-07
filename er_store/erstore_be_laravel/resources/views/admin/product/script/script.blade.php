@@ -57,6 +57,33 @@
                     }
                 });
             });
+            //  delete image product
+            $(document).on('click', '.btn-img-delete', function(e) {
+                e.preventDefault();
+                let productId = $(this).data('product-id');
+                let imgId = $(this).data('img-id');
+                let imgName = $(this).data('img-name');
+                if (confirm('Bạn có chắc muốn xóa ảnh này không?')) {
+                    $.ajax({
+                        url: "{{ route('product.deleteImg') }}",
+                        method: 'POST',
+                        data: {
+                            productId: productId,
+                            imgId:imgId,
+                            imgName: imgName
+                        },
+                        success: function(response) {
+                            if (response.status == 'success') {
+                                $.get(location.href, function(data) {
+                                    var tableContent = $(data).find('#img-div').html();
+                                    $('#img-div').html(tableContent);
+                                });
+                                toastr.success('Đã xóa ảnh', 'Thành công!!!');
+                            }
+                        }
+                    });
+                }
+            });
         }
     // reload table
     

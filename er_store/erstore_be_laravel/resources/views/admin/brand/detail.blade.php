@@ -58,7 +58,7 @@
                             </td>
                             <td class="text-{{$prod->isActive?"success":"danger"}} align-middle">{{$prod->isActive?"Kích hoạt": "Khóa"}}</td>
                             @if(!$brand_detail->parent_id)
-                            <td class="align-middle">{{$prod->category->cat_name}}</td>
+                            <td class="align-middle">{{$prod->category->parent_id != null ? $prod->category->parent->cat_name.' ':''}}{{$prod->category->cat_name}}</td>
                             @endif
                             <td class="align-middle">{{$prod->brand->brand_name}}</td>
                           </tr>
