@@ -77,8 +77,8 @@ class ProductController extends Controller
         );
         $prod = new Product();
         $prod->prod_name = $request->prod_name;
-        $prod->prod_slug = Str::slug($request->prod_name);
         $prod->prod_model = $request->prod_model;
+        $prod->prod_slug = Str::slug($request->prod_name)."-".Str::slug($request->prod_model);
         $prod->isActive = is_null($request->isActive) ? 0 : $request->isActive;
         $prod->prod_price = $request->prod_price;
         $prod->prod_stock = $request->prod_stock;
@@ -187,7 +187,7 @@ class ProductController extends Controller
         );
         $prod = Product::find($id);
         $prod->prod_name = $request->prod_name;
-        $prod->prod_slug = Str::slug($request->prod_name);
+        $prod->prod_slug = Str::slug($request->prod_name)."-".Str::slug($request->prod_model);
         $prod->prod_model = $request->prod_model;
         $prod->isActive = is_null($request->isActive) ? 0 : $request->isActive;
         $prod->prod_price = $request->prod_price;
@@ -224,15 +224,13 @@ class ProductController extends Controller
             };
         }
         if (!is_null($request->sale_percent)) {
-            $sale = new SaleProd();
-            $sale->product_id = $prod->id;
+            $sale = SaleProd::where('product_id',$prod->id)->first();
             $sale->percent = $request->sale_percent;
-            $sale->save();
+            $sale->update();
         } else {
-            $sale = new SaleProd();
-            $sale->product_id = $prod->id;
+            $sale = SaleProd::where('product_id',$prod->id)->first();
             $sale->percent = 0;
-            $sale->save();
+            $sale->update();
         }
 
         $attributes = $request->input('attributes', []);

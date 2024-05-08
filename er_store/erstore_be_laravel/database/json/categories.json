@@ -1,0 +1,16 @@
+[
+    {"cat_name":"Tủ lạnh", "parent_id":null},
+    {"cat_name":"Máy lạnh", "parent_id":null},
+    {"cat_name":"Máy giặt", "parent_id":null},
+    {"cat_name":"Multi doors", "parent_id":1},
+    {"cat_name":"Side by side", "parent_id":1},
+    {"cat_name":"Ngăn đá trên", "parent_id":1},
+    {"cat_name":"Ngăn đá dưới", "parent_id":1},
+    {"cat_name":"Tủ lạnh Mini", "parent_id":1},
+    {"cat_name":"1 chiều", "parent_id":2},
+    {"cat_name":"2 chiều", "parent_id":2},
+    {"cat_name":"Cửa trước (lồng đứng)", "parent_id":3},
+    {"cat_name":"Cửa trên (lồng ngang)", "parent_id":3},
+    {"cat_name":"Cửa nghiêng (lồng nghiêng)", "parent_id":3},
+    {"cat_name":"Máy giặt Mini", "parent_id":3}
+]

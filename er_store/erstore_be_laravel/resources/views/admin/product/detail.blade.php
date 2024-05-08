@@ -26,7 +26,7 @@
                             <li><span>Danh mục:</span>{{$productDetail->category->parent_id != null ? $productDetail->category->parent->cat_name.' ':''}}{{$productDetail->category->cat_name}}</li>
                             <li><span>Thương hiệu:</span> {{$productDetail->brand->brand_name}}</li>
                             <li class="text-{{$productDetail->isActive==1?"success":"danger"}}"><span>Trạng thái:</span > <i class="fa-solid fa-circle-{{$productDetail->isActive==1?'check':'xmark'}} me-1"></i> {{$productDetail->isActive?"Kích hoạt":"Khóa"}}</li>
-                            <li><span>Giá bán:</span>{{ number_format($productDetail->prod_price, 0, ',', '.')}}</li>
+                            <li><span>Giá bán:</span>{{ number_format($productDetail->prod_price, 0, ',', '.')}} <span class="fw-normal text-danger">(Giảm giá: {{$productDetail->sale->percent}}%)</span></li>
                             <li><span>Số lượng tồn kho:</span> {{$productDetail->prod_stock}}</li>
                             <li><span>Ngày tạo:</span> {{$productDetail->created_at->format('H:i:s d/m/y')}}</li>
                             <li><span>Ngày cập nhật:</span> {{$productDetail->updated_at->format('H:i:s d/m/y')}}</li>

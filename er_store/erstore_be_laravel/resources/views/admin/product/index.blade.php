@@ -17,11 +17,23 @@
       </div>
     </div>
   <div class="card mx-2 border-0">
-    <div class="card-header bg-white border-bottom border-4">
-      <a class="btn btn-primary btn-sm fw-bold float-end" href="{{route('product.create')}}">
-        <i class="fa-solid fa-circle-plus me-2"></i>
-        Thêm mới
-      </a>
+    <div class="card-header bg-white border-bottom border-4 d-flex justify-content-between align-items-center">
+      <div class="">
+        {{-- <a class="btn btn-outline-secondary btn-sm fw-bold" href="">
+          <i class="fa-solid fa-file-arrow-up me-2"></i>
+          Nhập Excel
+        </a>
+        <a class="btn btn-outline-success btn-sm fw-bold" href="">
+          <i class="fa-solid fa-file-arrow-down me-2"></i>
+          Xuất Excel
+        </a> --}}
+      </div>
+      <div class="">
+        <a class="btn btn-primary btn-sm fw-bold" href="{{route('product.create')}}">
+          <i class="fa-solid fa-circle-plus me-2"></i>
+          Thêm mới
+        </a>
+      </div>
     </div>
     <div class="table-responsive" id="div-table">
       <table class="table table-hover">
@@ -59,7 +71,7 @@
               
               <div class="">
                 <a class="card-title text-decoration-none text-black">{{ number_format($product->prod_price, 0, ',', '.')}}</a>
-                {{-- <p class="card-text text-secondary d-none d-lg-block">#{{ $product->prod_slug }}</p> --}}
+                <p class="card-text text-danger">(Giảm giá: {{ $product->sale->percent }}%)</p>
             </div>
             </td>
             <td class="text-center">

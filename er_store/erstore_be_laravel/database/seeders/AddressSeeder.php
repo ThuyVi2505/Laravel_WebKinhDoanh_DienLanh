@@ -19,9 +19,9 @@ class AddressSeeder extends Seeder
     public function run()
     {
         // Đọc dữ liệu từ các tập tin JSON
-        $cities = json_decode(File::get(database_path('address_json/cities-KG.json')), true);
-        $districts = json_decode(File::get(database_path('address_json/districts-KG.json')), true);
-        $wards = json_decode(File::get(database_path('address_json/wards-KG.json')), true);
+        $cities = json_decode(File::get(database_path('json/cities-KG.json')), true);
+        $districts = json_decode(File::get(database_path('json/districts-KG.json')), true);
+        $wards = json_decode(File::get(database_path('json/wards-KG.json')), true);
 
         // Tạo địa chỉ ngẫu nhiên cho mỗi user
         $users = User::all();

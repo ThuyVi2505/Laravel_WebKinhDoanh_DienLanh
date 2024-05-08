@@ -150,18 +150,13 @@
                 <div class="mb-3">
                     <label for="" class=" mb-2 text-secondary fw-bold text-uppercase">Thông số kỹ thuật:</label>
                     <div class="border px-3 py-3 border-2" style="border-radius:10px;">
-                        <div class="d-flex justify-content-end align-items-center mb-2">
-                            <a class="text-secondary me-3 text-decoration-none">Bấm vào đây để thêm thông số kỹ thuật <i class="fa-solid fa-arrow-right"></i></a>
-                            <a onclick="addAttributeField()" class="btn btn-success py-0 px-0" style="width:30px;height:30px"><i class="fa-solid fa-plus"></i></a>
-                        </div>
-                        <hr>
                         <div id="attribute_fields">
                             <div class="attribute_field">
                             @if(old('attributes'))
                             @foreach(old('attributes', ['']) as $key => $attributeId)
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <select class="form-select" name="attributes[]" onchange="disableSelectedOptions()">
-                                        <option disabled selected>Chọn thông số kỹ thuật</option>
+                                        <option disabled selected value="">Chọn thông số kỹ thuật</option>
                                         @foreach($attributes as $attribute)
                                             <option value="{{ $attribute->id }}" {{ $attributeId == $attribute->id ? 'selected' : '' }}>{{ $attribute->key }}</option>
                                         @endforeach
@@ -174,6 +169,11 @@
                             {{-- add content attribute here --}}
                             </div>
                         </div>
+                        <hr>
+                        <div class="d-flex justify-content-end align-items-center mb-2">
+                            <a class="text-secondary me-3 text-decoration-none">Bấm vào đây để thêm thông số kỹ thuật <i class="fa-solid fa-arrow-right"></i></a>
+                            <a onclick="addAttributeField()" class="btn btn-success py-0 px-0" style="width:30px;height:30px"><i class="fa-solid fa-plus"></i></a>
+                        </div>
                         <script>
                             function addAttributeField() {
                                 var attributeField = document.createElement('div');
@@ -181,7 +181,7 @@
                                 attributeField.innerHTML = `
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <select class="form-select" name="attributes[]" onchange="disableSelectedOptions()">
-                                            <option disabled selected>Chọn thông số kỹ thuật</option>
+                                            <option disabled selected value="">Chọn thông số kỹ thuật</option>
                                             @foreach($attributes as $attribute)
                                                 <option value="{{ $attribute->id }}">{{ $attribute->key }}</option>
                                             @endforeach

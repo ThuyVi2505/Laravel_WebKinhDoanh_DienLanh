@@ -23,7 +23,7 @@
         <div class="card-body">
             <div class="mb-3">
               <label for="brand_name" class="form-label fw-bold text-uppercase" style="color: #008080">Tên thương hiệu <span class="text-danger">*</span></label>
-              <input type="text" class="form-control @error('brand_name') is-invalid @enderror" id="brand_name" name="brand_name" placeholder="Phải có ít nhất 4 kí tự" value="{{$brand_detail->brand_name}}">
+              <input type="text" class="form-control @error('brand_name') is-invalid @enderror" id="brand_name" name="brand_name" placeholder="Phải có ít nhất 2 kí tự" value="{{$brand_detail->brand_name}}">
               @error('brand_name')
               <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>

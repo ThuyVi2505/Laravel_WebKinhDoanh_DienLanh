@@ -52,7 +52,7 @@ class BrandController extends Controller
     {
         $request->validate(
             [
-                'brand_name' => ['required', 'max:50', 'min:4', 'unique:brands'],
+                'brand_name' => ['required', 'max:50', 'min:2', 'unique:brands'],
                 'brand_slug' => [''],
                 'isActive' => [''],
                 // 'thumnail' => [''],
@@ -95,7 +95,7 @@ class BrandController extends Controller
     public function update($id, Request $request){
         $request->validate(
             [
-                'brand_name' => ['required', 'max:50', 'min:4', 'unique:brands,brand_name,'.$id],
+                'brand_name' => ['required', 'max:50', 'min:2', 'unique:brands,brand_name,'.$id],
                 'brand_slug' => [''],
                 'isActive' => [''],
                 // 'thumnail' => [''],
