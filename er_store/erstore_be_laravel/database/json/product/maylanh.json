@@ -8,7 +8,27 @@
         "cat_id": 10,
         "sale_percent": 13,
         "attributes": {
-            
+            "Màu sắc": "Trắng",
+            "Công suất": "2 HP",
+            "Tốc độ làm lạnh tối thiểu": "5500 BTU",
+            "Tốc độ làm lạnh trung bình": "17100 BTU",
+            "Tốc độ làm lạnh tối đa": "20500 BTU",
+            "Công nghệ Inverter": "Có",
+            "Khả năng lọc khí": "Phin lọc Enzyme Blue",
+            "Kháng khuẩn/khử mùi": "Phin khử mùi Enzyme Blue",
+            "Chế độ gió": "Điều khiển lên xuống tự động",
+            "Chế độ hẹn giờ": "Có",
+            "Khả năng hút ẩm": "Có (2.9L/h)",
+            "Lưu lượng gió dàn lạnh": "8.8 - 12.5 - 15.0 - 17.1 m³/phút",
+            "Lưu lượng gió dàn nóng": "33.7 - 35.8 m³/phút",
+            "Gas sử dụng": "R32",
+            "Phạm vi hiệu quả": "Từ 20 - 30m²",
+            "Tiêu thụ điện": "1.315 kWh (CSPF 6.3)",
+            "Kích thước dàn lạnh (RxSxC)": "990x281x295 mm",
+            "Kích thước dàn nóng (RxSxC)": "845x300x595 mm",
+            "Khối lượng dàn lạnh": "13 kg",
+            "Khối lượng dàn nóng": "36 kg",
+            "Thông tin khác": "Làm lạnh nhanh bằng Powerful, Tự động khởi động lại sau khi có điện, Tự động chuẩn đoán lỗi, Có xua muỗi"
         },
         "prod_description":""
     }

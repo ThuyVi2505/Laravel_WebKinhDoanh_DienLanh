@@ -23,8 +23,8 @@
                     <ul class="list-style-none">
                         <li><span>Tên:</span> {{$brand_detail->brand_name}}</li>
                         <li><span>Trạng thái:</span> {{$brand_detail->isActive?"Kích hoạt":"Khóa"}}</li>
-                        <li><span>Ngày tạo:</span> {{$brand_detail->created_at->format('H:i:s d/m/y')}}</li>
-                        <li><span>Ngày cập nhật:</span> {{$brand_detail->updated_at->format('H:i:s d/m/y')}}</li>
+                        <li class="text-lowercase"><span>Ngày tạo:</span> {{$brand_detail->created_at->format('H:i:s')}} ngày {{$brand_detail->created_at->format('d/m/Y')}}</li>
+                        <li class="text-lowercase"><span>Ngày cập nhật:</span> {{$brand_detail->updated_at->format('H:i:s')}} ngày {{$brand_detail->updated_at->format('d/m/Y')}}</li>
                     </ul>
                 </div>
                 <div class="mt-4">

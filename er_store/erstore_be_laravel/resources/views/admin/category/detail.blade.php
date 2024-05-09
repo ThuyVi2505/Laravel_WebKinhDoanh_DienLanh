@@ -24,8 +24,8 @@
                         <li><span>Tên:</span> {{$cat_detail->parent_id != null ? $cat_detail->parent->cat_name.' ':''}}{{$cat_detail->cat_name}}</li>
                         <li><span>Trạng thái:</span> {{$cat_detail->isActive?"Kích hoạt":"Khóa"}}</li>
                         <li><span>Danh mục cha:</span> {{$cat_detail->parent_id?$cat_detail->parent->cat_name:"Không có"}}</li>
-                        <li><span>Ngày tạo:</span> {{$cat_detail->created_at->format('H:i:s d/m/y')}}</li>
-                        <li><span>Ngày cập nhật:</span> {{$cat_detail->updated_at->format('H:i:s d/m/y')}}</li>
+                        <li class="text-lowercase"><span>Ngày tạo:</span> {{$cat_detail->created_at->format('H:i:s')}} ngày {{$cat_detail->created_at->format('d/m/Y')}}</li>
+                        <li class="text-lowercase"><span>Ngày cập nhật:</span> {{$cat_detail->updated_at->format('H:i:s')}} ngày {{$cat_detail->updated_at->format('d/m/Y')}}</li>
                     </ul>
                 </div>
                 <div class="mt-4">

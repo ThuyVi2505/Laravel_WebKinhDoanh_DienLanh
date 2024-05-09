@@ -52,4 +52,10 @@ class Product extends Model
     {
         return $this->hasMany(OrderDetail::class, 'product_id','id');
     }
+
+    // Phương thức kiểm tra sản phẩm có tồn tại trong bảng order_details không
+    public function hasOrderDetails()
+    {
+        return $this->order_details()->exists();
+    }
 }

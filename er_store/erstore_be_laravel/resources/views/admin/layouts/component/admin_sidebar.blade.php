@@ -11,12 +11,12 @@
                 <!-- QUẢN LÝ PRODUCT -->
                 <div class="sb-sidenav-menu-heading text-light">QUẢN LÝ TÀI KHOẢN</div>
                 <!-- menu thuong hieu (brand) -->
-                <a id="text-color" class="nav-link {{ Request::routeIs('user.index')? 'collapse active':'collapsed' }} fw-bold" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseLayouts">
+                <a id="text-color" class="nav-link {{ Request::routeIs('user.index')||Request::routeIs('user.detail')? 'collapse active':'collapsed' }} fw-bold" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
                     KHÁCH HÀNG
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse {{ Request::routeIs('user.index')? 'show':'' }}" id="collapseUser" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <div class="collapse {{ Request::routeIs('user.index')||Request::routeIs('user.detail')? 'show':'' }}" id="collapseUser" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link {{Request::routeIs('user.index')?'active':''}}" href="{{ route('user.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list text-white"></i></div>

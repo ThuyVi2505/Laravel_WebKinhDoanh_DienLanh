@@ -54,5 +54,61 @@
             "Thông tin khác": "Không đóng tuyết, Công nghệ làm lạnh bằng quạt kép"
         },
         "prod_description":"Tủ lạnh Hitachi 584 lít R-M700GPGV2 khoác trên mình màu đen sáng bóng chống bám bẩn tốt, dễ vệ sinh, thiết kế 3 cửa, ngăn lấy nước lạnh và đá viên ngay bên ngoài cánh cửa giúp người dùng dễ sử dụng.Với dung tích lớn với 584 lít, tủ lạnh thích hợp với gia đình có nhiều người, cho phép bạn chứa đựng thực phẩm thoải mái hơn với dung tích ngăn mát 372 lít, ngăn đông 212 lít. Bên cạnh đó, tủ lạnh Hitachi tiết kiệm điên năng với công nghệ Inverter giúp tủ lạnh vận hành êm ái, bền bỉ, trong quá trình hoạt động tủ không rung lắc hay gây tiếng ồn khó chịu."
+    },
+    {
+        "prod_name":"Tủ lạnh LG Inverter 635 lít",
+        "prod_model":"GR-X257JS",
+        "prod_price":"28990000",
+        "origin_country":"Trung Quốc",
+        "brand_id": 13,
+        "cat_id": 5,
+        "sale_percent": 23,
+        "attributes": {
+            "Màu sắc": "Đen bóng",
+            "Số cửa": "2 cửa",
+            "Dung tích sử dụng": "635 lít",
+            "Dung tích ngăn đá": "219 lít",
+            "Dung tích ngăn lạnh": "416 lít",
+            "Công suất": "~1.4 kW/ngày",
+            "Chất liệu khay": "Kính cường lực",
+            "Công nghệ bảo quản thực phẩm": "Ngăn bảo quản tươi ngoin FRESH Balancer, Ngăn cân bằng độ ẩm Moist Balance Crisper",
+            "Kháng khuẩn/khử mùi": "Hygiene FRESH+ diệt khuẩn khử mùi",
+            "Chất liệu bên ngoài": "Thép chống gỉ Màu đen",
+            "Công nghệ Inverter": "Linear Inverter",
+            "Làm đá tự động": "Có. Hệ thống làm đá Spaceplus",
+            "Lấy nước bên ngoài": "Có. Lấy nước ngoài diệt khuẩn UV nano",
+            "Khối lượng": "130 kg",
+            "Kích thước": "913 x 735 x 1790 mm",
+            "Thông tin khác": "Không đóng tuyết, Door cooling Hệ thống làm lạnh từ cánh tủ, Hệ thống làm lạnh đa chiều"
+        },
+        "prod_description":"Tủ lạnh LG Inverter 635 lít GR-X257MC là sự lựa chọn hoàn hảo cho những gia đình đông thành viên đang tìm kiếm một giải pháp tối ưu cho việc bảo quản thực phẩm. Với dung tích sử dụng rộng rãi 635 lít, thiết kế Side by side hiện đại có nhiều ngăn - khay - kệ - hộc bên trong, tủ lạnh này đáp ứng nhu cầu của gia đình có từ 5 thành viên trở lên. Dù có dung tích lớn nhưng tủ vô cùng tiết kiệm điện nhờ sở hữu công nghệ Linear Inverter, vòi lấy nước ngoài và hàng loạt công nghệ tiên tiến khác để người dùng tận hưởng tối đa tiện nghi mà vẫn đảm bảo “nhẹ gánh” chi phí hóa đơn hàng tháng. Tủ lạnh LG GR-X257MC tích hợp công nghệ InstaView Door-in-Door cho phép bạn nhìn thấy bên trong tủ chỉ bằng cách gõ hai lần lên cửa. Điều này giúp bạn dễ dàng quan sát thực phẩm bên trong tủ để từ đó xác định chính xác vị trí thực phẩm cần dùng một cách nhanh chóng. Công nghệ này cũng giúp giữ nhiệt độ ổn định và tiết kiệm năng lượng vì bạn không còn phải mở tủ ra rồi mới lục tìm sản phẩm và đắn đo lựa chọn chúng."
+    },
+    {
+        "prod_name":"Tủ lạnh Electrolux Inverter 624 lít",
+        "prod_model":"ESE6600A-AVN",
+        "prod_price":"11990000",
+        "origin_country":"Trung Quốc",
+        "brand_id": 9,
+        "cat_id": 5,
+        "sale_percent": 20,
+        "attributes": {
+            "Màu sắc": "Xám bạc",
+            "Số cửa": "2 cửa",
+            "Dung tích sử dụng": "624 lít",
+            "Dung tích ngăn đá": "217 lít",
+            "Dung tích ngăn lạnh": "407 lít",
+            "Công suất": "~1.53 kW/ngày",
+            "Chất liệu khay": "Kính cường lực",
+            "Công nghệ bảo quản thực phẩm": "Ngăn rau Taste Lock cho rau củ tươi ngon lâu hơn",
+            "Kháng khuẩn/khử mùi": "Bộ lọc than hoạt tính",
+            "Chất liệu bên ngoài": "Kinh loại phủ sơn tĩnh điện",
+            "Công nghệ Inverter": "Có Inverter",
+            "Làm đá tự động": "Không",
+            "Lấy nước bên ngoài": "Không",
+            "Khối lượng": "87 kg",
+            "Kích thước": "911 x 746 x 1780 mm",
+            "Thông tin khác": "Không đóng tuyết, Làm lạnh đa chiều Eventemp"
+        },
+        "prod_description":"Tủ lạnh Electrolux Inverter 624 lít ESE6600A-AVN là sự lựa chọn hoàn hảo cho những gia đình đông thành viên đang tìm kiếm một giải pháp tối ưu cho việc bảo quản thực phẩm. Với dung tích sử dụng rộng rãi 635 lít, thiết kế Side by side hiện đại có nhiều ngăn - khay - kệ - hộc bên trong, tủ lạnh này đáp ứng nhu cầu của gia đình có từ 5 thành viên trở lên. Dù có dung tích lớn nhưng tủ vô cùng tiết kiệm điện nhờ sở hữu công nghệ Linear Inverter, vòi lấy nước ngoài và hàng loạt công nghệ tiên tiến khác để người dùng tận hưởng tối đa tiện nghi mà vẫn đảm bảo “nhẹ gánh” chi phí hóa đơn hàng tháng. Tủ lạnh LG GR-X257MC tích hợp công nghệ InstaView Door-in-Door cho phép bạn nhìn thấy bên trong tủ chỉ bằng cách gõ hai lần lên cửa. Điều này giúp bạn dễ dàng quan sát thực phẩm bên trong tủ để từ đó xác định chính xác vị trí thực phẩm cần dùng một cách nhanh chóng. Công nghệ này cũng giúp giữ nhiệt độ ổn định và tiết kiệm năng lượng vì bạn không còn phải mở tủ ra rồi mới lục tìm sản phẩm và đắn đo lựa chọn chúng."
     }
 ]

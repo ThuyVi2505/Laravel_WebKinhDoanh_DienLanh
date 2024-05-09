@@ -28,8 +28,8 @@
                             <li class="text-{{$productDetail->isActive==1?"success":"danger"}}"><span>Trạng thái:</span > <i class="fa-solid fa-circle-{{$productDetail->isActive==1?'check':'xmark'}} me-1"></i> {{$productDetail->isActive?"Kích hoạt":"Khóa"}}</li>
                             <li><span>Giá bán:</span>{{ number_format($productDetail->prod_price, 0, ',', '.')}} <span class="fw-normal text-danger">(Giảm giá: {{$productDetail->sale->percent}}%)</span></li>
                             <li><span>Số lượng tồn kho:</span> {{$productDetail->prod_stock}}</li>
-                            <li><span>Ngày tạo:</span> {{$productDetail->created_at->format('H:i:s d/m/y')}}</li>
-                            <li><span>Ngày cập nhật:</span> {{$productDetail->updated_at->format('H:i:s d/m/y')}}</li>
+                            <li class="text-lowercase"><span>Ngày tạo:</span> {{$productDetail->created_at->format('H:i:s')}} ngày {{$productDetail->created_at->format('d/m/Y')}}</li>
+                        <li class="text-lowercase"><span>Ngày cập nhật:</span> {{$productDetail->updated_at->format('H:i:s')}} ngày {{$productDetail->updated_at->format('d/m/Y')}}</li>
                             <li><span>Mô tả:</li>
                             <p>{{$productDetail->prod_description}}</p>
                         </ul>

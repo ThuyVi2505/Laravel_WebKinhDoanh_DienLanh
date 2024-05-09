@@ -107,10 +107,11 @@
                 <a href="{{ route('product.edit',['product'=> $product->id]) }}" class="btn btn-edit rounded-circle">
                     <i class="fa-solid fa-pen-to-square text-primary" data-bs-toggle="tooltip" title="Sửa"></i>
                 </a>
+                @if(!$product->hasOrderDetails())
                 <a class="btn rounded-circle btn-delete" data-id="{{$product->id}}" data-name="{{$product->prod_name}}">
                   <i class="fa-solid fa-trash-can text-danger" data-bs-toggle="tooltip" title="Xóa"></i>
                 </a>
-                
+                @endif
             </td>
           </tr>
           @empty

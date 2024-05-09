@@ -19,6 +19,7 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
+        // DB::table('products')->truncate();
         // Thời gian bắt đầu và kết thúc của khoảng thời gian (ví dụ: từ 1/1/2023 đến 1/1/2024)
         $startTime = Carbon::create(2023, 1, 1, 0, 0, 0, 'Asia/Ho_Chi_Minh');
         $endTime = Carbon::now('Asia/Ho_Chi_Minh');
@@ -26,6 +27,8 @@ class ProductSeeder extends Seeder
         // Mảng chứa tất cả JSON
         $jsons = [
             'tulanh.json',
+            // 'maylanh.json',
+            // 'maygiat.json'
         ];
         // Mảng kết quả merge
         $products = [];

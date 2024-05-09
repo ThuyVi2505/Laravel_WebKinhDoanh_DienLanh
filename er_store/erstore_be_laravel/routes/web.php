@@ -43,6 +43,7 @@ Route::prefix('admin')->group(function () {
         //USER
         Route::controller(UserController::class)->group(function(){
             Route::get('user', 'index')->name('user.index'); // index page
+            Route::get('user/{user}/detail', 'show')->name('user.detail'); // go to edit page
         });
         // BRAND
         Route::controller(BrandController::class)->group(function () {
@@ -101,6 +102,11 @@ Route::prefix('admin')->group(function () {
             Route::post('product/changeStatus', 'changeStatus')->name('product.changeStatus'); // change status
 
             Route::post('product/img-delete', 'deleteImg')->name('product.deleteImg'); // delete img
+        });
+        //ORDER
+        Route::controller(UserController::class)->group(function(){
+            Route::get('order', 'index')->name('order.index'); // index page
+            Route::get('order/{order}/detail', 'show')->name('order.detail'); // go to edit page
         });
     });
 });

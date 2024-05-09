@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetail extends Model
 {
     use HasFactory;
-    protected $table = 'orders';
+    protected $table = 'order_details';
     protected $dates = [
         'created_at',
         // 'updated_at',

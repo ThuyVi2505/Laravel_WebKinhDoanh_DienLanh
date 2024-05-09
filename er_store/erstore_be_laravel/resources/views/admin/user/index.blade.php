@@ -17,19 +17,80 @@
       </div>
     </div>
   <div class="card mx-2 border-0">
-    {{-- <div class="card-header bg-white border-bottom border-4">
-      <a class="btn btn-primary btn-sm fw-bold float-end" href="{{route('brand.create')}}">
-        <i class="fa-solid fa-circle-plus me-2"></i>
-        Thêm mới
-      </a>
-    </div> --}}
-    {{-- <div class="card-header bg-white">
-      <h5 class="fw-bold float-start text-secondary">
-        Số lượng: {{$all_count}}
-      </h5>
-    </div> --}}
     <div class="table-responsive" id="div-table">
-      
+      <table class="table table-hover">
+        <thead class="text-center align-middle text-uppercase table-light">
+          <tr>
+            <th width="10%">Tên người dùng</th>
+            <th width="20%">Email</th>
+            {{-- <th width="5%">Số điện thoại</th> --}}
+            <th width="10%">Ngày tạo</th>
+            {{-- <th width="10%">Ngày<br>cập nhật</th> --}}
+            {{-- <th width="10%">Trạng<br>thái</th> --}}
+            <th width="5%">Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          @forelse($users as $value => $user)
+          <tr>
+            {{-- <th scope="row" class="text-center border">{{$value+1}}</th> --}}
+            <td class="px-3">
+              <div class="">
+                <a class="card-title text-decoration-none text-primary fw-bold text-uppercase">{{ $user->name }}</a>
+              </div>
+            </td>
+            <td class="text-center">
+              <div class="">
+                <a class="card-title text-decoration-none text-black">{{ $user->email }}</a>
+              </div>
+            </td>
+            {{-- <td class="text-center">
+              @if($user->phone!='')
+                {{$user->phone}}
+              @else
+                <p class="text-danger">...</p>
+              @endif
+            </td> --}}
+            <td class="text-center">
+              @if($user->created_at!='')
+              <small class="text-black">{{ $user->created_at->format('H:i:s d/m/Y') }}</small><br><small class="text-primary">({{ $user->created_at->diffForHumans() }})</small>
+              @endif
+            </td>
+            {{-- <td class="text-center">
+                @if($user->updated_at!='')
+                <small class="text-black">{{ $user->updated_at->format('H:i:s d/m/Y') }}</small><br><small class="text-primary">({{ $user->updated_at->diffForHumans() }})</small>
+                @endif
+            </td> --}}
+            {{-- <td class="text-center">
+                <a class="btn btn-sm fw-bold btn-outline-{{$user->isActive==1?'success':'danger'}} change-status" style="width:120px;height:30px;" data-id="{{$user->id}}" data-name="{{$user->genre_name}}">
+                    <i class="fa-solid fa-circle-{{$user->isActive==1?'check':'xmark'}} me-1"></i>
+                    {{$user->isActive==1?'Kích hoạt':'Khóa'}}
+                </a>
+            </td> --}}
+            <td class="text-center">
+                <a href="{{ route('user.detail',['user'=> $user->id]) }}" class="btn rounded-circle btn-view-detail">
+                  <i class="fa-solid fa-eye" data-bs-toggle="tooltip" title="Chi tiết"></i>
+                </a>
+                {{-- <a href="{{ route('user.edit',['user'=> $user->id]) }}" class="btn btn-edit rounded-circle">
+                    <i class="fa-solid fa-pen-to-square text-primary" data-bs-toggle="tooltip" title="Sửa"></i>
+                </a> --}}
+                {{-- <a class="btn rounded-circle btn-delete" data-id="{{$user->id}}" data-name="{{$user->prod_name}}">
+                  <i class="fa-solid fa-trash-can text-danger" data-bs-toggle="tooltip" title="Xóa"></i>
+                </a> --}}
+            </td>
+          </tr>
+          @empty
+          <tr class="align-middle">
+            <td class="text-center" colspan="10">
+            Không có dữ liệu
+            </td>
+          </tr>
+          @endforelse
+        </tbody>
+      </table>
+      <div class="">
+        {!!$users->appends($_GET)->links('admin.layouts.pagination.admin-pagination')!!}
+      </div>
     </div>
 </div>
 </div>
@@ -48,5 +109,5 @@
 </style>
 {{-- modal --}}
 {{-- script --}}
-@include('admin.brand.script.script')
+@include('admin.user.script.script')
 @endsection
