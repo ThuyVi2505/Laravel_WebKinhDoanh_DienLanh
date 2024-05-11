@@ -19,17 +19,15 @@ class BrandController extends Controller
 
     public function index(Request $request)
     {
-        $all_count = Brand::count();
         $data_brand = Brand::query()
             ->when($request->status != null, function ($query) use ($request) {
-                return $query->where('isActive', $request->status);
+                return $query->where('isActive', ($request->status=="kichhoat"?1:0));
             })
             ->when($request->searchBox != null, function ($query) use ($request) {
                 return $query->where('brand_name', 'like', '%' . $request->searchBox . '%');
             })
             ->orderBy('brand_name', 'asc')
             ->paginate(10);
-
         return view('admin.brand.index', compact('data_brand'));
     }
     public function show($id){

@@ -20,7 +20,9 @@ class ProductController extends Controller
     public function index()
     {
         $allProduct = Product::orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.product.index')->with(compact('allProduct'));
+        $brand_list = Brand::orderBy('brand_name', 'asc')->get();
+        $category_list = Category::where('parent_id', null)->orderBy('cat_name', 'asc')->get();
+        return view('admin.product.index')->with(compact('allProduct','brand_list','category_list'));
     }
     public function show($id)
     {
@@ -268,6 +270,50 @@ class ProductController extends Controller
     {
         $data = Product::find($request->id);
         $data->isActive = !$data->isActive;
+        $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $data->update();
+        return response()->json(['status' => 'success']);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changeBrand(Request $request)
+    {
+        $data = Product::find($request->id);
+        $data->brand_id = $request->brand_id;
+        $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $data->update();
+        return response()->json(['status' => 'success']);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changeCategory(Request $request)
+    {
+        $data = Product::find($request->id);
+        $data->cat_id = $request->cat_id;
+        $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $data->update();
+        return response()->json(['status' => 'success']);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changeSalePercent(Request $request)
+    {
+        $sale = SaleProd::where('product_id',$request->id)->first();
+        $sale->percent = $request->percent;
+        $sale->update();
+        $data = Product::find($request->id);
         $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $data->update();
         return response()->json(['status' => 'success']);

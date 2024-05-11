@@ -23,6 +23,21 @@
         Thêm mới
       </a>
     </div>
+    <form id="search-form" action="" method="GET" class="px-5 py-1 border-bottom border-top border-3">
+      <div class="d-flex justify-content-start align-item-center">
+        <!-- search box -->
+        <div class="mb-3 me-2 w-100">
+          <label for="searchBox" class="form-label fw-semibold text-secondary">Từ khóa</label>
+          <div class="input-group w-auto my-auto rounded" style="border: solid 1px darkcyan;background: darkcyan;">
+            <span class="input-group-text border-0" style="background: white;"><i class="fas fa-search" style="color:darkcyan;"></i></span>
+            <input type="text" class="form-control border-0" name="searchBox" id="searchBox" value="{{ request()->input('searchBox') }}" placeholder="Nhập từ khóa để tìm kiếm&hellip;">
+          </div>
+        </div>
+      </div>
+      <div class="float-end mx-2">
+        <button type="submit" class="btn btn-sm btn-primary fw-bold shadow" style="border: solid 2px darkcyan; background:darkcyan;">Lọc danh sách</button>
+      </div>
+    </form>
     <div class="table-responsive" id="div-table">
       <table class="table table-hover">
         <thead class="text-center align-middle text-uppercase table-light">

@@ -100,6 +100,9 @@ Route::prefix('admin')->group(function () {
 
             Route::post('product/delete', 'delete')->name('product.delete'); // delete
             Route::post('product/changeStatus', 'changeStatus')->name('product.changeStatus'); // change status
+            Route::post('product/changeBrand', 'changeBrand')->name('product.changeBrand'); // change brand
+            Route::post('product/changeCategory', 'changeCategory')->name('product.changeCategory'); // change brand
+            Route::post('product/changeSalePercent', 'changeSalePercent')->name('product.changeSalePercent'); // change Sale %
 
             Route::post('product/img-delete', 'deleteImg')->name('product.deleteImg'); // delete img
         });

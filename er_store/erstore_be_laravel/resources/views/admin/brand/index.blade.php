@@ -17,12 +17,36 @@
       </div>
     </div>
   <div class="card mx-2 border-0">
-    <div class="card-header bg-white border-bottom border-4">
+    <div class="card-header bg-white">
       <a class="btn btn-primary btn-sm fw-bold float-end" href="{{route('brand.create')}}">
         <i class="fa-solid fa-circle-plus me-2"></i>
         Thêm mới
       </a>
     </div>
+    <form id="search-form" action="" method="GET" class="px-5 py-1 border-bottom border-top border-3">
+      <div class="d-flex justify-content-start align-item-center">
+        <!-- status filter -->
+        <div class="mb-3 me-2">
+          <label for="status" class="form-label fw-semibold text-secondary">Trạng thái</label>
+          <select class="form-select rounded" name="status" id="status-filter" style="border-color: darkcyan;width:auto;">
+            <option value="">Tất cả</option>
+            <option value="kichhoat" {{Request::get('status')=='kichhoat'?'selected':''}}>KÍCH HOẠT</option>
+            <option value="khoa" {{Request::get('status')=='khoa'?'selected':''}}>KHÓA</option>
+          </select>
+        </div>
+        <!-- search box -->
+        <div class="mb-3 me-2 w-100">
+          <label for="searchBox" class="form-label fw-semibold text-secondary">Từ khóa</label>
+          <div class="input-group w-auto my-auto rounded" style="border: solid 1px darkcyan;background: darkcyan;">
+            <span class="input-group-text border-0" style="background: white;"><i class="fas fa-search" style="color:darkcyan;"></i></span>
+            <input type="text" class="form-control border-0" name="searchBox" id="searchBox" value="{{ request()->input('searchBox') }}" placeholder="Nhập từ khóa để tìm kiếm&hellip;">
+          </div>
+        </div>
+      </div>
+      <div class="float-end mx-2">
+        <button type="submit" class="btn btn-sm btn-primary fw-bold shadow" style="border: solid 2px darkcyan; background:darkcyan;">Lọc danh sách</button>
+      </div>
+    </form>
     <div class="table-responsive" id="div-table">
       <table class="table table-hover">
         <thead class="text-center align-middle text-uppercase table-light">

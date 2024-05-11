@@ -17,13 +17,28 @@
       </div>
     </div>
   <div class="card mx-2 border-0">
+    <form id="search-form" action="" method="GET" class="px-5 py-1 border-bottom border-top border-3">
+      <div class="d-flex justify-content-start align-item-center">
+        <!-- search box name-->
+        <div class="mb-3 me-2 w-100">
+          <label for="searchBox" class="form-label fw-semibold text-secondary">Từ khóa</label>
+          <div class="input-group w-auto my-auto rounded" style="border: solid 1px darkcyan;background: darkcyan;">
+            <span class="input-group-text border-0" style="background: white;"><i class="fas fa-search" style="color:darkcyan;"></i></span>
+            <input type="text" class="form-control border-0" name="searchBox" id="searchBox" value="{{ request()->input('searchBox') }}" placeholder="Nhập từ khóa để tìm kiếm&hellip;">
+          </div>
+        </div>
+      </div>
+      <div class="float-end mx-2">
+        <button type="submit" class="btn btn-sm btn-primary fw-bold shadow" style="border: solid 2px darkcyan; background:darkcyan;">Lọc danh sách</button>
+      </div>
+    </form>
     <div class="table-responsive" id="div-table">
       <table class="table table-hover">
         <thead class="text-center align-middle text-uppercase table-light">
           <tr>
             <th width="10%">Tên người dùng</th>
             <th width="20%">Email</th>
-            {{-- <th width="5%">Số điện thoại</th> --}}
+            <th width="5%">Số điện thoại</th>
             <th width="10%">Ngày tạo</th>
             {{-- <th width="10%">Ngày<br>cập nhật</th> --}}
             {{-- <th width="10%">Trạng<br>thái</th> --}}
@@ -44,13 +59,14 @@
                 <a class="card-title text-decoration-none text-black">{{ $user->email }}</a>
               </div>
             </td>
-            {{-- <td class="text-center">
+            <td class="text-center">
               @if($user->phone!='')
-                {{$user->phone}}
+                {{substr($user->phone, 0, 3) . ' ' . substr($user->phone, 3, 3) . ' ' . substr($user->phone, 6)}}
+                {{-- {{$user->phone}} --}}
               @else
                 <p class="text-danger">...</p>
               @endif
-            </td> --}}
+            </td>
             <td class="text-center">
               @if($user->created_at!='')
               <small class="text-black">{{ $user->created_at->format('H:i:s d/m/Y') }}</small><br><small class="text-primary">({{ $user->created_at->diffForHumans() }})</small>

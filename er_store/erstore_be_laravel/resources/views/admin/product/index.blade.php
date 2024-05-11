@@ -64,25 +64,39 @@
                     <div class="">
                         <a class="card-title text-decoration-none text-primary fw-bold">{{ $product->prod_name }} {{$product->prod_model}}</a>
                         <p class="card-text text-secondary d-none d-lg-block">#{{ $product->prod_slug }}</p>
+                        <p class="card-text text-danger d-flex justify-content-start align-items-center">
+                          Giảm %: <input type="number" min="0" max="100" step="1" class="ms-1 form-control form-control-sm border-0 fw-bold text-danger text-center change-sale" style="width:60px;" name="sale_percent" value="{{ $product->sale->percent }}" data-id="{{$product->id}}">
+                        </p>
                     </div>
                 </div>
             </td>
             <td class="text-center">
-              
-              <div class="">
-                <a class="card-title text-decoration-none text-black">{{ number_format($product->prod_price, 0, ',', '.')}}</a>
-                <p class="card-text text-danger">(Giảm giá: {{ $product->sale->percent }}%)</p>
-            </div>
+              <div class="text-center">
+                <a class="card-title text-decoration-none text-black a-price" data-id="{{$product->id}}" onclick="toggleInput(this)">{{ number_format($product->prod_price, 0, ',', '.')}}</a>
+                <input type="text" class="form-control form-control-sm border-0 text-danger w-100 change-price" name="price" value="{{ $product->prod_price }}" data-id="{{$product->id}}" hidden>
+              </div>
             </td>
             <td class="text-center">
                 {{$product->prod_stock}}
-              </td>
+            </td>
+            <td class="text-center">
+                <select class="form-select form-select-sm w-auto change-category" id="cat_id" name="cat_id" data-id="{{$product->id}}">
+                  @foreach($category_list as $item)
+                      <option value="{{$item->id}}" class="text-uppercase fw-bold {{$item->hasAnyChild()?'bg-light':''}}" {{$item->hasAnyChild()?'disabled':''}}>{{$item->cat_name}}</option>
+                      @foreach($item->children as $child)
+                          <option value="{{$child->id}}" {{$child->id == $product->category->id?'selected':''}}>{{$item->cat_name}} {{$child->cat_name}}</option>
+                      @endforeach
+                  @endforeach
+                </select>
+                {{-- {{$product->category->parent_id != null ? $product->category->parent->cat_name.' ':''}}{{$product->category->cat_name}} --}}
+            </td>
               <td class="text-center">
-                {{-- <span class="text-secondary fw-bold">{{$product->category->parent->cat_name}}</span> --}}
-                {{$product->category->parent_id != null ? $product->category->parent->cat_name.' ':''}}{{$product->category->cat_name}}
-              </td>
-              <td class="text-center">
-                {{$product->brand->brand_name}}
+                <select class="form-select form-select-sm w-auto change-brand" id="brand_id" name="brand_id" data-id="{{$product->id}}">
+                  @foreach($brand_list as $item)
+                      <option value="{{$item->id}}" {{$item->id == $product->brand->id?'selected':''}} class="text-uppercase">{{$item->brand_name}}</option>
+                  @endforeach
+                </select>
+                {{-- {{$product->brand->brand_name}} --}}
               </td>
             {{-- <td class="text-center">
               @if($product->created_at!='')

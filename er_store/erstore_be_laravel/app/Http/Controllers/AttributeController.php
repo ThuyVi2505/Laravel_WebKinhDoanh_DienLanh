@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class AttributeController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $count = Attribute::count();
-        $attributes = Attribute::orderBy('created_at','desc')->paginate(20);
+        $attributes = Attribute::query()
+            ->when($request->searchBox != null, function ($query) use ($request) {
+                return $query->where('key', 'like', '%' . $request->searchBox . '%');
+            })
+            ->orderBy('created_at','desc')->paginate(10);
+        // $attributes = Attribute::orderBy('created_at','desc')->paginate(20);
         return view('admin.attribute.index')->with(compact('attributes'));
     }
 

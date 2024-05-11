@@ -9,14 +9,14 @@
         </div>
       </div>
     </div>
-  <div class="card mx-2 border-0">
-    <div class="card-header bg-white border-bottom border-4">
-      <a class="btn btn-outline-primary btn-sm fw-bold float-end" href="{{route('product.index')}}">
-        <i class="fa-solid fa-clipboard-list me-2"></i>
-        Xem danh sách
-      </a>
+    <div class="card mx-2 border-0">
+        <div class="card-header bg-white border-bottom border-4">
+            <a class="btn btn-outline-primary btn-sm fw-bold float-end" href="{{route('product.index')}}">
+                <i class="fa-solid fa-clipboard-list me-2"></i>
+                Xem danh sách
+            </a>
+        </div>
     </div>
-    <div class="container">
     <form action="{{route('product.store')}}" id="product_form" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card-body">

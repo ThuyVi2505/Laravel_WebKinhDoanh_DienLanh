@@ -36,6 +36,52 @@
                 }
             });
             //  change status
+            $(document).on('change', '.change-category', function(e) {
+                e.preventDefault();
+                let Id = $(this).data('id');
+                var cat_id = $(this).val()
+                $.ajax({
+                    url: "{{ route('product.changeCategory') }}",
+                    method: 'POST',
+                    data: {
+                        id: Id,
+                        cat_id: cat_id
+                    },
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            $.get(location.href, function(data) {
+                                var tableContent = $(data).find('#div-table').html();
+                                $('#div-table').html(tableContent);
+                            });
+                            toastr.success('Đã thay đổi thương hiệu', 'Thành công!!!');
+                        }
+                    }
+                });
+            });
+            //  change status
+            $(document).on('change', '.change-brand', function(e) {
+                e.preventDefault();
+                let Id = $(this).data('id');
+                var brand_id = $(this).val()
+                $.ajax({
+                    url: "{{ route('product.changeBrand') }}",
+                    method: 'POST',
+                    data: {
+                        id: Id,
+                        brand_id: brand_id
+                    },
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            $.get(location.href, function(data) {
+                                var tableContent = $(data).find('#div-table').html();
+                                $('#div-table').html(tableContent);
+                            });
+                            toastr.success('Đã thay đổi thương hiệu', 'Thành công!!!');
+                        }
+                    }
+                });
+            });
+            //  change brand
             $(document).on('click', '.change-status', function(e) {
                 e.preventDefault();
                 let Id = $(this).data('id');
@@ -45,6 +91,29 @@
                     method: 'POST',
                     data: {
                         id: Id
+                    },
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            $.get(location.href, function(data) {
+                                var tableContent = $(data).find('#div-table').html();
+                                $('#div-table').html(tableContent);
+                            });
+                            toastr.success('Đã thay đổi trạng thái', 'Thành công!!!');
+                        }
+                    }
+                });
+            });
+            //  change sale %
+            $(document).on('change', '.change-sale', function(e) {
+                e.preventDefault();
+                let Id = $(this).data('id');
+                let value = $(this).val();
+                $.ajax({
+                    url: "{{ route('product.changeSalePercent') }}",
+                    method: 'POST',
+                    data: {
+                        id: Id,
+                        percent: value
                     },
                     success: function(response) {
                         if (response.status == 'success') {
@@ -84,8 +153,40 @@
                     });
                 }
             });
-        }
-    // reload table
-    
+            //  change status
+            $(document).on('click', '.price', function(e) {
+                e.preventDefault();
+                let Id = $(this).data('id');
+                var cat_id = $(this).val()
+                $.ajax({
+                    url: "{{ route('product.changeCategory') }}",
+                    method: 'POST',
+                    data: {
+                        id: Id,
+                        cat_id: cat_id
+                    },
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            $.get(location.href, function(data) {
+                                var tableContent = $(data).find('#div-table').html();
+                                $('#div-table').html(tableContent);
+                            });
+                            toastr.success('Đã thay đổi thương hiệu', 'Thành công!!!');
+                        }
+                    }
+                });
+            });
+            function toggleInput(element) {
+        let itemId = element.getAttribute('data-id');
+        let inputElement = document.querySelector(`input.change-price[data-id="${itemId}"]`);
+        element.hidden = true;
+        inputElement.hidden = false;
+        inputElement.focus();
+        inputElement.addEventListener('blur', function() {
+            element.hidden = false;
+            inputElement.hidden = true;
+        });
+    }
+    }
     
     </script>
