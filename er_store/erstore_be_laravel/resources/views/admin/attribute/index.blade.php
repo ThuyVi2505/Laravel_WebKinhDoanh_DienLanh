@@ -17,7 +17,7 @@
       </div>
     </div>
   <div class="card mx-2 border-0">
-    <div class="card-header bg-white border-bottom border-4">
+    <div class="card-header bg-white">
       <a class="btn btn-primary btn-sm fw-bold float-end" href="{{route('attribute.create')}}">
         <i class="fa-solid fa-circle-plus me-2"></i>
         Thêm mới
@@ -39,7 +39,7 @@
       </div>
     </form>
     <div class="table-responsive" id="div-table">
-      <table class="table table-hover">
+      <table class="table table-hover table-sm">
         <thead class="text-center align-middle text-uppercase table-light">
           <tr>
             <th width="30%" class="text-start">Tên thông số kỹ thuật</th>

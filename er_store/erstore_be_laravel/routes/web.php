@@ -9,7 +9,8 @@ use App\http\Controllers\{
     BrandController,
     CategoryController,
     AttributeController, 
-    ProductController
+    ProductController,
+    OrderController
 };
 /*
 |--------------------------------------------------------------------------
@@ -103,13 +104,16 @@ Route::prefix('admin')->group(function () {
             Route::post('product/changeBrand', 'changeBrand')->name('product.changeBrand'); // change brand
             Route::post('product/changeCategory', 'changeCategory')->name('product.changeCategory'); // change brand
             Route::post('product/changeSalePercent', 'changeSalePercent')->name('product.changeSalePercent'); // change Sale %
+            Route::post('product/changePrice', 'changePrice')->name('product.changePrice'); // change price
 
             Route::post('product/img-delete', 'deleteImg')->name('product.deleteImg'); // delete img
         });
         //ORDER
-        Route::controller(UserController::class)->group(function(){
+        Route::controller(OrderController::class)->group(function(){
             Route::get('order', 'index')->name('order.index'); // index page
             Route::get('order/{order}/detail', 'show')->name('order.detail'); // go to edit page
+
+            Route::post('order/delete', 'delete')->name('order.delete'); // delete
         });
     });
 });

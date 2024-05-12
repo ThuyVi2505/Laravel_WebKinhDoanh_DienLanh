@@ -17,7 +17,7 @@
       </div>
     </div>
   <div class="card mx-2 border-0">
-    <div class="card-header bg-white border-bottom border-4 d-flex justify-content-between align-items-center">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
       <div class="">
         {{-- <a class="btn btn-outline-secondary btn-sm fw-bold" href="">
           <i class="fa-solid fa-file-arrow-up me-2"></i>
@@ -35,6 +35,56 @@
         </a>
       </div>
     </div>
+    <form id="search-form" action="" method="GET" class="px-5 py-1 border-bottom border-top border-3">
+      <div class="d-flex justify-content-start align-item-center">
+        <!-- category filter -->
+        <div class="mb-3 me-2">
+          <label for="category" class="form-label fw-semibold text-secondary">Danh mục</label>
+          <select class="form-select form-select-sm rounded" id="cat_filter" name="category" style="border-color: darkcyan;">
+            <option value="">Tất cả</option>
+            @foreach($category_list as $item)
+                <option value="{{$item->id}}" {{Request::get('category')==$item->id?'selected':''}} class="text-uppercase fw-bold {{$item->hasAnyChild()?'bg-light':''}}">{{$item->cat_name}}</option>
+                @foreach($item->children as $child)
+                    <option value="{{$child->id}}" {{Request::get('category')==$child->id?'selected':''}}>{{$item->cat_name}} {{$child->cat_name}}</option>
+                @endforeach
+            @endforeach
+          </select>
+        </div>
+        <!-- brand filter -->
+        <div class="mb-3 me-2">
+          <label for="brand" class="form-label fw-semibold text-secondary">Thương hiệu</label>
+          <select class="form-select form-select-sm w-auto rounded" name="brand" id="brand-filter" style="border-color: darkcyan;">
+            <option value="">Tất cả</option>
+            @foreach($brand_list as $brand)
+            <option value="{{$brand->id}}" {{Request::get('brand')==$brand->id?'selected':''}}>{{$brand->brand_name}}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+      <div class="d-flex justify-content-start align-item-center">
+        <!-- status filter -->
+        <div class="mb-3 me-2">
+          <label for="status" class="form-label fw-semibold text-secondary">Trạng thái</label>
+          <select class="form-select w-auto rounded" name="status" id="status-filter" style="border-color: darkcyan;">
+            <option value="">Tất cả</option>
+            <option value="kichhoat" {{Request::get('status')=='kichhoat'?'selected':''}}>KÍCH HOẠT</option>
+            <option value="khoa" {{Request::get('status')=='khoa'?'selected':''}}>KHÓA</option>
+          </select>
+        </div>
+        <!-- search box -->
+        <div class="mb-3 me-2 w-100">
+          <label for="searchBox" class="form-label fw-semibold text-secondary">Từ khóa</label>
+          <div class="input-group w-auto my-auto rounded" style="border: solid 1px darkcyan;background: darkcyan;">
+            <span class="input-group-text border-0" style="background: white;"><i class="fas fa-search" style="color:darkcyan;"></i></span>
+            <input type="text" class="form-control border-0" name="searchBox" id="searchBox" value="{{ request()->input('searchBox') }}" placeholder="Nhập từ khóa để tìm kiếm&hellip;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="float-end mx-2">
+        <button type="submit" class="btn btn-sm btn-primary fw-bold shadow" style="border: solid 2px darkcyan; background:darkcyan;">Lọc danh sách</button>
+      </div>
+    </form>
     <div class="table-responsive" id="div-table">
       <table class="table table-hover">
         <thead class="text-center align-middle text-uppercase table-light">
@@ -65,15 +115,18 @@
                         <a class="card-title text-decoration-none text-primary fw-bold">{{ $product->prod_name }} {{$product->prod_model}}</a>
                         <p class="card-text text-secondary d-none d-lg-block">#{{ $product->prod_slug }}</p>
                         <p class="card-text text-danger d-flex justify-content-start align-items-center">
-                          Giảm %: <input type="number" min="0" max="100" step="1" class="ms-1 form-control form-control-sm border-0 fw-bold text-danger text-center change-sale" style="width:60px;" name="sale_percent" value="{{ $product->sale->percent }}" data-id="{{$product->id}}">
+                          Giảm:
+                          <a class="ms-1 text-decoration-none fw-bold text-danger" ondblclick="toggleA_Input(this)">{{ $product->sale->percent }}</a>
+                          <input type="number" min="0" max="100" step="1" class="ms-1 form-control form-control-sm border-0 fw-bold text-danger text-center change-sale" style="width:60px;" name="sale_percent" value="{{ $product->sale->percent }}" data-id="{{$product->id}}" hidden onblur="toggleA_Input(this)">
+                          %
                         </p>
                     </div>
                 </div>
             </td>
             <td class="text-center">
               <div class="text-center">
-                <a class="card-title text-decoration-none text-black a-price" data-id="{{$product->id}}" onclick="toggleInput(this)">{{ number_format($product->prod_price, 0, ',', '.')}}</a>
-                <input type="text" class="form-control form-control-sm border-0 text-danger w-100 change-price" name="price" value="{{ $product->prod_price }}" data-id="{{$product->id}}" hidden>
+                <a class="card-title text-decoration-none text-black" data-id="{{$product->id}}" ondblclick="toggleA_Input(this)">{{ number_format($product->prod_price, 0, ',', '.')}}</a>
+                <input type="text" class="form-control form-control-sm border-0 text-danger w-100 change-price" name="price" value="{{ $product->prod_price }}" data-id="{{$product->id}}" hidden onblur="toggleA_Input(this)">
               </div>
             </td>
             <td class="text-center">
@@ -88,7 +141,6 @@
                       @endforeach
                   @endforeach
                 </select>
-                {{-- {{$product->category->parent_id != null ? $product->category->parent->cat_name.' ':''}}{{$product->category->cat_name}} --}}
             </td>
               <td class="text-center">
                 <select class="form-select form-select-sm w-auto change-brand" id="brand_id" name="brand_id" data-id="{{$product->id}}">
@@ -96,7 +148,6 @@
                       <option value="{{$item->id}}" {{$item->id == $product->brand->id?'selected':''}} class="text-uppercase">{{$item->brand_name}}</option>
                   @endforeach
                 </select>
-                {{-- {{$product->brand->brand_name}} --}}
               </td>
             {{-- <td class="text-center">
               @if($product->created_at!='')

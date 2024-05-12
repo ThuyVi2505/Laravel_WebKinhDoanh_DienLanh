@@ -40,8 +40,6 @@
             <th width="20%">Email</th>
             <th width="5%">Số điện thoại</th>
             <th width="10%">Ngày tạo</th>
-            {{-- <th width="10%">Ngày<br>cập nhật</th> --}}
-            {{-- <th width="10%">Trạng<br>thái</th> --}}
             <th width="5%">Action</th>
           </tr>
         </thead>
@@ -72,27 +70,10 @@
               <small class="text-black">{{ $user->created_at->format('H:i:s d/m/Y') }}</small><br><small class="text-primary">({{ $user->created_at->diffForHumans() }})</small>
               @endif
             </td>
-            {{-- <td class="text-center">
-                @if($user->updated_at!='')
-                <small class="text-black">{{ $user->updated_at->format('H:i:s d/m/Y') }}</small><br><small class="text-primary">({{ $user->updated_at->diffForHumans() }})</small>
-                @endif
-            </td> --}}
-            {{-- <td class="text-center">
-                <a class="btn btn-sm fw-bold btn-outline-{{$user->isActive==1?'success':'danger'}} change-status" style="width:120px;height:30px;" data-id="{{$user->id}}" data-name="{{$user->genre_name}}">
-                    <i class="fa-solid fa-circle-{{$user->isActive==1?'check':'xmark'}} me-1"></i>
-                    {{$user->isActive==1?'Kích hoạt':'Khóa'}}
-                </a>
-            </td> --}}
             <td class="text-center">
                 <a href="{{ route('user.detail',['user'=> $user->id]) }}" class="btn rounded-circle btn-view-detail">
                   <i class="fa-solid fa-eye" data-bs-toggle="tooltip" title="Chi tiết"></i>
                 </a>
-                {{-- <a href="{{ route('user.edit',['user'=> $user->id]) }}" class="btn btn-edit rounded-circle">
-                    <i class="fa-solid fa-pen-to-square text-primary" data-bs-toggle="tooltip" title="Sửa"></i>
-                </a> --}}
-                {{-- <a class="btn rounded-circle btn-delete" data-id="{{$user->id}}" data-name="{{$user->prod_name}}">
-                  <i class="fa-solid fa-trash-can text-danger" data-bs-toggle="tooltip" title="Xóa"></i>
-                </a> --}}
             </td>
           </tr>
           @empty

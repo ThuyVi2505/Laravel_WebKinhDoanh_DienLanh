@@ -59,10 +59,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @include('backend.book.table-data.table') --}}
                             @forelse($orders as $value => $order)
                             <!-- parent row -->
-                            <tr class="align-middle parent-row" id="book-item{{$order->id}}">
+                            <tr class="align-middle parent-row" id="order-item{{$order->id}}">
                                 <td class="text-center"><button class="toggle-btn btn bg-none border-0 cursor-pointer p-0 m-0" style="font-size: 20px;"></button></td> <!-- Plus button -->
                                 <td class="px-3">
                                     <div class="">

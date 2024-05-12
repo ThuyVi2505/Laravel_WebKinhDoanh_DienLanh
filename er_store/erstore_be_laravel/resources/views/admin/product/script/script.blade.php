@@ -3,6 +3,7 @@
         $(document).ready(function() {
             // e.preventDefault();
             start();
+            // priceChange();
             // set up csrf-token ajax
             $.ajaxSetup({
                 headers: {
@@ -35,7 +36,7 @@
                     });
                 }
             });
-            //  change status
+            //  change category
             $(document).on('change', '.change-category', function(e) {
                 e.preventDefault();
                 let Id = $(this).data('id');
@@ -58,7 +59,7 @@
                     }
                 });
             });
-            //  change status
+            //  change brand
             $(document).on('change', '.change-brand', function(e) {
                 e.preventDefault();
                 let Id = $(this).data('id');
@@ -81,7 +82,7 @@
                     }
                 });
             });
-            //  change brand
+            //  change status
             $(document).on('click', '.change-status', function(e) {
                 e.preventDefault();
                 let Id = $(this).data('id');
@@ -104,7 +105,7 @@
                 });
             });
             //  change sale %
-            $(document).on('change', '.change-sale', function(e) {
+            $(document).on('blur', '.change-sale', function(e) {
                 e.preventDefault();
                 let Id = $(this).data('id');
                 let value = $(this).val();
@@ -153,17 +154,17 @@
                     });
                 }
             });
-            //  change status
-            $(document).on('click', '.price', function(e) {
+            //  change price
+            $(document).on('blur', '.change-price', function(e) {
                 e.preventDefault();
                 let Id = $(this).data('id');
-                var cat_id = $(this).val()
+                var price = $(this).val()
                 $.ajax({
-                    url: "{{ route('product.changeCategory') }}",
+                    url: "{{ route('product.changePrice') }}",
                     method: 'POST',
                     data: {
                         id: Id,
-                        cat_id: cat_id
+                        price: price
                     },
                     success: function(response) {
                         if (response.status == 'success') {
@@ -176,17 +177,41 @@
                     }
                 });
             });
-            function toggleInput(element) {
-        let itemId = element.getAttribute('data-id');
-        let inputElement = document.querySelector(`input.change-price[data-id="${itemId}"]`);
-        element.hidden = true;
-        inputElement.hidden = false;
-        inputElement.focus();
-        inputElement.addEventListener('blur', function() {
-            element.hidden = false;
-            inputElement.hidden = true;
-        });
-    }
-    }
-    
+        }
+        // function priceChange(){
+        //     const aPrices = document.querySelectorAll('.a-price');
+        //     const inputs = document.querySelectorAll('.change-price');
+
+        //     aPrices.forEach(aPrice => {
+        //         aPrice.addEventListener('click', function() {
+        //             const itemId = this.getAttribute('data-id');
+        //             const correspondingInput = document.querySelector(`.change-price[data-id="${itemId}"]`);
+        //             this.setAttribute('hidden', true);
+        //             correspondingInput.removeAttribute('hidden');
+        //             correspondingInput.focus();
+        //         });
+        //     });
+
+        //     inputs.forEach(input => {
+        //         input.addEventListener('blur', function() {
+        //             const itemId = this.getAttribute('data-id');
+        //             const correspondingA = document.querySelector(`.a-price[data-id="${itemId}"]`);
+        //             this.setAttribute('hidden', true);
+        //             correspondingA.removeAttribute('hidden');
+        //         });
+        //     });
+        // }
+        function toggleA_Input(element) {
+            // Toggle visibility of the anchor and input
+            const anchor = element.tagName === 'A' ? element : element.previousElementSibling;
+            const input = element.tagName === 'INPUT' ? element : element.nextElementSibling;
+            
+            anchor.hidden = !anchor.hidden;
+            input.hidden = !input.hidden;
+
+            // If the input becomes visible, focus on it
+            if (!input.hidden) {
+                input.focus();
+            }
+        }
     </script>

@@ -17,7 +17,7 @@
       </div>
     </div>
   <div class="card mx-2 border-0">
-    <div class="card-header bg-white border-bottom border-4">
+    <div class="card-header bg-white border-bottom border-3">
       <a class="btn btn-primary btn-sm fw-bold float-end" href="{{route('category.create')}}">
         <i class="fa-solid fa-circle-plus me-2"></i>
         Thêm mới

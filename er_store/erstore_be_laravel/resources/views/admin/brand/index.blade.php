@@ -48,7 +48,7 @@
       </div>
     </form>
     <div class="table-responsive" id="div-table">
-      <table class="table table-hover">
+      <table class="table table-hover table-sm">
         <thead class="text-center align-middle text-uppercase table-light">
           <tr>
             <th width="30%" colspan="2">Tên thương hiệu</th>

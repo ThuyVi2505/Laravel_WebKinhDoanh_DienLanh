@@ -17,9 +17,39 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $allProduct = Product::orderBy('created_at', 'desc')->paginate(10);
+        // $allProduct = Product::orderBy('created_at', 'desc')->paginate(10);
+        $allProduct = Product::query()
+            ->when($request->category != null, function ($query) use ($request) {
+                // $cat = Category::find($request->category)->first();
+                // if($cat->parent_id != null){
+                //     return $query->where('cat_id', $request->category);
+                // }
+                // else{
+                //     $child = Category::where('parent_id', $request->category)->get();
+                //     for
+                // }
+                $query->where('cat_id', $request->category)
+                    ->orWhereIn('cat_id', function ($query) use ($request) {
+                        $query->select('id')
+                            ->from('categories')
+                            ->where('parent_id', $request->category);
+                    });
+            })
+            ->when($request->brand != null, function ($query) use ($request) {
+                return $query->where('brand_id', $request->brand);
+            })
+            ->when($request->status != null, function ($query) use ($request) {
+                return $query->where('isActive', ($request->status=="kichhoat"?1:0));
+            })
+            ->when($request->searchBox != null, function ($query) use ($request) {
+                return $query
+                ->where('prod_name', 'like', '%' . $request->searchBox . '%')
+                ->orWhere('prod_model', 'like', '%' . $request->searchBox . '%');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
         $brand_list = Brand::orderBy('brand_name', 'asc')->get();
         $category_list = Category::where('parent_id', null)->orderBy('cat_name', 'asc')->get();
         return view('admin.product.index')->with(compact('allProduct','brand_list','category_list'));
@@ -314,6 +344,20 @@ class ProductController extends Controller
         $sale->percent = $request->percent;
         $sale->update();
         $data = Product::find($request->id);
+        $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $data->update();
+        return response()->json(['status' => 'success']);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changePrice(Request $request)
+    {
+        $data = Product::find($request->id);
+        $data->prod_price = $request->price;
         $data->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $data->update();
         return response()->json(['status' => 'success']);
