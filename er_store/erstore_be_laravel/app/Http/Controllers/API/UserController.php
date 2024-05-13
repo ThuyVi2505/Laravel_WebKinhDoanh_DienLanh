@@ -14,6 +14,7 @@ class UserController extends Controller
     public function getUserLogged(Request $request):JsonResponse
     {
         $user = $request->user();
+        $user->load('address');
         if (!$user) {
             return response()->json([
                 'message' => ['Tài khoản chưa đăng nhập'],
@@ -57,4 +58,5 @@ class UserController extends Controller
         $user->save();
         return response()->json(['message' => 'Cập nhật thông tin cá nhân thành công'],status: JsonResponse::HTTP_OK);
     }
+    /**/
 }

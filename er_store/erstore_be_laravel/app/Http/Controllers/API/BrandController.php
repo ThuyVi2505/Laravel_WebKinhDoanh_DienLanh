@@ -7,6 +7,7 @@ use App\Http\Requests\BrandRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use App\Models\Brand;
 use App\Http\Resources\BrandResource;
@@ -26,18 +27,30 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAll()
+    public function getAll(Request $request)
     {
-        // get all brand list
-        $all = Brand::where('isActive',1)->get();
-        // brand resource
+        $query = Brand::query();
+
+        if ($request->has('id')) {
+            $query->where('id', $request->id);
+        }
+        if ($request->has('isActive')) {
+            $query->where('isActive', $request->isActive);
+        }
+
+        if ($request->has('brand_name')) {
+            $query->where('brand_name', 'like', '%' . $request->brand_name . '%');
+        }
+
+        $all = $query->get();
+
         $allResc = BrandResource::collection($all);
         // re-type brand respond api
         $arr = [
-            'title' => "Danh sách thương thiệu",
+            // 'title' => "Danh sách thương thiệu",
             'success' => true,
-            'message' => "Lấy danh sách thành công",
-            'record_total' => $all->count(),
+            'message' => "Lấy dữ liệu thành công",
+            'record_count' => $all->count(),
             'data' => $allResc
         ];
 
@@ -65,7 +78,7 @@ class BrandController extends Controller
         // re-type brand respond api
         $arr = [
             'success' => true,
-            'message' => "Lấy thông tin thương hiệu thành công",
+            'message' => "Lấy thông tin thành công",
             'data' => $Resc
         ];
 
@@ -88,6 +101,7 @@ class BrandController extends Controller
         $brand->isActive = is_null($request->isActive) ? 0 : $request->isActive;
         $brand->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $brand->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+
         if ($request->hasfile('thumnail')) {
 
             $file = $request->file('thumnail');
@@ -104,7 +118,6 @@ class BrandController extends Controller
         $Resc = new BrandResource($brand);
         // re-type brand respond api
         $arr = [
-            'title' => "Thêm thương hiệu mới",
             'success' => true,
             'message' => "Thêm thành công",
             'data' => $Resc
@@ -124,9 +137,8 @@ class BrandController extends Controller
         $brand = Brand::find($id);
         if (is_null($brand)) {
             $err = [
-                'title' => "Cập nhật thương hiệu",
                 'success' => false,
-                'message' => "Không tìm thấy thương hiệu này...",
+                'message' => "Không tìm thấy...",
             ];
             return response()->json($err, status: Response::HTTP_NOT_FOUND);
         }
@@ -141,17 +153,21 @@ class BrandController extends Controller
         }
         // $brand->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $brand->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
-        // if ($request->hasfile('thumnail')) {
+        if ($request->hasfile('thumnail')) {
+            if ($brand->thumbail != null) {
+                $old_image_exist = storage_path('app/public/uploads/Brand/'. $brand->id .'/'. $brand->thumnail);
+                if (File::exists($old_image_exist)) {
+                    unlink($old_image_exist);
+                }
+            }
 
-        //     $file = $request->file('thumnail');
-        //     $ext = $file->getClientOriginalExtension();
-        //     date_default_timezone_set("Asia/Ho_Chi_Minh");
-        //     $file_name = Str::slug($request->brand_name, '-') . '_' . date('Hisdmy') . '.' . $ext;
-        //     $file->move(public_path() . '/uploads/images/brand/', $file_name);
-        //     // $path = $file->storeAs('public/uploads/ThuongHieu', $file_name);
-
-        //     $brand->thumnail = asset('uploads/images/brand/' . $file_name);
-        // }
+            $file = $request->file('thumnail');
+            $ext = $file->getClientOriginalExtension();
+            date_default_timezone_set("Asia/Ho_Chi_Minh");
+            $file_name = Str::slug($request->brand_name, '-') . '_' . date('Hisdmy') . '.' . $ext;
+            $file->storeAs('public/uploads/Brand', $file_name);
+            $brand->thumbail = $file_name;
+        }
         $brand->update($dataUpdate);
         // brand resource
         $Resc = new BrandResource($brand);
@@ -176,29 +192,33 @@ class BrandController extends Controller
         $brand = Brand::find($id);
         if (is_null($brand)) {
             $err = [
-                'title' => "Xóa thương hiệu",
                 'success' => false,
-                'message' => "Không tìm thấy thương hiệu này...",
+                'message' => "Không tìm thấy...",
             ];
             return response()->json($err, status: Response::HTTP_NOT_FOUND);
         }
-
-        // Xóa hình ảnh của brand từ thư mục public
-        if ($brand->thumnail) {
-            $imagePath = str_replace(url('/'), '', $brand->thumnail); // Chuyển đổi đường dẫn thành đường dẫn trên đĩa
-            if (file_exists(public_path($imagePath))) {
-                unlink(public_path($imagePath)); // Xóa tệp hình ảnh
+        if($brand->products->count()>0){
+            // Xóa hình ảnh của brand từ thư mục public
+            if ($brand->thumnail != null) {
+                $old_image_exist = storage_path('app/public/uploads/Brand/' . $brand->thumnail);
+                if (File::exists($old_image_exist)) {
+                    unlink($old_image_exist);
+                }
             }
+
+            // Xóa brand khỏi cơ sở dữ liệu
+            $brand->delete();
+            $arr = [
+                'success' => false,
+                'message' => "Không thể xóa",
+            ];
         }
-
-        // Xóa brand khỏi cơ sở dữ liệu
-        $brand->delete();
-
-        $arr = [
-            'title' => "Xóa thương hiệu",
-            'success' => true,
-            'message' => "Xóa thành công thương hiệu" + $brand->brand_name,
-        ];
+        else{
+            $arr = [
+                'success' => true,
+                'message' => "Xóa thành công",
+            ];
+        }
         return response()->json($arr, status: Response::HTTP_OK);
     }
 }

@@ -27,7 +27,8 @@ class OrderController extends Controller
 
         $orders = Order::query()
                 ->when($request->end_date !=null && $request->start_date, function($query) use ($request){
-                    return $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+                    // return $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+                    return $query->whereDate('created_at','>=',$request->start_date)->whereDate('created_at','<=',$request->end_date);
                 })
                 ->when($request->searchBox != null, function ($query) use ($request) {
                     return $query->where('code', 'like', '%' . $request->searchBox . '%');

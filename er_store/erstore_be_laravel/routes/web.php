@@ -8,7 +8,8 @@ use App\http\Controllers\{
     UserController,
     BrandController,
     CategoryController,
-    AttributeController, 
+    AttributeController,
+    DashboardController,
     ProductController,
     OrderController
 };
@@ -35,12 +36,15 @@ Route::prefix('admin')->group(function () {
         Route::get('login', 'login_form')->name('admin.login_form');
         Route::post('login', 'login_submit')->name('admin.login_submit');
         Route::middleware(['admin'])->group(function () {
-            Route::get('/', 'index')->name('admin.dashboard');
-
             Route::get('logout', 'logout')->name('admin.logout');
         });
     });
     Route::middleware(['admin'])->group(function () {
+        //DASHBOARD
+        Route::controller(DashboardController::class)->group(function(){
+            Route::get('/', 'index')->name('admin.dashboard');
+            Route::get('/chart-order-inyear/{year}', 'getOrderChartData')->name('getOrderChartData');
+        });
         //USER
         Route::controller(UserController::class)->group(function(){
             Route::get('user', 'index')->name('user.index'); // index page

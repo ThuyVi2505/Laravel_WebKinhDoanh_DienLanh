@@ -29,7 +29,7 @@ class BrandRequest extends FormRequest
         switch (request()->method()) {
             case 'POST':
                 return [
-                    'brand_name' => ['required', 'max:50', 'min:4', 'unique:brands'],
+                    'brand_name' => ['required', 'max:50', 'min:2', 'unique:brands'],
                     'brand_slug' => [''],
                     'isActive' => [''],
                     // 'thumnail' => [''],
@@ -38,7 +38,7 @@ class BrandRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
                 return [
-                    'brand_name' => ['max:50', 'min:4', 'unique:brands,brand_name,'. $this->id],
+                    'brand_name' => ['required','max:50', 'min:2', 'unique:brands,brand_name,'. $this->id],
                     'brand_slug' => [''],
                     'isActive' => [''],
                     // 'thumnail' => [''],
@@ -65,7 +65,6 @@ class BrandRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $response = new Response([
-            'title' => request()->isMethod('post') ? 'Thêm thương hiệu mới' : 'Cập nhật thương hiệu',
             'success' => false,
             'message' => "Xảy ra lỗi",
             'error' => $validator->errors(),

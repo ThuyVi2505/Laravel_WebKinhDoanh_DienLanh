@@ -21,7 +21,14 @@ class ImageController extends Controller
     {
         $dataCreate = $request->all();
 
-        $prod = Product::findOrFail($id);
+        $prod = Product::find($id);
+        if (is_null($prod)) {
+            $err = [
+                'success' => false,
+                'message' => "Không tìm thấy...",
+            ];
+            return response()->json($err, status: Response::HTTP_NOT_FOUND);
+        }
         if ($request->hasFile('images')) {
             $allowedfileExtension = ['jped', 'jpg', 'png'];
             $files = $request->file('images');
@@ -30,8 +37,9 @@ class ImageController extends Controller
                 $check = in_array($ext, $allowedfileExtension);
                 if ($check) {
                     date_default_timezone_set("Asia/Ho_Chi_Minh");
-                    $file_name = Str::slug($prod->prod_name, '-') . '_' . date('Hisdmy') . $key . '.' . $ext;
+                    $file_name = Str::slug($request->prod_name, '-') . '_' . date('Hisdmy') . $key  . '.' . $ext;
                     $file->storeAs('public/uploads/Product/' . $prod->id . '/', $file_name);
+                    // $file->move(public_path() . '/uploads/images/product/'.$prod->prod_slug.'/', $file_name);
                     $urlImage = $file_name;
 
                     $image = new Image();
@@ -43,7 +51,6 @@ class ImageController extends Controller
             // prod resource
             // re-type prod respond api
             $arr = [
-                'title' => "Thêm ảnh cho sản phẩm",
                 'success' => true,
                 'message' => "Thêm ảnh thành công",
             ];
@@ -51,11 +58,10 @@ class ImageController extends Controller
         else{
             // prod resource
         // re-type prod respond api
-        $arr = [
-            'title' => "Thêm ảnh cho sản phẩm",
-            'success' => false,
-            'message' => "Thêm thất bại, chưa chọn file ảnh",
-        ];
+            $arr = [
+                'success' => false,
+                'message' => "Thêm thất bại",
+            ];
         }
 
         return response()->json($arr, status: Response::HTTP_CREATED);

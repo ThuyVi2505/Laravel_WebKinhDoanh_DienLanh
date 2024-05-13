@@ -22,7 +22,7 @@ class OrderDetailSeeder extends Seeder
             $total_amount = 0;
 
             // số order detail của 1 order
-            $num = 2;
+            $num = 5;
             for ($i = 0; $i < $num; $i++) {
                 $quantity = 1;
                 // random sản phẩm

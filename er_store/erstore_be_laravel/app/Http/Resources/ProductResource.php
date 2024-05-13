@@ -58,7 +58,7 @@ class ProductResource extends JsonResource
             ],
             'category' => [
                 'id' => $this->category->id,
-                'name' => $this->category->cat_name,
+                'name' =>  $this->category->parent->cat_name.' '.$this->category->cat_name,
             ],
             'images' => $this->images->pluck('image')->map(function ($imageUrl) {
                 return asset('storage/uploads/Product/'.$this->id.'/'.$imageUrl);
@@ -68,10 +68,10 @@ class ProductResource extends JsonResource
             // 'attributes' =>
             //     $this->attributes->groupBy('key')->map(function ($group) {
             //     return $group->pluck('pivot.value')->unique()->all();
-            // }),
+            // }),/
             'prod_description' => $this->prod_description,
             'created_at' => $this->created_at->format('H:i:s d/m/Y'),
-            'updated_at' => $this->updated_at->format('H:i:s d/m/Y'),
+            // 'updated_at' => $this->updated_at->format('H:i:s d/m/Y'),
         ];
     }
 }

@@ -22,7 +22,7 @@ class OrderSeeder extends Seeder
 
         $users = User::all();
         foreach($users as $user){
-            $num = rand(0,20);
+            $num = rand(0,30);
             for ($i = 0; $i < $num; $i++) {
                 // $fake data
                 $faker = \Faker\Factory::create();
