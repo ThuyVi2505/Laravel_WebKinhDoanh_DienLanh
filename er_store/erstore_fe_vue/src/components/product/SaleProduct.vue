@@ -31,7 +31,7 @@
             <product-item
               v-for="prod in prodList
                 .filter((product) => product.sale_percent !== 0)
-                .sort((b, a) => a.id - b.id)
+                .sort((b, a) => a.sale_percent - b.sale_percent)
                 .slice(0, 10)"
               v-bind:key="prod.id"
               :prod="prod"

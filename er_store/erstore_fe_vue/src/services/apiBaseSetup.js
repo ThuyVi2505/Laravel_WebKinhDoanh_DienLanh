@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseDomain = `http://127.0.0.1:8000`
+const baseDomain = `http://erstore.project.test:5000`
 const baseAPI = `${baseDomain}/api/`
 // api-list
 // BRAND-api
@@ -14,4 +14,4 @@ const api = axios.create({
   baseURL: baseAPI,
   headers: { 'Content-Type': 'application/json' }
 })
-export { api, getAll_brand, getAll_category, get_product }
+export { api, baseAPI, getAll_brand, getAll_category, get_product }

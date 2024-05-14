@@ -2,7 +2,7 @@
     {"cat_name":"Tủ lạnh", "parent_id":null},
     {"cat_name":"Máy lạnh", "parent_id":null},
     {"cat_name":"Máy giặt", "parent_id":null},
-    {"cat_name":"Multi doors", "parent_id":1},
+    {"cat_name":"Multi door", "parent_id":1},
     {"cat_name":"Side by side", "parent_id":1},
     {"cat_name":"Ngăn đá trên", "parent_id":1},
     {"cat_name":"Ngăn đá dưới", "parent_id":1},

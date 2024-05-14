@@ -14,10 +14,11 @@ import { useShopCartStore } from '../stores'
 const data = useShopCartStore()
 </script>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import product_detail_image from '@/components/product/product_detail_image.vue'
 import product_same_brand from '@/components/product/product_same_brand.vue'
 import product_detail_sub from '@/components/product/product_detail_sub.vue'
+import { api } from '../services/apiBaseSetup'
 export default {
   components: { product_detail_sub, product_detail_image, product_same_brand },
   data() {
@@ -40,12 +41,12 @@ export default {
   },
   methods: {
     getAllProduct() {
-      axios.get(`http://127.0.0.1:8000/api/products`).then((res) => {
+      api.get(`products`).then((res) => {
         this.prodList = res.data.data
       })
     },
     getSingleProduct(id) {
-      axios.get(`http://127.0.0.1:8000/api/products/${id}`).then((res) => {
+      api.get(`products/${id}`).then((res) => {
         this.prodDetail = res.data.data
       })
     }
@@ -61,7 +62,7 @@ export default {
         <router-link :to="{ name: 'home' }" rel="nofollow">Trang chủ</router-link>
         <!-- <a href="index.html" rel="nofollow">Home</a> -->
         <span></span>
-        <a style="pointer-events: none">{{ prodDetail?.prod_name }}</a>
+        <a style="pointer-events: none">{{ prodDetail?.prod_name }} {{ prodDetail?.prod_model }}</a>
       </div>
     </div>
   </div>
@@ -78,7 +79,7 @@ export default {
       <div class="product-detail-main-right">
         <div class="product-brand text-uppercase">{{ prodDetail?.brand?.name }}</div>
         <div class="product-name">
-          <p>{{ prodDetail?.prod_name }}</p>
+          <p>{{ prodDetail?.prod_name }} {{ prodDetail?.prod_model }}</p>
         </div>
         <div class="product-star">
           <font-awesome-icon icon="star" class="checked" />
@@ -115,7 +116,7 @@ export default {
     <hr class="px-0 mx-0" />
     <!-- more info -->
     <div class="product-detail-submain">
-      <product_detail_sub></product_detail_sub>
+      <product_detail_sub :prodDetail="prodDetail"></product_detail_sub>
     </div>
     <!-- end more info -->
   </div>
@@ -167,8 +168,6 @@ export default {
 }
 .product-star .checked {
   color: rgb(255, 191, 0);
-}
-.product-price {
 }
 .product-price .sale-price p {
   color: #7c2e04;

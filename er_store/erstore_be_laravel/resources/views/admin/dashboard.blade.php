@@ -149,10 +149,10 @@
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    const labels = data.map(item => item.month);
-                    const totalRevenue = data.map(item => item.total_revenue);
-                    const totalOrder = data.map(item => item.total_orders);
-
+                    const labels = data.results.map(item => item.month);
+                    const totalRevenue = data.results.map(item => item.total_revenue);
+                    const totalOrder = data.results.map(item => item.total_orders);
+                    const totalYear = data.totalYear;
                     if (lineChart) {
                         lineChart.destroy(); // Xóa biểu đồ cũ trước khi vẽ biểu đồ mới
                     }
@@ -162,7 +162,7 @@
                         datasets: [
                             {
                                 type: 'line',
-                                label: 'Doanh thu',
+                                label: 'Doanh thu tháng',
                                 data: totalRevenue,
                                 backgroundColor: 'rgba(247, 29, 29, 0.5)',
                                 borderColor: 'rgba(247, 29, 29, 1)',
@@ -191,10 +191,20 @@
                             },
                             title: {
                                 display: true,
-                                text: 'Doanh thu năm',
+                                text: `Doanh thu năm (${year})`,
                                 font: {
                                     size: 20,
                                 },
+                            },
+                            subtitle: {
+                                display: true,
+                                text: `Tổng: ${totalYear.toLocaleString()} vnd`,
+                                font: {
+                                    size: 16,
+                                },
+                                padding: {
+                                    bottom: 10
+                                }
                             },
                             tooltip: {
                                 mode: 'index',

@@ -196,6 +196,7 @@
               <a class="categori-button-active" @click="toggleCategory">
                 <span class="fi-rs-apps"></span> DANH MỤC SẢN PHẨM
               </a>
+              <!-- category -->
               <div
                 class="categori-dropdown-wrap categori-dropdown-active-large menu-show"
                 :class="{ open: isOpen }"
@@ -204,7 +205,7 @@
                   <template v-for="category in categoryList" :key="category.id">
                     <li
                       class="has-children"
-                      v-if="category.parent_id === null && isHaveChild(category)"
+                      v-if="category.parent_id === 0 && isHaveChild(category)"
                     >
                       <a href=""
                         ><i class="surfsidemedia-font-tshirt"></i>{{ category.cat_name }}</a

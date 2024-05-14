@@ -53,8 +53,13 @@ class DashboardController extends Controller
             ->groupBy('months.month')
             ->orderBy('months.month')
             ->get();
+            // Tính tổng doanh thu của năm
+        $totalYear = $results->sum('total_revenue');
 
-        return response()->json($results);
+        return response()->json([
+            'results' => $results,
+            'totalYear' => $totalYear,
+        ]);
 
     }
 

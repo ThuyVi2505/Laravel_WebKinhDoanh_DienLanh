@@ -73,7 +73,7 @@
                               <td class="">
                                   <div class="text-center">
                                       <a class="card-title text-decoration-none text-dark">{{ number_format($item->price, 0, ',', '.')}}</a>
-                                      <p class="card-text text-danger">(giảm {{$item->percent_sale}}%)</p>
+                                      <p class="card-text text-danger">(đã giảm {{$item->percent_sale}}%)</p>
                                   </div>
                               </td>
                               <td class="">

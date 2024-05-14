@@ -27,8 +27,8 @@ class ProductSeeder extends Seeder
         // Mảng chứa tất cả JSON
         $jsons = [
             'tulanh.json',
-            // 'maylanh.json',
-            // 'maygiat.json'
+            'maylanh.json',
+            'maygiat.json'
         ];
         // Mảng kết quả merge
         $products = [];
