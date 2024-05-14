@@ -257,7 +257,7 @@
                         </ul>
                       </div>
                     </li>
-                    <li v-if="category.parent_id === null && !isHaveChild(category)">
+                    <li v-if="category.parent_id === 0 && !isHaveChild(category)">
                       <a href=""
                         ><i class="surfsidemedia-font-desktop"></i>{{ category.cat_name }}</a
                       >
@@ -500,8 +500,6 @@ const { brandList, getAllBrand } = useBrand()
 const { categoryList, getAllCategory, isHaveChild, getChildCategory } = useCategory()
 onMounted(getAllBrand)
 onMounted(getAllCategory)
-
-// console.warn(brandList)
 </script>
 <script>
 // components

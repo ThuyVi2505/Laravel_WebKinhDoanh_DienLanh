@@ -197,7 +197,7 @@ class BrandController extends Controller
             ];
             return response()->json($err, status: Response::HTTP_NOT_FOUND);
         }
-        if($brand->products->count()>0){
+        if($brand->products->count()<=0){
             // Xóa hình ảnh của brand từ thư mục public
             if ($brand->thumnail != null) {
                 $old_image_exist = storage_path('app/public/uploads/Brand/' . $brand->thumnail);
@@ -209,14 +209,14 @@ class BrandController extends Controller
             // Xóa brand khỏi cơ sở dữ liệu
             $brand->delete();
             $arr = [
-                'success' => false,
-                'message' => "Không thể xóa",
+                'success' => true,
+                'message' => "Xóa thành công",
             ];
         }
         else{
             $arr = [
-                'success' => true,
-                'message' => "Xóa thành công",
+                'success' => false,
+                'message' => "Xóa thất bại",
             ];
         }
         return response()->json($arr, status: Response::HTTP_OK);
